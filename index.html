@@ -1,1395 +1,1602 @@
 <!DOCTYPE html>
 <html lang="ur" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-  <title>Dost Chat</title>
+<title>Dost Chat</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#e9edef;
+}
+.app{
+  max-width:520px;
+  min-height:100vh;
+  margin:auto;
+  background:#fff;
+}
+.header{
+  background:#075e54;
+  color:#fff;
+  padding:16px;
+  text-align:center;
+  font-size:24px;
+  font-weight:bold;
+}
+.lang{
+  display:flex;
+  gap:6px;
+  padding:8px;
+  background:#f5f5f5;
+}
+.lang button{
+  flex:1;
+}
+.box{
+  padding:18px;
+}
+input{
+  width:100%;
+  padding:13px;
+  margin:6px 0;
+  border:1px solid #ccc;
+  border-radius:9px;
+  font-size:16px;
+}
+button{
+  border:0;
+  border-radius:9px;
+  padding:12px;
+  margin:5px 0;
+  background:#075e54;
+  color:white;
+  font-size:15px;
+  cursor:pointer;
+}
+.full{
+  width:100%;
+}
+.green{background:#128c7e}
+.red{background:#d32f2f}
+.blue{background:#1976d2}
+.hidden{display:none!important}
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #eef2f3;
-    }
+.user{
+  padding:13px;
+  margin:7px 0;
+  background:#f4f4f4;
+  border-radius:10px;
+  cursor:pointer;
+}
+.user-name{
+  font-weight:bold;
+  font-size:17px;
+}
+.status{
+  font-size:13px;
+  color:#777;
+}
 
-    .app {
-      max-width: 500px;
-      min-height: 100vh;
-      margin: auto;
-      background: white;
-    }
+.search{
+  display:flex;
+  gap:5px;
+}
+.search input{
+  flex:1;
+}
+.search button{
+  width:80px;
+}
 
-    .header {
-      background: #075e54;
-      color: white;
-      padding: 18px;
-      text-align: center;
-      font-size: 25px;
-      font-weight: bold;
-    }
+.chat-head{
+  background:#075e54;
+  color:white;
+  padding:10px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.chat-actions{
+  display:flex;
+  gap:3px;
+}
+.chat-actions button{
+  padding:8px 10px;
+  margin:0;
+}
 
-    .language {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      padding: 12px;
-      background: #f5f5f5;
-    }
+.typing{
+  font-size:12px;
+  color:#d8ffdc;
+}
 
-    .language button {
-      width: auto;
-      padding: 8px 18px;
-      margin: 0;
-      background: #128c7e;
-    }
+.messages{
+  height:calc(100vh - 245px);
+  min-height:420px;
+  overflow-y:auto;
+  padding:12px;
+  background:#e5ddd5;
+}
+.msg{
+  max-width:78%;
+  padding:9px 12px;
+  margin:6px 0;
+  border-radius:10px;
+  clear:both;
+  word-wrap:break-word;
+}
+.mine{
+  float:right;
+  background:#dcf8c6;
+}
+.theirs{
+  float:left;
+  background:white;
+}
 
-    .box {
-      padding: 20px;
-    }
+.send{
+  display:flex;
+  gap:5px;
+  padding:7px;
+}
+.send input{
+  flex:1;
+  margin:0;
+}
+.send button{
+  width:75px;
+  margin:0;
+}
 
-    input {
-      width: 100%;
-      padding: 14px;
-      margin: 7px 0;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      font-size: 16px;
-    }
-
-    button {
-      width: 100%;
-      padding: 14px;
-      margin: 7px 0;
-      border: none;
-      border-radius: 10px;
-      background: #075e54;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      opacity: .9;
-    }
-
-    .secondary {
-      background: #128c7e;
-    }
-
-    .danger {
-      background: #d32f2f;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .message {
-      margin-top: 10px;
-      padding: 10px;
-      border-radius: 8px;
-      background: #fff3cd;
-      color: #664d03;
-      word-break: break-word;
-    }
-
-    .user {
-      padding: 15px;
-      margin: 8px 0;
-      background: #f5f5f5;
-      border-radius: 12px;
-      cursor: pointer;
-    }
-
-    .user strong {
-      display: block;
-      font-size: 17px;
-    }
-
-    .status {
-      color: #777;
-      font-size: 13px;
-    }
-
-    .chat-header {
-      background: #075e54;
-      color: white;
-      padding: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 5px;
-    }
-
-    .chat-buttons {
-      display: flex;
-      gap: 4px;
-    }
-
-    .chat-buttons button {
-      width: auto;
-      margin: 0;
-      padding: 8px 10px;
-    }
-
-    .messages {
-      height: calc(100vh - 230px);
-      min-height: 400px;
-      overflow-y: auto;
-      padding: 15px;
-      background: #e5ddd5;
-    }
-
-    .bubble {
-      max-width: 80%;
-      padding: 10px 13px;
-      margin: 7px 0;
-      border-radius: 10px;
-      clear: both;
-      word-break: break-word;
-    }
-
-    .mine {
-      float: right;
-      background: #dcf8c6;
-    }
-
-    .theirs {
-      float: left;
-      background: white;
-    }
-
-    .send-area {
-      display: flex;
-      gap: 5px;
-      padding: 8px;
-      background: white;
-    }
-
-    .send-area input {
-      margin: 0;
-      flex: 1;
-    }
-
-    .send-area button {
-      width: 80px;
-      margin: 0;
-    }
-  </style>
+.call-screen{
+  position:fixed;
+  inset:0;
+  background:#111;
+  z-index:1000;
+  color:white;
+  display:flex;
+  flex-direction:column;
+}
+.remote{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  background:#222;
+}
+.local{
+  position:absolute;
+  right:15px;
+  top:70px;
+  width:120px;
+  height:170px;
+  object-fit:cover;
+  background:#333;
+  border:2px solid white;
+  border-radius:10px;
+}
+.call-info{
+  position:absolute;
+  top:15px;
+  left:15px;
+  right:15px;
+  text-align:center;
+  z-index:3;
+}
+.call-buttons{
+  position:absolute;
+  bottom:30px;
+  left:0;
+  right:0;
+  text-align:center;
+  z-index:4;
+}
+.call-buttons button{
+  width:65px;
+  height:55px;
+  border-radius:50%;
+  margin:5px;
+}
+.incoming{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.88);
+  z-index:2000;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+.incoming-box{
+  width:90%;
+  max-width:350px;
+  padding:25px;
+}
+</style>
 </head>
 
 <body>
 
 <div class="app">
 
-  <!-- HEADER -->
-  <div class="header">
-    <span id="appTitle">Dost Chat</span>
-  </div>
+<div class="header">Dost Chat</div>
 
-  <!-- LANGUAGE -->
-  <div class="language">
-    <button onclick="setLanguage('ur')">اردو</button>
-    <button onclick="setLanguage('en')">English</button>
-  </div>
+<div class="lang">
+<button onclick="setLang('ur')">اردو</button>
+<button onclick="setLang('en')">English</button>
+</div>
 
+<!-- AUTH -->
+<section id="auth">
 
-  <!-- AUTH SCREEN -->
-  <section id="authScreen">
+<div class="box">
 
-    <div class="box">
+<h2 id="authTitle">رجسٹریشن / Login</h2>
 
-      <h2 id="authTitle">رجسٹریشن</h2>
+<input id="name" placeholder="آپ کا نام">
 
-      <input
-        type="text"
-        id="name"
-        placeholder="آپ کا نام"
-      >
+<input id="email" type="email" placeholder="Email">
 
-      <input
-        type="email"
-        id="email"
-        placeholder="Email"
-      >
+<input id="password" type="password" placeholder="Password">
 
-      <input
-        type="password"
-        id="password"
-        placeholder="Password"
-      >
+<button class="full" onclick="emailRegister()">
+رجسٹر کریں
+</button>
 
-      <button id="registerBtn">
-        رجسٹر کریں
-      </button>
+<button class="green full" onclick="emailLogin()">
+Email Login
+</button>
 
-      <button
-        class="secondary"
-        id="loginBtn"
-      >
-        Login
-      </button>
+<hr>
 
-      <div
-        id="authMessage"
-        class="message hidden"
-      ></div>
+<input id="phone"
+placeholder="+923001234567">
 
-    </div>
+<div id="recaptcha"></div>
 
-  </section>
+<button class="blue full" onclick="sendOTP()">
+📱 موبائل نمبر پر OTP بھیجیں
+</button>
+
+<input id="otp"
+placeholder="OTP درج کریں">
+
+<button class="green full" onclick="verifyOTP()">
+OTP Verify کریں
+</button>
+
+<div id="authMsg"></div>
+
+</div>
+
+</section>
 
 
-  <!-- HOME SCREEN -->
-  <section
-    id="homeScreen"
-    class="hidden"
-  >
+<!-- HOME -->
+<section id="home" class="hidden">
 
-    <div class="box">
+<div class="box">
 
-      <h2 id="welcomeTitle">
-        خوش آمدید
-      </h2>
+<h2 id="welcome">خوش آمدید</h2>
 
-      <div class="message">
-        <strong id="myName"></strong>
-        <br>
-        <span id="myEmail"></span>
-      </div>
+<div id="myInfo"></div>
 
-      <button
-        class="danger"
-        id="logoutBtn"
-      >
-        Logout
-      </button>
+<button class="red full" onclick="logout()">
+Logout
+</button>
 
-      <h3 id="usersTitle">
-        دوست
-      </h3>
+<h3 id="searchTitle">نمبر سے صارف تلاش کریں</h3>
 
-      <div id="usersList"></div>
+<div class="search">
+<input id="searchPhone" placeholder="+923001234567">
+<button onclick="searchUser()">Search</button>
+</div>
 
-    </div>
+<div id="searchResult"></div>
 
-  </section>
+<h3 id="friendsTitle">Users</h3>
+
+<div id="users"></div>
+
+</div>
+
+</section>
 
 
-  <!-- CHAT SCREEN -->
-  <section
-    id="chatScreen"
-    class="hidden"
-  >
+<!-- CHAT -->
+<section id="chat" class="hidden">
 
-    <div class="chat-header">
+<div class="chat-head">
 
-      <div>
-        <strong id="chatUserName"></strong>
-        <div id="chatUserStatus"></div>
-      </div>
+<div>
+<strong id="chatName"></strong>
+<div id="chatStatus"></div>
+<div id="typing" class="typing"></div>
+</div>
 
-      <div class="chat-buttons">
+<div class="chat-actions">
+<button onclick="startCall(false)">🎤</button>
+<button onclick="startCall(true)">📹</button>
+<button onclick="closeChat()">↩</button>
+</div>
 
-        <button id="voiceCallBtn">
-          🎤
-        </button>
+</div>
 
-        <button id="videoCallBtn">
-          📹
-        </button>
+<div id="messages" class="messages"></div>
 
-        <button id="backBtn">
-          ↩
-        </button>
+<div class="send">
+<input id="messageInput" placeholder="پیغام لکھیں...">
+<button onclick="sendMessage()">Send</button>
+</div>
 
-      </div>
+</section>
 
-    </div>
+</div>
 
-    <div
-      id="messages"
-      class="messages"
-    ></div>
 
-    <div class="send-area">
+<!-- CALL SCREEN -->
+<div id="callScreen" class="call-screen hidden">
 
-      <input
-        type="text"
-        id="messageInput"
-        placeholder="پیغام لکھیں..."
-      >
+<div class="call-info">
+<div id="callTitle">Calling...</div>
+</div>
 
-      <button id="sendBtn">
-        Send
-      </button>
+<video id="remoteVideo"
+class="remote"
+autoplay
+playsinline></video>
 
-    </div>
+<video id="localVideo"
+class="local"
+autoplay
+muted
+playsinline></video>
 
-  </section>
+<div class="call-buttons">
+
+<button onclick="toggleMute()">🎤</button>
+
+<button onclick="toggleCamera()">📹</button>
+
+<button class="red" onclick="endCall()">📞</button>
+
+</div>
+
+</div>
+
+
+<!-- INCOMING CALL -->
+<div id="incoming" class="incoming hidden">
+
+<div class="incoming-box">
+
+<h2>📞</h2>
+
+<h2 id="incomingName">Incoming Call</h2>
+
+<p id="incomingType"></p>
+
+<button class="green full"
+onclick="acceptCall()">
+Accept
+</button>
+
+<button class="red full"
+onclick="rejectCall()">
+Reject
+</button>
+
+</div>
 
 </div>
 
 
 <script type="module">
 
-  import { initializeApp }
-  from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import {initializeApp}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+getAuth,
+createUserWithEmailAndPassword,
+signInWithEmailAndPassword,
+signInWithPhoneNumber,
+RecaptchaVerifier,
+onAuthStateChanged,
+signOut
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import {
+getFirestore,
+collection,
+doc,
+setDoc,
+getDoc,
+getDocs,
+query,
+where,
+orderBy,
+addDoc,
+onSnapshot,
+serverTimestamp,
+updateDoc,
+deleteDoc
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+const firebaseConfig={
+apiKey:"AIzaSyBvEGBT5yvkcPoziNc3U9rh87IEkOn_7eM",
+authDomain:"dost-chat-a7eec.firebaseapp.com",
+projectId:"dost-chat-a7eec",
+storageBucket:"dost-chat-a7eec.firebasestorage.app",
+messagingSenderId:"760944205758",
+appId:"1:760944205758:web:41d06ed0c34b3f24f8a3ef"
+};
+
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
+
+let me=null;
+let selected=null;
+let confirmOTP=null;
+let unsubscribeMessages=null;
+let unsubscribeTyping=null;
+let unsubscribeCall=null;
+
+let pc=null;
+let localStream=null;
+let remoteStream=null;
+let currentCallId=null;
+let isCaller=false;
+let videoCall=false;
+
+const servers={
+iceServers:[
+{urls:"stun:stun.l.google.com:19302"},
+{urls:"stun:stun1.l.google.com:19302"}
+]
+};
+
+
+/* ================= LANGUAGE ================= */
+
+let lang=localStorage.getItem("lang")||"ur";
+
+const T={
+ur:{
+welcome:"خوش آمدید",
+search:"نمبر سے صارف تلاش کریں",
+users:"صارفین",
+online:"🟢 آن لائن",
+offline:"⚫ آف لائن",
+typing:"لکھ رہا ہے...",
+notFound:"اس نمبر سے کوئی صارف رجسٹرڈ نہیں۔",
+call:"کال",
+video:"ویڈیو کال",
+calling:"کال ہو رہی ہے...",
+incoming:"آنے والی کال",
+voice:"Voice Call",
+videoCall:"Video Call"
+},
+en:{
+welcome:"Welcome",
+search:"Search user by number",
+users:"Users",
+online:"🟢 Online",
+offline:"⚫ Offline",
+typing:"typing...",
+notFound:"No user registered with this number.",
+call:"Call",
+video:"Video Call",
+calling:"Calling...",
+incoming:"Incoming Call",
+voice:"Voice Call",
+videoCall:"Video Call"
+}
+};
 
-  import {
-    getAuth,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    onAuthStateChanged,
-    signOut
-  }
-  from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+window.setLang=(x)=>{
+lang=x;
+localStorage.setItem("lang",x);
+document.documentElement.lang=x;
+document.documentElement.dir=x==="ur"?"rtl":"ltr";
+applyLang();
+};
 
-  import {
-    getFirestore,
-    collection,
-    addDoc,
-    setDoc,
-    getDoc,
-    doc,
-    query,
-    orderBy,
-    onSnapshot,
-    serverTimestamp
-  }
-  from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+function applyLang(){
+const t=T[lang];
 
+document.getElementById("welcome").textContent=t.welcome;
+document.getElementById("searchTitle").textContent=t.search;
+document.getElementById("friendsTitle").textContent=t.users;
+document.getElementById("incomingName").textContent=t.incoming;
+}
 
-  // =========================
-  // FIREBASE
-  // =========================
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyBvEGBT5yvkcPoziNc3U9rh87IEkOn_7eM",
-    authDomain: "dost-chat-a7eec.firebaseapp.com",
-    projectId: "dost-chat-a7eec",
-    storageBucket: "dost-chat-a7eec.firebasestorage.app",
-    messagingSenderId: "760944205758",
-    appId: "1:760944205758:web:41d06ed0c34b3f24f8a3ef"
-  };
+/* ================= PHONE AUTH ================= */
 
-  const app = initializeApp(firebaseConfig);
+window.sendOTP=async()=>{
 
-  const auth = getAuth(app);
+const phone=document.getElementById("phone").value.trim();
 
-  const db = getFirestore(app);
+if(!phone){
+alert(lang==="ur"?"موبائل نمبر درج کریں۔":"Enter phone number.");
+return;
+}
 
+try{
 
-  // =========================
-  // CURRENT USER
-  // =========================
+if(!window.recaptchaVerifier){
 
-  let currentUser = null;
-  let selectedUser = null;
-  let unsubscribeMessages = null;
+window.recaptchaVerifier=new RecaptchaVerifier(
+auth,
+"recaptcha",
+{
+size:"normal"
+}
+);
 
+}
 
-  // =========================
-  // LANGUAGE
-  // =========================
+confirmOTP=await signInWithPhoneNumber(
+auth,
+phone,
+window.recaptchaVerifier
+);
 
-  let language =
-    localStorage.getItem("language") || "ur";
+alert(
+lang==="ur"
+?"OTP بھیج دیا گیا ہے۔"
+:"OTP sent."
+);
 
+}catch(e){
 
-  const translations = {
+console.error(e);
+alert(e.message);
 
-    ur: {
+}
+};
 
-      title: "Dost Chat",
 
-      registerTitle: "رجسٹریشن",
+window.verifyOTP=async()=>{
 
-      name: "آپ کا نام",
+const code=document.getElementById("otp").value.trim();
 
-      email: "Email",
+if(!confirmOTP){
+alert("پہلے OTP حاصل کریں۔");
+return;
+}
 
-      password: "Password",
+try{
 
-      register: "رجسٹر کریں",
+const result=await confirmOTP.confirm(code);
 
-      login: "Login",
+await createUserProfile(
+result.user,
+document.getElementById("name").value.trim()
+);
 
-      welcome: "خوش آمدید",
+}catch(e){
 
-      friends: "دوست",
+console.error(e);
+alert(e.message);
 
-      logout: "Logout",
+}
+};
 
-      send: "Send",
 
-      message: "پیغام لکھیں...",
+/* ================= EMAIL AUTH ================= */
 
-      back: "واپس",
+window.emailRegister=async()=>{
 
-      online: "🟢 آن لائن",
+const name=document.getElementById("name").value.trim();
+const email=document.getElementById("email").value.trim();
+const password=document.getElementById("password").value;
 
-      offline: "⚫ آف لائن",
+if(!name||!email||!password){
+alert(lang==="ur"?"تمام معلومات درج کریں۔":"Fill all fields.");
+return;
+}
 
-      noUsers: "ابھی کوئی دوسرا صارف موجود نہیں۔",
+try{
 
-      fillAll: "تمام معلومات درج کریں۔",
+const result=
+await createUserWithEmailAndPassword(
+auth,email,password
+);
 
-      loginInfo: "Email اور Password درج کریں۔",
+await createUserProfile(result.user,name);
 
-      registerSuccess: "رجسٹریشن کامیاب ہوگئی۔",
+}catch(e){
 
-      voiceSoon: "Voice Call اگلے مرحلے میں شامل ہوگی۔",
+console.error(e);
+alert(e.message);
 
-      videoSoon: "Video Call اگلے مرحلے میں شامل ہوگی۔"
+}
+};
 
-    },
 
-    en: {
+window.emailLogin=async()=>{
 
-      title: "Dost Chat",
+const email=document.getElementById("email").value.trim();
+const password=document.getElementById("password").value;
 
-      registerTitle: "Registration",
+try{
 
-      name: "Your Name",
+await signInWithEmailAndPassword(
+auth,email,password
+);
 
-      email: "Email",
+}catch(e){
 
-      password: "Password",
+console.error(e);
+alert(e.message);
 
-      register: "Register",
+}
+};
 
-      login: "Login",
 
-      welcome: "Welcome",
+/* ================= USER PROFILE ================= */
 
-      friends: "Friends",
+async function createUserProfile(user,name){
 
-      logout: "Logout",
+const ref=doc(db,"users",user.uid);
+const old=await getDoc(ref);
 
-      send: "Send",
+const phone=user.phoneNumber||"";
 
-      message: "Write a message...",
+await setDoc(
+ref,
+{
+uid:user.uid,
+name:name||old.data()?.name||"User",
+email:user.email||"",
+phone:phone,
+phoneSearch:phone,
+online:true,
+lastSeen:serverTimestamp(),
+createdAt:old.exists()
+?old.data().createdAt
+:serverTimestamp()
+},
+{merge:true}
+);
 
-      back: "Back",
+}
 
-      online: "🟢 Online",
 
-      offline: "⚫ Offline",
+/* ================= AUTH STATE ================= */
 
-      noUsers: "No other users yet.",
+onAuthStateChanged(auth,async user=>{
 
-      fillAll: "Please fill all information.",
+if(!user){
 
-      loginInfo: "Enter Email and Password.",
+me=null;
 
-      registerSuccess: "Registration successful.",
+document.getElementById("auth")
+.classList.remove("hidden");
 
-      voiceSoon: "Voice Call will be added in the next step.",
+document.getElementById("home")
+.classList.add("hidden");
 
-      videoSoon: "Video Call will be added in the next step."
+document.getElementById("chat")
+.classList.add("hidden");
 
-    }
+return;
+}
 
-  };
+me=user;
 
+await createUserProfile(
+user,
+document.getElementById("name").value.trim()
+);
 
-  function setLanguage(lang) {
+document.getElementById("auth")
+.classList.add("hidden");
 
-    language = lang;
+document.getElementById("home")
+.classList.remove("hidden");
 
-    localStorage.setItem("language", lang);
+loadMyInfo();
+loadUsers();
+listenIncomingCalls();
 
-    updateLanguage();
+});
 
-  }
 
+/* ================= MY INFO ================= */
 
-  window.setLanguage = setLanguage;
+async function loadMyInfo(){
 
+const snap=
+await getDoc(doc(db,"users",me.uid));
 
-  function updateLanguage() {
+if(!snap.exists())return;
 
-    const t = translations[language];
+const d=snap.data();
 
-    const isUrdu = language === "ur";
+document.getElementById("myInfo").innerHTML=
+`
+<strong>${escapeHTML(d.name||"User")}</strong>
+<br>
+${escapeHTML(d.phone||d.email||"")}
+`;
+}
 
 
-    document.documentElement.lang =
-      language;
+/* ================= USERS ================= */
 
-    document.documentElement.dir =
-      isUrdu ? "rtl" : "ltr";
+function loadUsers(){
 
+onSnapshot(
+collection(db,"users"),
+snap=>{
 
-    document.getElementById("appTitle")
-      .textContent = t.title;
+const box=document.getElementById("users");
+box.innerHTML="";
 
-    document.getElementById("authTitle")
-      .textContent = t.registerTitle;
+snap.forEach(s=>{
 
-    document.getElementById("name")
-      .placeholder = t.name;
+if(s.id===me.uid)return;
 
-    document.getElementById("email")
-      .placeholder = t.email;
+const d=s.data();
 
-    document.getElementById("password")
-      .placeholder = t.password;
+const div=document.createElement("div");
 
-    document.getElementById("registerBtn")
-      .textContent = t.register;
+div.className="user";
 
-    document.getElementById("loginBtn")
-      .textContent = t.login;
+const name=document.createElement("div");
+name.className="user-name";
+name.textContent=d.name||"User";
 
-    document.getElementById("welcomeTitle")
-      .textContent = t.welcome;
+const status=document.createElement("div");
+status.className="status";
 
-    document.getElementById("usersTitle")
-      .textContent = t.friends;
+status.textContent=d.online
+?T[lang].online
+:T[lang].offline;
 
-    document.getElementById("logoutBtn")
-      .textContent = t.logout;
+div.appendChild(name);
+div.appendChild(status);
 
-    document.getElementById("sendBtn")
-      .textContent = t.send;
+div.onclick=()=>openChat({
+uid:s.id,
+name:d.name||"User",
+phone:d.phone||"",
+online:d.online||false
+});
 
-    document.getElementById("messageInput")
-      .placeholder = t.message;
+box.appendChild(div);
 
-    document.getElementById("backBtn")
-      .textContent = t.back;
+});
 
-    if (selectedUser) {
+if(!box.children.length){
 
-      chatUserStatus.textContent =
-        selectedUser.online
-          ? t.online
-          : t.offline;
+box.textContent=
+lang==="ur"
+?"ابھی کوئی دوسرا صارف موجود نہیں۔"
+:"No other users yet.";
 
-    }
+}
 
-  }
+}
+);
 
+}
 
-  // =========================
-  // ELEMENTS
-  // =========================
 
-  const authScreen =
-    document.getElementById("authScreen");
+/* ================= SEARCH ================= */
 
-  const homeScreen =
-    document.getElementById("homeScreen");
+window.searchUser=async()=>{
 
-  const chatScreen =
-    document.getElementById("chatScreen");
+let phone=
+document.getElementById("searchPhone")
+.value.trim();
 
-  const nameInput =
-    document.getElementById("name");
+const result=
+document.getElementById("searchResult");
 
-  const emailInput =
-    document.getElementById("email");
+result.innerHTML="Searching...";
 
-  const passwordInput =
-    document.getElementById("password");
+try{
 
-  const authMessage =
-    document.getElementById("authMessage");
+const q=query(
+collection(db,"users"),
+where("phoneSearch","==",phone)
+);
 
-  const usersList =
-    document.getElementById("usersList");
+const snap=await getDocs(q);
 
-  const myName =
-    document.getElementById("myName");
+if(snap.empty){
 
-  const myEmail =
-    document.getElementById("myEmail");
+result.textContent=T[lang].notFound;
+return;
 
-  const messages =
-    document.getElementById("messages");
+}
 
-  const messageInput =
-    document.getElementById("messageInput");
+const s=snap.docs[0];
+const d=s.data();
 
-  const chatUserName =
-    document.getElementById("chatUserName");
+const div=document.createElement("div");
 
-  const chatUserStatus =
-    document.getElementById("chatUserStatus");
+div.className="user";
 
+div.innerHTML=
+`
+<div class="user-name">
+${escapeHTML(d.name||"User")}
+</div>
+<div class="status">
+${escapeHTML(d.phone||phone)}
+</div>
+`;
 
-  // =========================
-  // SHOW ERROR
-  // =========================
+div.onclick=()=>openChat({
+uid:s.id,
+name:d.name||"User",
+phone:d.phone||phone,
+online:d.online||false
+});
 
-  function showMessage(message) {
+result.innerHTML="";
+result.appendChild(div);
 
-    authMessage.textContent = message;
+}catch(e){
 
-    authMessage.classList.remove("hidden");
+console.error(e);
+result.textContent=e.message;
 
-  }
+}
 
+};
 
-  // =========================
-  // REGISTER
-  // =========================
 
-  document
-    .getElementById("registerBtn")
-    .addEventListener("click", async () => {
+/* ================= CHAT ================= */
 
-      const name =
-        nameInput.value.trim();
+function chatId(){
 
-      const email =
-        emailInput.value.trim();
+return [me.uid,selected.uid]
+.sort()
+.join("_");
 
-      const password =
-        passwordInput.value;
+}
 
 
-      if (!name || !email || !password) {
+window.openChat=(u)=>{
 
-        showMessage(
-          translations[language].fillAll
-        );
+selected=u;
 
-        return;
+document.getElementById("home")
+.classList.add("hidden");
 
-      }
+document.getElementById("chat")
+.classList.remove("hidden");
 
+document.getElementById("chatName")
+.textContent=u.name;
 
-      if (password.length < 6) {
+document.getElementById("chatStatus")
+textContent=u.online
+?T[lang].online
+:T[lang].offline;
 
-        showMessage(
-          language === "ur"
-            ? "Password کم از کم 6 حروف کا ہونا چاہیے۔"
-            : "Password must be at least 6 characters."
-        );
+listenMessages();
+listenTyping();
 
-        return;
+};
 
-      }
 
+function listenMessages(){
 
-      try {
+if(unsubscribeMessages)
+unsubscribeMessages();
 
-        showMessage(
-          language === "ur"
-            ? "رجسٹریشن ہو رہی ہے..."
-            : "Registering..."
-        );
+const ref=collection(
+db,
+"chats",
+chatId(),
+"messages"
+);
 
+const q=query(
+ref,
+orderBy("createdAt","asc")
+);
 
-        const result =
-          await createUserWithEmailAndPassword(
-            auth,
-            email,
-            password
-          );
+unsubscribeMessages=
+onSnapshot(q,snap=>{
 
+const box=document.getElementById("messages");
+box.innerHTML="";
 
-        const user =
-          result.user;
+snap.forEach(s=>{
 
+const d=s.data();
 
-        await setDoc(
-          doc(db, "users", user.uid),
-          {
+const div=document.createElement("div");
 
-            uid: user.uid,
+div.className=
+"msg "+
+(d.senderId===me.uid?"mine":"theirs");
 
-            name: name,
+div.textContent=d.text||"";
 
-            email: email,
+box.appendChild(div);
 
-            online: true,
+});
 
-            createdAt:
-              serverTimestamp()
+box.scrollTop=box.scrollHeight;
 
-          }
-        );
+});
 
+}
 
-        showMessage(
-          translations[language].registerSuccess
-        );
 
+/* ================= TYPING ================= */
 
-      } catch (error) {
+const messageInput=
+document.getElementById("messageInput");
 
-        console.error(error);
+let typingTimer=null;
 
-        showMessage(
-          getFirebaseError(error)
-        );
+messageInput.addEventListener("input",async()=>{
 
-      }
+if(!me||!selected)return;
 
-    });
+await setDoc(
+doc(db,"chats",chatId()),
+{
+typing:{
+[me.uid]:true
+}
+},
+{merge:true}
+);
 
+clearTimeout(typingTimer);
 
-  // =========================
-  // LOGIN
-  // =========================
+typingTimer=setTimeout(async()=>{
 
-  document
-    .getElementById("loginBtn")
-    .addEventListener("click", async () => {
+await setDoc(
+doc(db,"chats",chatId()),
+{
+typing:{
+[me.uid]:false
+}
+},
+{merge:true}
+);
 
-      const email =
-        emailInput.value.trim();
+},1200);
 
-      const password =
-        passwordInput.value;
+});
 
 
-      if (!email || !password) {
+function listenTyping(){
 
-        showMessage(
-          translations[language].loginInfo
-        );
+if(unsubscribeTyping)
+unsubscribeTyping();
 
-        return;
+unsubscribeTyping=
+onSnapshot(
+doc(db,"chats",chatId()),
+snap=>{
 
-      }
+if(!snap.exists())return;
 
+const t=snap.data().typing||{};
 
-      try {
+document.getElementById("typing")
+.textContent=
+t[selected.uid]
+?T[lang].typing
+:"";
 
-        showMessage(
-          language === "ur"
-            ? "Login ہو رہا ہے..."
-            : "Logging in..."
-        );
+}
+);
 
+}
 
-        await signInWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
 
+/* ================= SEND MESSAGE ================= */
 
-      } catch (error) {
+window.sendMessage=async()=>{
 
-        console.error(error);
+const input=
+document.getElementById("messageInput");
 
-        showMessage(
-          getFirebaseError(error)
-        );
+const text=input.value.trim();
 
-      }
+if(!text||!selected)return;
 
-    });
+await addDoc(
+collection(
+db,
+"chats",
+chatId(),
+"messages"
+),
+{
+text:text,
+senderId:me.uid,
+receiverId:selected.uid,
+createdAt:serverTimestamp()
+}
+);
 
+input.value="";
 
-  // =========================
-  // AUTH STATE
-  // =========================
+};
 
-  onAuthStateChanged(
-    auth,
-    async (user) => {
 
-      if (!user) {
+/* ================= CLOSE CHAT ================= */
 
-        currentUser = null;
+window.closeChat=()=>{
 
-        authScreen.classList.remove("hidden");
+if(unsubscribeMessages)
+unsubscribeMessages();
 
-        homeScreen.classList.add("hidden");
+if(unsubscribeTyping)
+unsubscribeTyping();
 
-        chatScreen.classList.add("hidden");
+document.getElementById("chat")
+.classList.add("hidden");
 
-        return;
+document.getElementById("home")
+.classList.remove("hidden");
 
-      }
+};
 
 
-      currentUser = user;
+/* ================= LAST SEEN ================= */
 
+setInterval(async()=>{
 
-      authScreen.classList.add("hidden");
+if(!me)return;
 
-      homeScreen.classList.remove("hidden");
+try{
 
-      chatScreen.classList.add("hidden");
+await setDoc(
+doc(db,"users",me.uid),
+{
+online:true,
+lastSeen:serverTimestamp()
+},
+{merge:true}
+);
 
+}catch(e){}
 
-      try {
+},20000);
 
-        const userDoc =
-          await getDoc(
-            doc(db, "users", user.uid)
-          );
+document.addEventListener(
+"visibilitychange",
+async()=>{
 
+if(!me)return;
 
-        if (userDoc.exists()) {
+await setDoc(
+doc(db,"users",me.uid),
+{
+online:!document.hidden,
+lastSeen:serverTimestamp()
+},
+{merge:true}
+);
 
-          const data =
-            userDoc.data();
+}
+);
 
-          myName.textContent =
-            data.name || "User";
 
-          myEmail.textContent =
-            data.email || user.email;
+/* ================= VOICE / VIDEO CALL ================= */
 
-        }
+window.startCall=async(isVideo)=>{
 
+if(!selected)return;
 
-        await setDoc(
-          doc(db, "users", user.uid),
-          {
-            online: true
-          },
-          {
-            merge: true
-          }
-        );
+videoCall=isVideo;
+isCaller=true;
 
+currentCallId=
+me.uid+"_"+Date.now();
 
-        loadUsers();
+document.getElementById("callScreen")
+.classList.remove("hidden");
 
+document.getElementById("callTitle")
+.textContent=
+isVideo
+?T[lang].videoCall
+:T[lang].voice;
 
-      } catch (error) {
 
-        console.error(error);
+try{
 
-        showMessage(
-          getFirebaseError(error)
-        );
+localStream=
+await navigator.mediaDevices.getUserMedia({
 
-      }
+audio:true,
+video:isVideo
 
-    }
-  );
+});
 
+document.getElementById("localVideo")
+.srcObject=localStream;
 
-  // =========================
-  // USERS
-  // =========================
+if(!isVideo)
+document.getElementById("localVideo")
+.classList.add("hidden");
+else
+document.getElementById("localVideo")
+.classList.remove("hidden");
 
-  function loadUsers() {
+remoteStream=
+new MediaStream();
 
-    const usersRef =
-      collection(db, "users");
+document.getElementById("remoteVideo")
+.srcObject=remoteStream;
 
+pc=new RTCPeerConnection(servers);
 
-    onSnapshot(
-      usersRef,
-      (snapshot) => {
+localStream.getTracks()
+.forEach(track=>{
+pc.addTrack(track,localStream);
+});
 
-        usersList.innerHTML = "";
+pc.ontrack=e=>{
 
+e.streams[0]
+.getTracks()
+.forEach(track=>{
+remoteStream.addTrack(track);
+});
 
-        snapshot.forEach(
-          (userDoc) => {
+};
 
-            if (
-              userDoc.id === currentUser.uid
-            ) {
+pc.onicecandidate=async e=>{
 
-              return;
+if(!e.candidate)return;
 
-            }
+await addDoc(
+collection(
+db,
+"calls",
+currentCallId,
+"offerCandidates"
+),
+e.candidate.toJSON()
+);
 
+};
 
-            const data =
-              userDoc.data();
 
+const offer=
+await pc.createOffer();
 
-            const div =
-              document.createElement("div");
+await pc.setLocalDescription(offer);
 
+await setDoc(
+doc(db,"calls",currentCallId),
+{
+callerId:me.uid,
+calleeId:selected.uid,
+callerName:
+document.getElementById("myInfo").textContent,
+type:isVideo?"video":"voice",
+offer:{
+type:offer.type,
+sdp:offer.sdp
+},
+status:"ringing",
+createdAt:serverTimestamp()
+}
+);
 
-            div.className = "user";
 
+listenAnswer();
 
-            const name =
-              document.createElement("strong");
+}catch(e){
 
-            name.textContent =
-              data.name || "User";
+console.error(e);
 
+alert(
+"Camera/Microphone permission required: "+
+e.message
+);
 
-            const status =
-              document.createElement("span");
+endCall();
 
-            status.className =
-              "status";
+}
 
+};
 
-            status.textContent =
-              data.online
-                ? translations[language].online
-                : translations[language].offline;
 
+/* ================= ANSWER LISTENER ================= */
 
-            div.appendChild(name);
+function listenAnswer(){
 
-            div.appendChild(status);
+onSnapshot(
+doc(db,"calls",currentCallId),
+async snap=>{
 
+if(!snap.exists())return;
 
-            div.addEventListener(
-              "click",
-              () => {
+const data=snap.data();
 
-                openChat({
+if(
+data.answer &&
+pc &&
+!pc.currentRemoteDescription
+){
 
-                  uid: userDoc.id,
+await pc.setRemoteDescription(
+new RTCSessionDescription(
+data.answer
+)
+);
 
-                  name:
-                    data.name || "User",
+}
 
-                  online:
-                    data.online || false
+}
+);
 
-                });
 
-              }
-            );
+/* Caller candidates */
 
+onSnapshot(
+collection(
+db,
+"calls",
+currentCallId,
+"answerCandidates"
+),
+snap=>{
 
-            usersList.appendChild(div);
+snap.docChanges().forEach(async change=>{
 
-          }
-        );
+if(change.type==="added"){
 
+await pc.addIceCandidate(
+new RTCIceCandidate(
+change.doc.data()
+)
+);
 
-        if (!usersList.children.length) {
+}
 
-          usersList.textContent =
-            translations[language].noUsers;
+});
 
-        }
+}
+);
 
-      },
+}
 
-      (error) => {
 
-        console.error(error);
+/* ================= INCOMING CALL ================= */
 
-        usersList.textContent =
-          getFirebaseError(error);
+function listenIncomingCalls(){
 
-      }
+if(unsubscribeCall)
+unsubscribeCall();
 
-    );
+const q=query(
+collection(db,"calls"),
+where("calleeId","==",me.uid),
+where("status","==","ringing")
+);
 
-  }
+unsubscribeCall=
+onSnapshot(q,snap=>{
 
+snap.docChanges().forEach(change=>{
 
-  // =========================
-  // OPEN CHAT
-  // =========================
+if(change.type!=="added")return;
 
-  function openChat(user) {
+const d=change.doc.data();
 
-    selectedUser = user;
+currentCallId=change.doc.id;
 
-    homeScreen.classList.add("hidden");
+videoCall=d.type==="video";
 
-    chatScreen.classList.remove("hidden");
+document.getElementById("incomingName")
+.textContent=
+d.callerName||"Unknown";
 
-    chatUserName.textContent =
-      user.name;
+document.getElementById("incomingType")
+.textContent=
+videoCall
+?T[lang].videoCall
+:T[lang].voice;
 
-    chatUserStatus.textContent =
-      user.online
-        ? translations[language].online
-        : translations[language].offline;
+document.getElementById("incoming")
+.classList.remove("hidden");
 
+});
 
-    loadMessages();
+});
 
-  }
+}
 
 
-  // =========================
-  // CHAT ID
-  // =========================
+/* ================= ACCEPT CALL ================= */
 
-  function getChatId() {
+window.acceptCall=async()=>{
 
-    const ids = [
+document.getElementById("incoming")
+.classList.add("hidden");
 
-      currentUser.uid,
+isCaller=false;
 
-      selectedUser.uid
+const callSnap=
+await getDoc(
+doc(db,"calls",currentCallId)
+);
 
-    ];
+const data=callSnap.data();
 
-    ids.sort();
+videoCall=data.type==="video";
 
-    return ids.join("_");
+document.getElementById("callScreen")
+.classList.remove("hidden");
 
-  }
+try{
 
+localStream=
+await navigator.mediaDevices.getUserMedia({
 
-  // =========================
-  // LOAD MESSAGES
-  // =========================
+audio:true,
+video:videoCall
 
-  function loadMessages() {
+});
 
-    if (unsubscribeMessages) {
+document.getElementById("localVideo")
+.srcObject=localStream;
 
-      unsubscribeMessages();
+if(!videoCall)
+document.getElementById("localVideo")
+.classList.add("hidden");
+else
+document.getElementById("localVideo")
+.classList.remove("hidden");
 
-    }
+remoteStream=
+new MediaStream();
 
+document.getElementById("remoteVideo")
+.srcObject=remoteStream;
 
-    messages.innerHTML = "";
+pc=new RTCPeerConnection(servers);
 
+localStream.getTracks()
+.forEach(track=>{
+pc.addTrack(track,localStream);
+});
 
-    const chatId =
-      getChatId();
+pc.ontrack=e=>{
 
+e.streams[0]
+.getTracks()
+.forEach(track=>{
+remoteStream.addTrack(track);
+});
 
-    const messagesRef =
-      collection(
-        db,
-        "chats",
-        chatId,
-        "messages"
-      );
+};
 
+pc.onicecandidate=async e=>{
 
-    const q =
-      query(
-        messagesRef,
-        orderBy("createdAt", "asc")
-      );
+if(!e.candidate)return;
 
+await addDoc(
+collection(
+db,
+"calls",
+currentCallId,
+"answerCandidates"
+),
+e.candidate.toJSON()
+);
 
-    unsubscribeMessages =
-      onSnapshot(
-        q,
-        (snapshot) => {
+};
 
-          messages.innerHTML = "";
 
+await pc.setRemoteDescription(
+new RTCSessionDescription(data.offer)
+);
 
-          snapshot.forEach(
-            (messageDoc) => {
 
-              const data =
-                messageDoc.data();
+const answer=
+await pc.createAnswer();
 
+await pc.setLocalDescription(answer);
 
-              const div =
-                document.createElement("div");
+await updateDoc(
+doc(db,"calls",currentCallId),
+{
+answer:{
+type:answer.type,
+sdp:answer.sdp
+},
+status:"answered"
+}
+);
 
 
-              div.className =
-                "bubble " +
-                (
-                  data.senderId === currentUser.uid
-                    ? "mine"
-                    : "theirs"
-                );
+onSnapshot(
+collection(
+db,
+"calls",
+currentCallId,
+"offerCandidates"
+),
+snap=>{
 
+snap.docChanges().forEach(async change=>{
 
-              div.textContent =
-                data.text || "";
+if(change.type==="added"){
 
+await pc.addIceCandidate(
+new RTCIceCandidate(
+change.doc.data()
+)
+);
 
-              messages.appendChild(div);
+}
 
-            }
-          );
+});
 
+}
+);
 
-          messages.scrollTop =
-            messages.scrollHeight;
+}catch(e){
 
-        },
+console.error(e);
 
-        (error) => {
+alert(e.message);
 
-          console.error(error);
+endCall();
 
-        }
+}
 
-      );
+};
 
-  }
 
+/* ================= REJECT ================= */
 
-  // =========================
-  // SEND MESSAGE
-  // =========================
+window.rejectCall=async()=>{
 
-  document
-    .getElementById("sendBtn")
-    .addEventListener(
-      "click",
-      sendMessage
-    );
+document.getElementById("incoming")
+.classList.add("hidden");
 
+if(currentCallId){
 
-  messageInput
-    .addEventListener(
-      "keydown",
-      (event) => {
+await updateDoc(
+doc(db,"calls",currentCallId),
+{
+status:"rejected"
+}
+);
 
-        if (event.key === "Enter") {
+}
 
-          sendMessage();
+};
 
-        }
 
-      }
-    );
+/* ================= END CALL ================= */
 
+window.endCall=async()=>{
 
-  async function sendMessage() {
+if(localStream){
 
-    const text =
-      messageInput.value.trim();
+localStream.getTracks()
+.forEach(t=>t.stop());
 
+localStream=null;
 
-    if (!text) return;
+}
 
+if(pc){
 
-    if (!currentUser || !selectedUser) {
+pc.close();
+pc=null;
 
-      return;
+}
 
-    }
+document.getElementById("callScreen")
+.classList.add("hidden");
 
+document.getElementById("incoming")
+.classList.add("hidden");
 
-    try {
+if(currentCallId){
 
-      const chatId =
-        getChatId();
+try{
 
+await updateDoc(
+doc(db,"calls",currentCallId),
+{
+status:"ended"
+}
+);
 
-      await addDoc(
-        collection(
-          db,
-          "chats",
-          chatId,
-          "messages"
-        ),
-        {
+}catch(e){}
 
-          text: text,
+}
 
-          senderId:
-            currentUser.uid,
+currentCallId=null;
 
-          receiverId:
-            selectedUser.uid,
+};
 
-          createdAt:
-            serverTimestamp()
 
-        }
-      );
+/* ================= MUTE ================= */
 
+window.toggleMute=()=>{
 
-      messageInput.value = "";
+if(!localStream)return;
 
+localStream.getAudioTracks()
+.forEach(t=>{
+t.enabled=!t.enabled;
+});
 
-    } catch (error) {
+};
 
-      console.error(error);
 
-      alert(
-        getFirebaseError(error)
-      );
+/* ================= CAMERA ================= */
 
-    }
+window.toggleCamera=()=>{
 
-  }
+if(!localStream)return;
 
+localStream.getVideoTracks()
+.forEach(t=>{
+t.enabled=!t.enabled;
+});
 
-  // =========================
-  // BACK
-  // =========================
+};
 
-  document
-    .getElementById("backBtn")
-    .addEventListener(
-      "click",
-      () => {
 
-        if (unsubscribeMessages) {
+/* ================= LOGOUT ================= */
 
-          unsubscribeMessages();
+window.logout=async()=>{
 
-          unsubscribeMessages = null;
+if(me){
 
-        }
+await setDoc(
+doc(db,"users",me.uid),
+{
+online:false,
+lastSeen:serverTimestamp()
+},
+{merge:true}
+);
 
+}
 
-        chatScreen.classList.add("hidden");
+await signOut(auth);
 
-        homeScreen.classList.remove("hidden");
+};
 
-      }
-    );
 
+/* ================= HELPERS ================= */
 
-  // =========================
-  // LOGOUT
-  // =========================
+function escapeHTML(x){
 
-  document
-    .getElementById("logoutBtn")
-    .addEventListener(
-      "click",
-      async () => {
+const d=document.createElement("div");
+d.textContent=x||"";
+return d.innerHTML;
 
-        try {
+}
 
-          if (currentUser) {
-
-            await setDoc(
-              doc(
-                db,
-                "users",
-                currentUser.uid
-              ),
-              {
-                online: false
-              },
-              {
-                merge: true
-              }
-            );
-
-          }
-
-
-          await signOut(auth);
-
-
-        } catch (error) {
-
-          console.error(error);
-
-        }
-
-      }
-    );
-
-
-  // =========================
-  // CALL BUTTONS
-  // =========================
-
-  document
-    .getElementById("voiceCallBtn")
-    .addEventListener(
-      "click",
-      () => {
-
-        alert(
-          translations[language].voiceSoon
-        );
-
-      }
-    );
-
-
-  document
-    .getElementById("videoCallBtn")
-    .addEventListener(
-      "click",
-      () => {
-
-        alert(
-          translations[language].videoSoon
-        );
-
-      }
-    );
-
-
-  // =========================
-  // FIREBASE ERRORS
-  // =========================
-
-  function getFirebaseError(error) {
-
-    const code =
-      error.code || "";
-
-
-    if (code === "auth/email-already-in-use") {
-
-      return language === "ur"
-        ? "یہ Email پہلے سے رجسٹر ہے۔ Login کریں۔"
-        : "This email is already registered. Please login.";
-
-    }
-
-
-    if (code === "auth/invalid-email") {
-
-      return language === "ur"
-        ? "Email درست نہیں ہے۔"
-        : "Invalid email address.";
-
-    }
-
-
-    if (code === "auth/weak-password") {
-
-      return language === "ur"
-        ? "Password کمزور ہے۔ کم از کم 6 حروف رکھیں۔"
-        : "Password is too weak. Use at least 6 characters.";
-
-    }
-
-
-    if (code === "auth/invalid-credential") {
-
-      return language === "ur"
-        ? "Email یا Password غلط ہے۔"
-        : "Incorrect email or password.";
-
-    }
-
-
-    if (code === "auth/operation-not-allowed") {
-
-      return language === "ur"
-        ? "Firebase میں Email/Password Login ابھی Enable نہیں ہے۔"
-        : "Email/Password authentication is not enabled in Firebase.";
-
-    }
-
-
-    if (code === "permission-denied") {
-
-      return language === "ur"
-        ? "Firebase Firestore Permission کا مسئلہ ہے۔"
-        : "Firebase Firestore permission denied.";
-
-    }
-
-
-    return error.message || "Unknown error";
-
-  }
-
-
-  // Start language
-  updateLanguage();
+applyLang();
 
 </script>
 
