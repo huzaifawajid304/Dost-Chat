@@ -14,15 +14,13 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #f2f5f7;
-      color: #222;
+      background: #eef2f3;
     }
 
-    .container {
-      width: 100%;
-      max-width: 480px;
-      margin: auto;
+    .app {
+      max-width: 500px;
       min-height: 100vh;
+      margin: auto;
       background: white;
     }
 
@@ -31,8 +29,23 @@
       color: white;
       padding: 18px;
       text-align: center;
-      font-size: 24px;
+      font-size: 25px;
       font-weight: bold;
+    }
+
+    .language {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px;
+      background: #f5f5f5;
+    }
+
+    .language button {
+      width: auto;
+      padding: 8px 18px;
+      margin: 0;
+      background: #128c7e;
     }
 
     .box {
@@ -42,7 +55,7 @@
     input {
       width: 100%;
       padding: 14px;
-      margin: 8px 0;
+      margin: 7px 0;
       border: 1px solid #ddd;
       border-radius: 10px;
       font-size: 16px;
@@ -60,11 +73,15 @@
       cursor: pointer;
     }
 
-    button.secondary {
+    button:hover {
+      opacity: .9;
+    }
+
+    .secondary {
       background: #128c7e;
     }
 
-    button.danger {
+    .danger {
       background: #d32f2f;
     }
 
@@ -72,45 +89,69 @@
       display: none !important;
     }
 
+    .message {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      background: #fff3cd;
+      color: #664d03;
+      word-break: break-word;
+    }
+
     .user {
-      padding: 12px;
-      margin: 7px 0;
+      padding: 15px;
+      margin: 8px 0;
       background: #f5f5f5;
-      border-radius: 10px;
+      border-radius: 12px;
       cursor: pointer;
     }
 
     .user strong {
       display: block;
+      font-size: 17px;
     }
 
     .status {
-      font-size: 13px;
       color: #777;
+      font-size: 13px;
     }
 
     .chat-header {
       background: #075e54;
       color: white;
-      padding: 15px;
+      padding: 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 5px;
+    }
+
+    .chat-buttons {
+      display: flex;
+      gap: 4px;
+    }
+
+    .chat-buttons button {
+      width: auto;
+      margin: 0;
+      padding: 8px 10px;
     }
 
     .messages {
-      height: calc(100vh - 180px);
+      height: calc(100vh - 230px);
+      min-height: 400px;
       overflow-y: auto;
       padding: 15px;
       background: #e5ddd5;
     }
 
-    .message {
+    .bubble {
       max-width: 80%;
-      padding: 10px;
+      padding: 10px 13px;
       margin: 7px 0;
       border-radius: 10px;
       clear: both;
+      word-break: break-word;
     }
 
     .mine {
@@ -139,40 +180,27 @@
       width: 80px;
       margin: 0;
     }
-
-    .top-buttons {
-      display: flex;
-      gap: 5px;
-    }
-
-    .top-buttons button {
-      font-size: 12px;
-      padding: 8px;
-    }
-
-    #usersList {
-      margin-top: 15px;
-    }
-
-    .info {
-      background: #eef7f6;
-      padding: 12px;
-      border-radius: 10px;
-      margin-bottom: 15px;
-    }
   </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="app">
 
-  <!-- LOGIN / REGISTER -->
+  <!-- HEADER -->
+  <div class="header">
+    <span id="appTitle">Dost Chat</span>
+  </div>
+
+  <!-- LANGUAGE -->
+  <div class="language">
+    <button onclick="setLanguage('ur')">اردو</button>
+    <button onclick="setLanguage('en')">English</button>
+  </div>
+
+
+  <!-- AUTH SCREEN -->
   <section id="authScreen">
-
-    <div class="header">
-      Dost Chat
-    </div>
 
     <div class="box">
 
@@ -207,23 +235,29 @@
         Login
       </button>
 
-      <p id="authMessage"></p>
+      <div
+        id="authMessage"
+        class="message hidden"
+      ></div>
 
     </div>
 
   </section>
 
 
-  <!-- HOME -->
-  <section id="homeScreen" class="hidden">
-
-    <div class="header">
-      Dost Chat
-    </div>
+  <!-- HOME SCREEN -->
+  <section
+    id="homeScreen"
+    class="hidden"
+  >
 
     <div class="box">
 
-      <div class="info">
+      <h2 id="welcomeTitle">
+        خوش آمدید
+      </h2>
+
+      <div class="message">
         <strong id="myName"></strong>
         <br>
         <span id="myEmail"></span>
@@ -236,22 +270,1128 @@
         Logout
       </button>
 
-      <h3>👥 Dost Chat Users</h3>
+      <h3 id="usersTitle">
+        دوست
+      </h3>
 
-      <div id="usersList">
-        Users loading...
-      </div>
+      <div id="usersList"></div>
 
     </div>
 
   </section>
 
 
-  <!-- CHAT -->
-  <section id="chatScreen" class="hidden">
+  <!-- CHAT SCREEN -->
+  <section
+    id="chatScreen"
+    class="hidden"
+  >
 
     <div class="chat-header">
 
       <div>
         <strong id="chatUserName"></strong>
-        <div id="chatUserStatu
+        <div id="chatUserStatus"></div>
+      </div>
+
+      <div class="chat-buttons">
+
+        <button id="voiceCallBtn">
+          🎤
+        </button>
+
+        <button id="videoCallBtn">
+          📹
+        </button>
+
+        <button id="backBtn">
+          ↩
+        </button>
+
+      </div>
+
+    </div>
+
+    <div
+      id="messages"
+      class="messages"
+    ></div>
+
+    <div class="send-area">
+
+      <input
+        type="text"
+        id="messageInput"
+        placeholder="پیغام لکھیں..."
+      >
+
+      <button id="sendBtn">
+        Send
+      </button>
+
+    </div>
+
+  </section>
+
+</div>
+
+
+<script type="module">
+
+  import { initializeApp }
+  from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+  import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut
+  }
+  from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+  import {
+    getFirestore,
+    collection,
+    addDoc,
+    setDoc,
+    getDoc,
+    doc,
+    query,
+    orderBy,
+    onSnapshot,
+    serverTimestamp
+  }
+  from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+  // =========================
+  // FIREBASE
+  // =========================
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBvEGBT5yvkcPoziNc3U9rh87IEkOn_7eM",
+    authDomain: "dost-chat-a7eec.firebaseapp.com",
+    projectId: "dost-chat-a7eec",
+    storageBucket: "dost-chat-a7eec.firebasestorage.app",
+    messagingSenderId: "760944205758",
+    appId: "1:760944205758:web:41d06ed0c34b3f24f8a3ef"
+  };
+
+  const app = initializeApp(firebaseConfig);
+
+  const auth = getAuth(app);
+
+  const db = getFirestore(app);
+
+
+  // =========================
+  // CURRENT USER
+  // =========================
+
+  let currentUser = null;
+  let selectedUser = null;
+  let unsubscribeMessages = null;
+
+
+  // =========================
+  // LANGUAGE
+  // =========================
+
+  let language =
+    localStorage.getItem("language") || "ur";
+
+
+  const translations = {
+
+    ur: {
+
+      title: "Dost Chat",
+
+      registerTitle: "رجسٹریشن",
+
+      name: "آپ کا نام",
+
+      email: "Email",
+
+      password: "Password",
+
+      register: "رجسٹر کریں",
+
+      login: "Login",
+
+      welcome: "خوش آمدید",
+
+      friends: "دوست",
+
+      logout: "Logout",
+
+      send: "Send",
+
+      message: "پیغام لکھیں...",
+
+      back: "واپس",
+
+      online: "🟢 آن لائن",
+
+      offline: "⚫ آف لائن",
+
+      noUsers: "ابھی کوئی دوسرا صارف موجود نہیں۔",
+
+      fillAll: "تمام معلومات درج کریں۔",
+
+      loginInfo: "Email اور Password درج کریں۔",
+
+      registerSuccess: "رجسٹریشن کامیاب ہوگئی۔",
+
+      voiceSoon: "Voice Call اگلے مرحلے میں شامل ہوگی۔",
+
+      videoSoon: "Video Call اگلے مرحلے میں شامل ہوگی۔"
+
+    },
+
+    en: {
+
+      title: "Dost Chat",
+
+      registerTitle: "Registration",
+
+      name: "Your Name",
+
+      email: "Email",
+
+      password: "Password",
+
+      register: "Register",
+
+      login: "Login",
+
+      welcome: "Welcome",
+
+      friends: "Friends",
+
+      logout: "Logout",
+
+      send: "Send",
+
+      message: "Write a message...",
+
+      back: "Back",
+
+      online: "🟢 Online",
+
+      offline: "⚫ Offline",
+
+      noUsers: "No other users yet.",
+
+      fillAll: "Please fill all information.",
+
+      loginInfo: "Enter Email and Password.",
+
+      registerSuccess: "Registration successful.",
+
+      voiceSoon: "Voice Call will be added in the next step.",
+
+      videoSoon: "Video Call will be added in the next step."
+
+    }
+
+  };
+
+
+  function setLanguage(lang) {
+
+    language = lang;
+
+    localStorage.setItem("language", lang);
+
+    updateLanguage();
+
+  }
+
+
+  window.setLanguage = setLanguage;
+
+
+  function updateLanguage() {
+
+    const t = translations[language];
+
+    const isUrdu = language === "ur";
+
+
+    document.documentElement.lang =
+      language;
+
+    document.documentElement.dir =
+      isUrdu ? "rtl" : "ltr";
+
+
+    document.getElementById("appTitle")
+      .textContent = t.title;
+
+    document.getElementById("authTitle")
+      .textContent = t.registerTitle;
+
+    document.getElementById("name")
+      .placeholder = t.name;
+
+    document.getElementById("email")
+      .placeholder = t.email;
+
+    document.getElementById("password")
+      .placeholder = t.password;
+
+    document.getElementById("registerBtn")
+      .textContent = t.register;
+
+    document.getElementById("loginBtn")
+      .textContent = t.login;
+
+    document.getElementById("welcomeTitle")
+      .textContent = t.welcome;
+
+    document.getElementById("usersTitle")
+      .textContent = t.friends;
+
+    document.getElementById("logoutBtn")
+      .textContent = t.logout;
+
+    document.getElementById("sendBtn")
+      .textContent = t.send;
+
+    document.getElementById("messageInput")
+      .placeholder = t.message;
+
+    document.getElementById("backBtn")
+      .textContent = t.back;
+
+    if (selectedUser) {
+
+      chatUserStatus.textContent =
+        selectedUser.online
+          ? t.online
+          : t.offline;
+
+    }
+
+  }
+
+
+  // =========================
+  // ELEMENTS
+  // =========================
+
+  const authScreen =
+    document.getElementById("authScreen");
+
+  const homeScreen =
+    document.getElementById("homeScreen");
+
+  const chatScreen =
+    document.getElementById("chatScreen");
+
+  const nameInput =
+    document.getElementById("name");
+
+  const emailInput =
+    document.getElementById("email");
+
+  const passwordInput =
+    document.getElementById("password");
+
+  const authMessage =
+    document.getElementById("authMessage");
+
+  const usersList =
+    document.getElementById("usersList");
+
+  const myName =
+    document.getElementById("myName");
+
+  const myEmail =
+    document.getElementById("myEmail");
+
+  const messages =
+    document.getElementById("messages");
+
+  const messageInput =
+    document.getElementById("messageInput");
+
+  const chatUserName =
+    document.getElementById("chatUserName");
+
+  const chatUserStatus =
+    document.getElementById("chatUserStatus");
+
+
+  // =========================
+  // SHOW ERROR
+  // =========================
+
+  function showMessage(message) {
+
+    authMessage.textContent = message;
+
+    authMessage.classList.remove("hidden");
+
+  }
+
+
+  // =========================
+  // REGISTER
+  // =========================
+
+  document
+    .getElementById("registerBtn")
+    .addEventListener("click", async () => {
+
+      const name =
+        nameInput.value.trim();
+
+      const email =
+        emailInput.value.trim();
+
+      const password =
+        passwordInput.value;
+
+
+      if (!name || !email || !password) {
+
+        showMessage(
+          translations[language].fillAll
+        );
+
+        return;
+
+      }
+
+
+      if (password.length < 6) {
+
+        showMessage(
+          language === "ur"
+            ? "Password کم از کم 6 حروف کا ہونا چاہیے۔"
+            : "Password must be at least 6 characters."
+        );
+
+        return;
+
+      }
+
+
+      try {
+
+        showMessage(
+          language === "ur"
+            ? "رجسٹریشن ہو رہی ہے..."
+            : "Registering..."
+        );
+
+
+        const result =
+          await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+
+
+        const user =
+          result.user;
+
+
+        await setDoc(
+          doc(db, "users", user.uid),
+          {
+
+            uid: user.uid,
+
+            name: name,
+
+            email: email,
+
+            online: true,
+
+            createdAt:
+              serverTimestamp()
+
+          }
+        );
+
+
+        showMessage(
+          translations[language].registerSuccess
+        );
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        showMessage(
+          getFirebaseError(error)
+        );
+
+      }
+
+    });
+
+
+  // =========================
+  // LOGIN
+  // =========================
+
+  document
+    .getElementById("loginBtn")
+    .addEventListener("click", async () => {
+
+      const email =
+        emailInput.value.trim();
+
+      const password =
+        passwordInput.value;
+
+
+      if (!email || !password) {
+
+        showMessage(
+          translations[language].loginInfo
+        );
+
+        return;
+
+      }
+
+
+      try {
+
+        showMessage(
+          language === "ur"
+            ? "Login ہو رہا ہے..."
+            : "Logging in..."
+        );
+
+
+        await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        showMessage(
+          getFirebaseError(error)
+        );
+
+      }
+
+    });
+
+
+  // =========================
+  // AUTH STATE
+  // =========================
+
+  onAuthStateChanged(
+    auth,
+    async (user) => {
+
+      if (!user) {
+
+        currentUser = null;
+
+        authScreen.classList.remove("hidden");
+
+        homeScreen.classList.add("hidden");
+
+        chatScreen.classList.add("hidden");
+
+        return;
+
+      }
+
+
+      currentUser = user;
+
+
+      authScreen.classList.add("hidden");
+
+      homeScreen.classList.remove("hidden");
+
+      chatScreen.classList.add("hidden");
+
+
+      try {
+
+        const userDoc =
+          await getDoc(
+            doc(db, "users", user.uid)
+          );
+
+
+        if (userDoc.exists()) {
+
+          const data =
+            userDoc.data();
+
+          myName.textContent =
+            data.name || "User";
+
+          myEmail.textContent =
+            data.email || user.email;
+
+        }
+
+
+        await setDoc(
+          doc(db, "users", user.uid),
+          {
+            online: true
+          },
+          {
+            merge: true
+          }
+        );
+
+
+        loadUsers();
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        showMessage(
+          getFirebaseError(error)
+        );
+
+      }
+
+    }
+  );
+
+
+  // =========================
+  // USERS
+  // =========================
+
+  function loadUsers() {
+
+    const usersRef =
+      collection(db, "users");
+
+
+    onSnapshot(
+      usersRef,
+      (snapshot) => {
+
+        usersList.innerHTML = "";
+
+
+        snapshot.forEach(
+          (userDoc) => {
+
+            if (
+              userDoc.id === currentUser.uid
+            ) {
+
+              return;
+
+            }
+
+
+            const data =
+              userDoc.data();
+
+
+            const div =
+              document.createElement("div");
+
+
+            div.className = "user";
+
+
+            const name =
+              document.createElement("strong");
+
+            name.textContent =
+              data.name || "User";
+
+
+            const status =
+              document.createElement("span");
+
+            status.className =
+              "status";
+
+
+            status.textContent =
+              data.online
+                ? translations[language].online
+                : translations[language].offline;
+
+
+            div.appendChild(name);
+
+            div.appendChild(status);
+
+
+            div.addEventListener(
+              "click",
+              () => {
+
+                openChat({
+
+                  uid: userDoc.id,
+
+                  name:
+                    data.name || "User",
+
+                  online:
+                    data.online || false
+
+                });
+
+              }
+            );
+
+
+            usersList.appendChild(div);
+
+          }
+        );
+
+
+        if (!usersList.children.length) {
+
+          usersList.textContent =
+            translations[language].noUsers;
+
+        }
+
+      },
+
+      (error) => {
+
+        console.error(error);
+
+        usersList.textContent =
+          getFirebaseError(error);
+
+      }
+
+    );
+
+  }
+
+
+  // =========================
+  // OPEN CHAT
+  // =========================
+
+  function openChat(user) {
+
+    selectedUser = user;
+
+    homeScreen.classList.add("hidden");
+
+    chatScreen.classList.remove("hidden");
+
+    chatUserName.textContent =
+      user.name;
+
+    chatUserStatus.textContent =
+      user.online
+        ? translations[language].online
+        : translations[language].offline;
+
+
+    loadMessages();
+
+  }
+
+
+  // =========================
+  // CHAT ID
+  // =========================
+
+  function getChatId() {
+
+    const ids = [
+
+      currentUser.uid,
+
+      selectedUser.uid
+
+    ];
+
+    ids.sort();
+
+    return ids.join("_");
+
+  }
+
+
+  // =========================
+  // LOAD MESSAGES
+  // =========================
+
+  function loadMessages() {
+
+    if (unsubscribeMessages) {
+
+      unsubscribeMessages();
+
+    }
+
+
+    messages.innerHTML = "";
+
+
+    const chatId =
+      getChatId();
+
+
+    const messagesRef =
+      collection(
+        db,
+        "chats",
+        chatId,
+        "messages"
+      );
+
+
+    const q =
+      query(
+        messagesRef,
+        orderBy("createdAt", "asc")
+      );
+
+
+    unsubscribeMessages =
+      onSnapshot(
+        q,
+        (snapshot) => {
+
+          messages.innerHTML = "";
+
+
+          snapshot.forEach(
+            (messageDoc) => {
+
+              const data =
+                messageDoc.data();
+
+
+              const div =
+                document.createElement("div");
+
+
+              div.className =
+                "bubble " +
+                (
+                  data.senderId === currentUser.uid
+                    ? "mine"
+                    : "theirs"
+                );
+
+
+              div.textContent =
+                data.text || "";
+
+
+              messages.appendChild(div);
+
+            }
+          );
+
+
+          messages.scrollTop =
+            messages.scrollHeight;
+
+        },
+
+        (error) => {
+
+          console.error(error);
+
+        }
+
+      );
+
+  }
+
+
+  // =========================
+  // SEND MESSAGE
+  // =========================
+
+  document
+    .getElementById("sendBtn")
+    .addEventListener(
+      "click",
+      sendMessage
+    );
+
+
+  messageInput
+    .addEventListener(
+      "keydown",
+      (event) => {
+
+        if (event.key === "Enter") {
+
+          sendMessage();
+
+        }
+
+      }
+    );
+
+
+  async function sendMessage() {
+
+    const text =
+      messageInput.value.trim();
+
+
+    if (!text) return;
+
+
+    if (!currentUser || !selectedUser) {
+
+      return;
+
+    }
+
+
+    try {
+
+      const chatId =
+        getChatId();
+
+
+      await addDoc(
+        collection(
+          db,
+          "chats",
+          chatId,
+          "messages"
+        ),
+        {
+
+          text: text,
+
+          senderId:
+            currentUser.uid,
+
+          receiverId:
+            selectedUser.uid,
+
+          createdAt:
+            serverTimestamp()
+
+        }
+      );
+
+
+      messageInput.value = "";
+
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert(
+        getFirebaseError(error)
+      );
+
+    }
+
+  }
+
+
+  // =========================
+  // BACK
+  // =========================
+
+  document
+    .getElementById("backBtn")
+    .addEventListener(
+      "click",
+      () => {
+
+        if (unsubscribeMessages) {
+
+          unsubscribeMessages();
+
+          unsubscribeMessages = null;
+
+        }
+
+
+        chatScreen.classList.add("hidden");
+
+        homeScreen.classList.remove("hidden");
+
+      }
+    );
+
+
+  // =========================
+  // LOGOUT
+  // =========================
+
+  document
+    .getElementById("logoutBtn")
+    .addEventListener(
+      "click",
+      async () => {
+
+        try {
+
+          if (currentUser) {
+
+            await setDoc(
+              doc(
+                db,
+                "users",
+                currentUser.uid
+              ),
+              {
+                online: false
+              },
+              {
+                merge: true
+              }
+            );
+
+          }
+
+
+          await signOut(auth);
+
+
+        } catch (error) {
+
+          console.error(error);
+
+        }
+
+      }
+    );
+
+
+  // =========================
+  // CALL BUTTONS
+  // =========================
+
+  document
+    .getElementById("voiceCallBtn")
+    .addEventListener(
+      "click",
+      () => {
+
+        alert(
+          translations[language].voiceSoon
+        );
+
+      }
+    );
+
+
+  document
+    .getElementById("videoCallBtn")
+    .addEventListener(
+      "click",
+      () => {
+
+        alert(
+          translations[language].videoSoon
+        );
+
+      }
+    );
+
+
+  // =========================
+  // FIREBASE ERRORS
+  // =========================
+
+  function getFirebaseError(error) {
+
+    const code =
+      error.code || "";
+
+
+    if (code === "auth/email-already-in-use") {
+
+      return language === "ur"
+        ? "یہ Email پہلے سے رجسٹر ہے۔ Login کریں۔"
+        : "This email is already registered. Please login.";
+
+    }
+
+
+    if (code === "auth/invalid-email") {
+
+      return language === "ur"
+        ? "Email درست نہیں ہے۔"
+        : "Invalid email address.";
+
+    }
+
+
+    if (code === "auth/weak-password") {
+
+      return language === "ur"
+        ? "Password کمزور ہے۔ کم از کم 6 حروف رکھیں۔"
+        : "Password is too weak. Use at least 6 characters.";
+
+    }
+
+
+    if (code === "auth/invalid-credential") {
+
+      return language === "ur"
+        ? "Email یا Password غلط ہے۔"
+        : "Incorrect email or password.";
+
+    }
+
+
+    if (code === "auth/operation-not-allowed") {
+
+      return language === "ur"
+        ? "Firebase میں Email/Password Login ابھی Enable نہیں ہے۔"
+        : "Email/Password authentication is not enabled in Firebase.";
+
+    }
+
+
+    if (code === "permission-denied") {
+
+      return language === "ur"
+        ? "Firebase Firestore Permission کا مسئلہ ہے۔"
+        : "Firebase Firestore permission denied.";
+
+    }
+
+
+    return error.message || "Unknown error";
+
+  }
+
+
+  // Start language
+  updateLanguage();
+
+</script>
+
+</body>
+</html>
