@@ -2,58 +2,50 @@
 <html lang="ur" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Dost Chat</title>
 
 <style>
 *{box-sizing:border-box}
-
 body{
  margin:0;
  font-family:Arial,sans-serif;
  background:#e9edef;
 }
-
 .app{
  max-width:520px;
  margin:auto;
  min-height:100vh;
- background:white;
+ background:#fff;
 }
-
 .header{
+ height:60px;
  background:#075e54;
- color:white;
- padding:17px;
- text-align:center;
- font-size:24px;
+ color:#fff;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:0 12px;
+}
+.header-title{
+ font-size:21px;
  font-weight:bold;
 }
-
-.lang{
- display:flex;
- gap:5px;
- padding:7px;
- background:#f5f5f5;
+.header button{
+ background:transparent;
+ color:white;
+ font-size:28px;
+ padding:3px 8px;
 }
-
-.lang button{
- flex:1;
-}
-
-.box{
- padding:15px;
-}
-
-input,select{
+.box{padding:18px}
+input{
  width:100%;
  padding:13px;
- margin:5px 0;
+ margin:6px 0;
  border:1px solid #ccc;
  border-radius:9px;
  font-size:16px;
 }
-
 button{
  border:0;
  border-radius:9px;
@@ -62,233 +54,141 @@ button{
  background:#075e54;
  color:white;
  font-size:15px;
+ cursor:pointer;
 }
-
-.full{
- width:100%;
-}
-
+.full{width:100%}
 .green{background:#128c7e}
 .blue{background:#1976d2}
 .red{background:#d32f2f}
 .gray{background:#777}
+.hidden{display:none!important}
 
-.hidden{
- display:none!important;
+.remember{
+ display:flex;
+ align-items:center;
+ gap:8px;
+ font-size:14px;
+ margin:8px 0;
+}
+.remember input{width:auto}
+
+.menu{
+ position:fixed;
+ top:58px;
+ right:calc(50% - 250px);
+ width:240px;
+ max-width:90%;
+ background:white;
+ box-shadow:0 5px 25px #0004;
+ border-radius:8px;
+ z-index:100;
+ overflow:hidden;
+}
+.menu button{
+ display:block;
+ width:100%;
+ text-align:right;
+ background:white;
+ color:#222;
+ margin:0;
+ border-radius:0;
+ padding:14px;
+ border-bottom:1px solid #eee;
+}
+.menu button:hover{background:#f2f2f2}
+
+.back{
+ background:#075e54;
+ color:white;
+ width:45px;
 }
 
-.user,.group{
+.page-title{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ background:#075e54;
+ color:white;
+ padding:8px;
+}
+
+.option{
+ padding:15px;
+ border-bottom:1px solid #eee;
+ cursor:pointer;
+}
+.option strong{display:block}
+.option small{color:#777}
+
+.user{
  background:#f3f3f3;
  padding:13px;
  margin:7px 0;
  border-radius:10px;
- cursor:pointer;
-}
-
-.user strong,.group strong{
- display:block;
- font-size:17px;
-}
-
-.small{
- color:#777;
- font-size:13px;
 }
 
 .search{
  display:flex;
  gap:5px;
 }
+.search input{flex:1}
+.search button{width:80px}
 
-.search input{
- flex:1;
-}
-
-.search button{
- width:85px;
-}
-
-.tabs{
- display:flex;
- gap:5px;
- margin-bottom:10px;
-}
-
-.tabs button{
- flex:1;
-}
-
-.chatHead{
+.chat-head{
  background:#075e54;
- color:white;
- padding:10px;
- display:flex;
- justify-content:space-between;
- align-items:center;
-}
-
-.chatActions{
- display:flex;
- gap:3px;
-}
-
-.chatActions button{
- margin:0;
+ color:#fff;
  padding:8px;
+ display:flex;
+ align-items:center;
+ gap:8px;
 }
-
-.typing{
- font-size:12px;
- color:#caffca;
-}
+.chat-head-info{flex:1}
+.chat-actions{display:flex;gap:2px}
+.chat-actions button{padding:8px;margin:0}
 
 .messages{
- height:calc(100vh - 245px);
+ height:calc(100vh - 200px);
  min-height:400px;
  overflow-y:auto;
  background:#e5ddd5;
  padding:12px;
 }
-
 .msg{
  max-width:78%;
  padding:9px 12px;
  margin:6px 0;
  border-radius:10px;
  clear:both;
- word-break:break-word;
 }
-
-.mine{
- float:right;
- background:#dcf8c6;
-}
-
-.theirs{
- float:left;
- background:white;
-}
-
-.time{
- display:block;
- font-size:10px;
- color:#777;
- margin-top:4px;
-}
-
+.mine{float:right;background:#dcf8c6}
+.theirs{float:left;background:white}
 .send{
  display:flex;
  gap:5px;
  padding:7px;
 }
+.send input{flex:1;margin:0}
+.send button{width:75px;margin:0}
 
-.send input{
- flex:1;
- margin:0;
+.status{
+ color:#777;
+ font-size:13px;
+}
+.typing{
+ color:#b9ffd0;
+ font-size:12px;
 }
 
-.send button{
- width:75px;
- margin:0;
-}
-
-.callScreen{
+.toast{
  position:fixed;
- inset:0;
- z-index:1000;
- background:#111;
- color:white;
-}
-
-.remoteVideo{
- width:100%;
- height:100%;
- object-fit:cover;
+ bottom:20px;
+ left:50%;
+ transform:translateX(-50%);
  background:#222;
-}
-
-.localVideo{
- position:absolute;
- top:65px;
- right:12px;
- width:120px;
- height:170px;
- object-fit:cover;
- border:2px solid white;
- border-radius:10px;
- background:#333;
-}
-
-.callTop{
- position:absolute;
- top:15px;
- left:0;
- right:0;
- text-align:center;
- z-index:3;
-}
-
-.callButtons{
- position:absolute;
- bottom:25px;
- left:0;
- right:0;
- text-align:center;
- z-index:3;
-}
-
-.callButtons button{
- width:60px;
- height:55px;
- border-radius:50%;
- margin:5px;
-}
-
-.incoming{
- position:fixed;
- inset:0;
- z-index:2000;
- background:rgba(0,0,0,.9);
  color:white;
- display:flex;
- align-items:center;
- justify-content:center;
- text-align:center;
-}
-
-.incomingBox{
- width:90%;
- max-width:350px;
- padding:25px;
-}
-
-.modal{
- position:fixed;
- inset:0;
- z-index:1500;
- background:rgba(0,0,0,.7);
- display:flex;
- align-items:center;
- justify-content:center;
-}
-
-.modalBox{
- width:92%;
- max-width:400px;
- background:white;
- border-radius:12px;
- padding:18px;
- max-height:90vh;
- overflow:auto;
-}
-
-.member{
- padding:10px;
- border-bottom:1px solid #ddd;
-}
-
-.check{
- width:auto;
+ padding:12px 18px;
+ border-radius:8px;
+ z-index:9999;
 }
 </style>
 </head>
@@ -297,52 +197,74 @@ button{
 
 <div class="app">
 
+<!-- HEADER -->
 <div class="header">
- Dost Chat
+ <div class="header-title">Dost Chat</div>
+
+ <button id="menuButton" onclick="toggleMenu()">⋮</button>
 </div>
 
-<div class="lang">
-<button onclick="changeLang('ur')">اردو</button>
-<button onclick="changeLang('en')">English</button>
+
+<!-- THREE DOT MENU -->
+<div id="menu" class="menu hidden">
+
+<button onclick="newGroup()">👥 New Group</button>
+<button onclick="newCommunity()">👨‍👩‍👧 New Community</button>
+<button onclick="broadcast()">📢 Broadcast Lists</button>
+<button onclick="linkDevices()">🔗 Link Devices</button>
+<button onclick="starred()">⭐ Starred</button>
+<button onclick="readAll()">✓ Read All</button>
+<button onclick="openSettings()">⚙️ Settings</button>
+<button onclick="logout()">🚪 Logout</button>
+
 </div>
 
 
 <!-- LOGIN -->
-
 <section id="loginPage">
 
 <div class="box">
 
-<h2 id="loginTitle">Login / رجسٹریشن</h2>
+<h2>خوش آمدید / Welcome</h2>
 
-<input id="nameInput" placeholder="نام">
+<input id="name"
+placeholder="نام / Name">
 
-<input id="emailInput" type="email" placeholder="Email">
+<input id="email"
+type="email"
+placeholder="Gmail / Email">
 
-<input id="passwordInput" type="password" placeholder="Password">
+<input id="password"
+type="password"
+placeholder="Password">
 
-<button class="full" onclick="registerEmail()">
-رجسٹر کریں
+<label class="remember">
+<input id="remember" type="checkbox">
+<span>Remember me</span>
+</label>
+
+<button class="full" onclick="sendOTP()">
+📧 Email پر OTP بھیجیں
 </button>
 
-<button class="green full" onclick="loginEmail()">
-Login
+<div id="otpArea" class="hidden">
+
+<input
+ id="otp"
+ maxlength="4"
+ inputmode="numeric"
+ placeholder="4 ہندسوں کا OTP">
+
+<button class="green full" onclick="verifyOTP()">
+✓ OTP Verify کریں
 </button>
+
+</div>
 
 <hr>
 
-<input id="phoneInput" placeholder="+923001234567">
-
-<div id="recaptcha"></div>
-
-<button class="blue full" onclick="sendPhoneOTP()">
-📱 موبائل OTP بھیجیں
-</button>
-
-<input id="otpInput" placeholder="OTP">
-
-<button class="green full" onclick="verifyPhoneOTP()">
-OTP Verify
+<button class="blue full" onclick="normalLogin()">
+Email + Password Login
 </button>
 
 <div id="loginMessage"></div>
@@ -353,40 +275,26 @@ OTP Verify
 
 
 <!-- HOME -->
-
 <section id="homePage" class="hidden">
 
 <div class="box">
 
-<h2 id="welcomeText">خوش آمدید</h2>
+<h2>Chats</h2>
 
-<div id="myProfile"></div>
-
-<button class="red full" onclick="logout()">
-Logout
-</button>
-
-<div class="tabs">
-<button onclick="showUsers()">👤 Users</button>
-<button onclick="showGroups()">👥 Groups</button>
-<button onclick="openGroupModal()">➕ Group</button>
-</div>
+<div id="profile"></div>
 
 <div class="search">
-
 <input
- id="numberSearch"
- placeholder="+923001234567">
-
-<button onclick="searchNumber()">
-Search
-</button>
-
+ id="searchEmail"
+ placeholder="Email سے user تلاش کریں">
+<button onclick="searchUser()">Search</button>
 </div>
 
 <div id="searchResult"></div>
 
-<div id="content"></div>
+<h3>Users</h3>
+
+<div id="users"></div>
 
 </div>
 
@@ -394,35 +302,25 @@ Search
 
 
 <!-- CHAT -->
-
 <section id="chatPage" class="hidden">
 
-<div class="chatHead">
+<div class="chat-head">
 
-<div>
+<button onclick="backHome()">←</button>
+
+<div class="chat-head-info">
 
 <strong id="chatName"></strong>
 
-<div id="chatStatus"></div>
+<div id="chatStatus" class="status"></div>
 
-<div id="typingText" class="typing"></div>
+<div id="typing" class="typing"></div>
 
 </div>
 
-<div class="chatActions">
-
-<button onclick="startCall(false)">
-🎤
-</button>
-
-<button onclick="startCall(true)">
-📹
-</button>
-
-<button onclick="closeChat()">
-↩
-</button>
-
+<div class="chat-actions">
+<button onclick="voiceCall()">🎤</button>
+<button onclick="videoCall()">📹</button>
 </div>
 
 </div>
@@ -432,7 +330,7 @@ Search
 <div class="send">
 
 <input
- id="messageInput"
+ id="message"
  placeholder="پیغام لکھیں...">
 
 <button onclick="sendMessage()">
@@ -443,112 +341,81 @@ Send
 
 </section>
 
+
+<!-- SETTINGS -->
+<section id="settingsPage" class="hidden">
+
+<div class="page-title">
+<button class="back" onclick="backHome()">←</button>
+<strong>Settings</strong>
 </div>
 
+<div class="box">
 
-<!-- GROUP MODAL -->
-
-<div id="groupModal" class="modal hidden">
-
-<div class="modalBox">
-
-<h2 id="groupTitle">
-Create Group
-</h2>
-
-<input
- id="groupName"
- placeholder="Group Name">
-
-<div id="memberList"></div>
-
-<button
- class="green full"
- onclick="createGroup()">
-Create Group
-</button>
-
-<button
- class="red full"
- onclick="closeGroupModal()">
-Cancel
-</button>
-
+<div class="option" onclick="openSetting('Account')">
+<strong>👤 Account</strong>
+<small>Account information and security</small>
 </div>
 
+<div class="option" onclick="openSetting('Privacy')">
+<strong>🔒 Privacy</strong>
+<small>Last seen, profile and privacy</small>
 </div>
 
-
-<!-- CALL -->
-
-<div id="callScreen" class="callScreen hidden">
-
-<div class="callTop">
-<div id="callName"></div>
-<div id="callType"></div>
+<div class="option" onclick="openSetting('Lists')">
+<strong>📋 Lists</strong>
+<small>Manage chat lists</small>
 </div>
 
-<video
- id="remoteVideo"
- class="remoteVideo"
- autoplay
- playsinline>
-</video>
+<div class="option" onclick="openSetting('Chats')">
+<strong>💬 Chats</strong>
+<small>Chat settings and backup</small>
+</div>
 
-<video
- id="localVideo"
- class="localVideo"
- autoplay
- muted
- playsinline>
-</video>
+<div class="option" onclick="openSetting('Notifications')">
+<strong>🔔 Notifications</strong>
+<small>Messages and call notifications</small>
+</div>
 
-<div class="callButtons">
+<div class="option" onclick="openSetting('Theme')">
+<strong>🎨 Theme</strong>
+<small>Light / Dark appearance</small>
+</div>
 
-<button onclick="toggleMic()">
-🎤
-</button>
+<div class="option" onclick="openSetting('Language')">
+<strong>🌐 Language</strong>
+<small>اردو / English</small>
+</div>
 
-<button onclick="toggleCamera()">
-📹
-</button>
+<div class="option" onclick="openSetting('Help')">
+<strong>❓ Help</strong>
+<small>Help and support</small>
+</div>
 
-<button class="red" onclick="endCall()">
-📞
-</button>
-
+<div class="option" onclick="openSetting('About')">
+<strong>ℹ️ About</strong>
+<small>About Dost Chat</small>
 </div>
 
 </div>
 
+</section>
 
-<!-- INCOMING CALL -->
 
-<div id="incomingCall" class="incoming hidden">
+<!-- SETTING DETAIL -->
+<section id="settingDetail" class="hidden">
 
-<div class="incomingBox">
-
-<h1>📞</h1>
-
-<h2 id="incomingCaller">
-Incoming Call
-</h2>
-
-<p id="incomingCallType"></p>
-
-<button
- class="green full"
- onclick="acceptCall()">
-Accept
-</button>
-
-<button
- class="red full"
- onclick="rejectCall()">
-Reject
-</button>
-
+<div class="page-title">
+<button class="back" onclick="openSettings()">←</button>
+<strong id="settingTitle"></strong>
 </div>
+
+<div class="box" id="settingContent"></div>
+
+</section>
+
+
+<div id="toast" class="toast hidden"></div>
 
 </div>
 
@@ -559,143 +426,195 @@ import {initializeApp}
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 import {
- getAuth,
- createUserWithEmailAndPassword,
- signInWithEmailAndPassword,
- signInWithPhoneNumber,
- RecaptchaVerifier,
- onAuthStateChanged,
- signOut
+getAuth,
+createUserWithEmailAndPassword,
+signInWithEmailAndPassword,
+onAuthStateChanged,
+setPersistence,
+browserLocalPersistence,
+browserSessionPersistence,
+signOut
 }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 import {
- getFirestore,
- collection,
- doc,
- setDoc,
- getDoc,
- getDocs,
- addDoc,
- query,
- where,
- orderBy,
- onSnapshot,
- serverTimestamp,
- updateDoc
+getFirestore,
+collection,
+doc,
+setDoc,
+getDoc,
+getDocs,
+query,
+where,
+addDoc,
+onSnapshot,
+orderBy,
+serverTimestamp
 }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
-/* FIREBASE */
-
 const firebaseConfig={
- apiKey:"AIzaSyBvEGBT5yvkcPoziNc3U9rh87IEkOn_7eM",
- authDomain:"dost-chat-a7eec.firebaseapp.com",
- projectId:"dost-chat-a7eec",
- storageBucket:"dost-chat-a7eec.firebasestorage.app",
- messagingSenderId:"760944205758",
- appId:"1:760944205758:web:41d06ed0c34b3f24f8a3ef"
+apiKey:"AIzaSyBvEGBT5yvkcPoziNc3U9rh87IEkOn_7eM",
+authDomain:"dost-chat-a7eec.firebaseapp.com",
+projectId:"dost-chat-a7eec",
+storageBucket:"dost-chat-a7eec.firebasestorage.app",
+messagingSenderId:"760944205758",
+appId:"1:760944205758:web:41d06ed0c34b3f24f8a3ef"
 };
 
 const app=initializeApp(firebaseConfig);
-
 const auth=getAuth(app);
-
 const db=getFirestore(app);
-
-
-/* VARIABLES */
 
 let currentUser=null;
 let selectedUser=null;
-let selectedGroup=null;
-
-let confirmOTP=null;
-
-let messageUnsub=null;
-let typingUnsub=null;
-let callUnsub=null;
-
-let peer=null;
-let localStream=null;
-let remoteStream=null;
-
-let currentCallId=null;
-let caller=false;
-let videoMode=false;
+let messagesUnsub=null;
 
 
-/* LANGUAGE */
+/* ================= MENU ================= */
 
-let lang=
-localStorage.getItem("lang")||"ur";
+window.toggleMenu=()=>{
+document.getElementById("menu")
+.classList.toggle("hidden");
+};
 
-const text={
-ur:{
- online:"🟢 آن لائن",
- offline:"⚫ آف لائن",
- typing:"لکھ رہا ہے...",
- noUsers:"کوئی دوسرا صارف نہیں۔",
- noGroups:"ابھی کوئی گروپ نہیں۔",
- notFound:"اس نمبر سے کوئی صارف رجسٹرڈ نہیں۔",
- voice:"Voice Call",
- video:"Video Call"
-},
-en:{
- online:"🟢 Online",
- offline:"⚫ Offline",
- typing:"typing...",
- noUsers:"No other users.",
- noGroups:"No groups yet.",
- notFound:"No user registered with this number.",
- voice:"Voice Call",
- video:"Video Call"
+function closeMenu(){
+document.getElementById("menu")
+.classList.add("hidden");
 }
-};
-
-window.changeLang=function(x){
-
-lang=x;
-
-localStorage.setItem("lang",x);
-
-document.documentElement.lang=x;
-
-document.documentElement.dir=
-x==="ur"?"rtl":"ltr";
-
-};
 
 
-/* EMAIL REGISTER */
+/* ================= OTP ================= */
 
-window.registerEmail=async()=>{
+/*
+ IMPORTANT:
+ sendOTP() calls your secure backend.
+ The backend must:
+ 1. Generate a random 4 digit OTP.
+ 2. Store a HASH of OTP temporarily.
+ 3. Send OTP to user's email.
+ 4. Expire OTP after a few minutes.
+
+ Put your deployed backend URL below.
+*/
+
+const OTP_API="YOUR_OTP_BACKEND_URL";
+
+
+window.sendOTP=async()=>{
 
 const name=
-document.getElementById("nameInput")
-.value.trim();
+document.getElementById("name").value.trim();
 
 const email=
-document.getElementById("emailInput")
-.value.trim();
+document.getElementById("email").value.trim();
 
 const password=
-document.getElementById("passwordInput")
-.value;
+document.getElementById("password").value;
 
 if(!name||!email||!password){
 
-showLogin("تمام معلومات درج کریں۔");
-
+showToast("Name, Email اور Password درج کریں۔");
 return;
 }
 
 try{
 
+const response=await fetch(
+OTP_API+"/send-otp",
+{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+name,
+email
+})
+}
+);
+
+const data=await response.json();
+
+if(!response.ok)
+throw new Error(data.message||"OTP error");
+
+document.getElementById("otpArea")
+.classList.remove("hidden");
+
+showToast("OTP آپ کے Email پر بھیج دیا گیا ہے۔");
+
+}catch(e){
+
+console.error(e);
+
+showToast(
+"OTP service ابھی configure نہیں ہوئی۔"
+);
+
+}
+
+};
+
+
+/* ================= VERIFY OTP ================= */
+
+window.verifyOTP=async()=>{
+
+const name=
+document.getElementById("name").value.trim();
+
+const email=
+document.getElementById("email").value.trim();
+
+const password=
+document.getElementById("password").value;
+
+const otp=
+document.getElementById("otp").value.trim();
+
+if(otp.length!==4){
+
+showToast("4 ہندسوں کا OTP درج کریں۔");
+return;
+}
+
+try{
+
+const response=await fetch(
+OTP_API+"/verify-otp",
+{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+email,
+otp
+})
+}
+);
+
+const data=await response.json();
+
+if(!response.ok)
+throw new Error(data.message||"Invalid OTP");
+
+
+await setPersistence(
+auth,
+document.getElementById("remember").checked
+?browserLocalPersistence
+:browserSessionPersistence
+);
+
+
 const result=
 await createUserWithEmailAndPassword(
-auth,email,password
+auth,
+email,
+password
 );
 
 await saveProfile(
@@ -703,37 +622,45 @@ result.user,
 name
 );
 
+showToast("Account بن گیا۔");
+
 }catch(e){
 
 console.error(e);
 
-showLogin(e.message);
+showToast(
+e.message||"OTP verification failed"
+);
 
 }
 
 };
 
 
-/* EMAIL LOGIN */
+/* ================= NORMAL LOGIN ================= */
 
-window.loginEmail=async()=>{
+window.normalLogin=async()=>{
 
 const email=
-document.getElementById("emailInput")
-.value.trim();
+document.getElementById("email").value.trim();
 
 const password=
-document.getElementById("passwordInput")
-.value;
+document.getElementById("password").value;
 
 if(!email||!password){
 
-showLogin("Email اور Password درج کریں۔");
-
+showToast("Email اور Password درج کریں۔");
 return;
 }
 
 try{
+
+await setPersistence(
+auth,
+document.getElementById("remember").checked
+?browserLocalPersistence
+:browserSessionPersistence
+);
 
 await signInWithEmailAndPassword(
 auth,
@@ -745,127 +672,26 @@ password
 
 console.error(e);
 
-showLogin(e.message);
+showToast(e.message);
 
 }
 
 };
 
 
-/* PHONE OTP */
-
-window.sendPhoneOTP=async()=>{
-
-const phone=
-document.getElementById("phoneInput")
-.value.trim();
-
-if(!phone){
-
-showLogin("موبائل نمبر درج کریں۔");
-
-return;
-}
-
-try{
-
-if(!window.phoneRecaptcha){
-
-window.phoneRecaptcha=
-new RecaptchaVerifier(
-auth,
-"recaptcha",
-{
-size:"normal"
-}
-);
-
-}
-
-confirmOTP=
-await signInWithPhoneNumber(
-auth,
-phone,
-window.phoneRecaptcha
-);
-
-showLogin("OTP بھیج دیا گیا ہے۔");
-
-}catch(e){
-
-console.error(e);
-
-showLogin(e.message);
-
-}
-
-};
-
-
-window.verifyPhoneOTP=async()=>{
-
-const code=
-document.getElementById("otpInput")
-.value.trim();
-
-if(!confirmOTP){
-
-showLogin("پہلے OTP حاصل کریں۔");
-
-return;
-}
-
-try{
-
-const result=
-await confirmOTP.confirm(code);
-
-await saveProfile(
-result.user,
-document.getElementById("nameInput")
-.value.trim()
-);
-
-}catch(e){
-
-console.error(e);
-
-showLogin(e.message);
-
-}
-
-};
-
-
-/* SAVE PROFILE */
+/* ================= PROFILE ================= */
 
 async function saveProfile(user,name){
 
-const ref=
-doc(db,"users",user.uid);
-
-const old=
-await getDoc(ref);
-
 await setDoc(
-ref,
+doc(db,"users",user.uid),
 {
 uid:user.uid,
-name:name||
-(old.exists()?old.data().name:"User"),
+name:name||"User",
 email:user.email||"",
-phone:user.phoneNumber||(
-old.exists()?old.data().phone||"":""
-),
-phoneSearch:user.phoneNumber||(
-old.exists()?old.data().phoneSearch||"":""
-),
 online:true,
 lastSeen:serverTimestamp(),
-createdAt:
-old.exists()
-?old.data().createdAt
-:serverTimestamp()
+createdAt:serverTimestamp()
 },
 {merge:true}
 );
@@ -873,7 +699,7 @@ old.exists()
 }
 
 
-/* AUTH STATE */
+/* ================= AUTH ================= */
 
 onAuthStateChanged(
 auth,
@@ -886,8 +712,9 @@ currentUser=null;
 show("loginPage");
 
 hide("homePage");
-
 hide("chatPage");
+hide("settingsPage");
+hide("settingDetail");
 
 return;
 }
@@ -897,20 +724,15 @@ currentUser=user;
 await saveProfile(user,"");
 
 hide("loginPage");
-
 show("homePage");
 
 loadProfile();
+loadUsers();
 
-showUsers();
-
-listenIncomingCalls();
-
-}
-);
+});
 
 
-/* PROFILE */
+/* ================= USERS ================= */
 
 async function loadProfile(){
 
@@ -923,39 +745,31 @@ if(!snap.exists())return;
 
 const d=snap.data();
 
-document.getElementById("myProfile")
+document.getElementById("profile")
 .innerHTML=
 `
 <strong>${safe(d.name||"User")}</strong>
 <br>
-${safe(d.phone||d.email||"")}
+<small>${safe(d.email||"")}</small>
 `;
 
 }
 
 
-/* USERS */
-
-window.showUsers=function(){
-
-const box=
-document.getElementById("content");
-
-box.innerHTML="";
+function loadUsers(){
 
 onSnapshot(
 collection(db,"users"),
 snap=>{
 
-box.innerHTML="";
+const box=
+document.getElementById("users");
 
-let count=0;
+box.innerHTML="";
 
 snap.forEach(s=>{
 
 if(s.id===currentUser.uid)return;
-
-count++;
 
 const d=s.data();
 
@@ -967,137 +781,115 @@ div.className="user";
 div.innerHTML=
 `
 <strong>${safe(d.name||"User")}</strong>
-<div class="small">
-${d.online
-?text[lang].online
-:text[lang].offline}
+<div class="status">
+${safe(d.email||"")}
 </div>
 `;
 
-div.onclick=()=>openPrivateChat({
+div.onclick=()=>{
+openChat({
 uid:s.id,
 name:d.name||"User",
-online:d.online||false
+email:d.email||""
 });
+};
 
 box.appendChild(div);
 
 });
 
-if(count===0)
-box.textContent=text[lang].noUsers;
-
 }
 );
 
-};
+}
 
 
-/* NUMBER SEARCH */
+/* ================= SEARCH ================= */
 
-window.searchNumber=async()=>{
+window.searchUser=async()=>{
 
-const phone=
-document.getElementById("numberSearch")
+const email=
+document.getElementById("searchEmail")
 .value.trim();
 
-const result=
+const box=
 document.getElementById("searchResult");
-
-result.textContent="Searching...";
 
 const q=query(
 collection(db,"users"),
-where("phoneSearch","==",phone)
+where("email","==",email)
 );
 
 const snap=await getDocs(q);
 
 if(snap.empty){
 
-result.textContent=text[lang].notFound;
-
+box.textContent="User نہیں ملا۔";
 return;
 }
 
 const s=snap.docs[0];
-
 const d=s.data();
 
-const div=
-document.createElement("div");
-
-div.className="user";
-
-div.innerHTML=
+box.innerHTML=
 `
+<div class="user">
 <strong>${safe(d.name||"User")}</strong>
-<div class="small">${safe(d.phone||phone)}</div>
+<div>${safe(d.email)}</div>
+</div>
 `;
 
-div.onclick=()=>openPrivateChat({
+box.firstElementChild.onclick=()=>{
+openChat({
 uid:s.id,
 name:d.name||"User",
-online:d.online||false
+email:d.email
 });
-
-result.innerHTML="";
-
-result.appendChild(div);
+};
 
 };
 
 
-/* PRIVATE CHAT */
+/* ================= CHAT ================= */
 
-function privateId(){
+function chatId(){
 
 return [
 currentUser.uid,
 selectedUser.uid
-]
-.sort()
-.join("_");
+].sort().join("_");
 
 }
 
 
-function openPrivateChat(user){
+function openChat(user){
 
 selectedUser=user;
 
-selectedGroup=null;
-
 hide("homePage");
-
 show("chatPage");
 
 document.getElementById("chatName")
 .textContent=user.name;
 
 document.getElementById("chatStatus")
-.textContent=
-user.online
-?text[lang].online
-:text[lang].offline;
+.textContent=user.email;
 
-listenPrivateMessages();
-
-listenTyping();
+listenMessages();
 
 }
 
 
-function listenPrivateMessages(){
+function listenMessages(){
 
-if(messageUnsub)
-messageUnsub();
+if(messagesUnsub)
+messagesUnsub();
 
 const ref=
 collection(
 db,
 "chats",
-privateId(),
+chatId(),
 "messages"
 );
 
@@ -1106,7 +898,7 @@ ref,
 orderBy("createdAt","asc")
 );
 
-messageUnsub=
+messagesUnsub=
 onSnapshot(
 q,
 snap=>{
@@ -1137,45 +929,34 @@ box.appendChild(div);
 
 });
 
-box.scrollTop=
-box.scrollHeight;
+box.scrollTop=box.scrollHeight;
 
 },
 error=>{
-
 console.error(error);
-
-document.getElementById("messages")
-.textContent=
-"Message error: "+error.message;
-
+showToast("Messages error: "+error.message);
 }
 );
 
 }
 
 
-/* SEND PRIVATE MESSAGE */
-
 window.sendMessage=async()=>{
 
 const input=
-document.getElementById("messageInput");
+document.getElementById("message");
 
-const value=
-input.value.trim();
+const value=input.value.trim();
 
-if(!value)return;
+if(!value||!selectedUser)return;
 
 try{
-
-if(selectedUser){
 
 await addDoc(
 collection(
 db,
 "chats",
-privateId(),
+chatId(),
 "messages"
 ),
 {
@@ -1186,972 +967,301 @@ createdAt:serverTimestamp()
 }
 );
 
-}
-
-else if(selectedGroup){
-
-await addDoc(
-collection(
-db,
-"groups",
-selectedGroup.id,
-"messages"
-),
-{
-text:value,
-senderId:currentUser.uid,
-senderName:selectedGroup.name,
-createdAt:serverTimestamp()
-}
-);
-
-}
-
 input.value="";
 
 }catch(e){
 
 console.error(e);
 
-alert("Message error: "+e.message);
+showToast(e.message);
 
 }
 
 };
 
 
-/* TYPING */
+/* ================= BACK ================= */
 
-let typingTimer=null;
+window.backHome=()=>{
 
-document
-.getElementById("messageInput")
-.addEventListener(
-"input",
-async()=>{
-
-if(!selectedUser)return;
-
-const id=privateId();
-
-await setDoc(
-doc(db,"chats",id),
-{
-typing:{
-[currentUser.uid]:true
-}
-},
-{merge:true}
-);
-
-clearTimeout(typingTimer);
-
-typingTimer=
-setTimeout(async()=>{
-
-await setDoc(
-doc(db,"chats",id),
-{
-typing:{
-[currentUser.uid]:false
-}
-},
-{merge:true}
-);
-
-},1200);
-
-}
-);
-
-
-function listenTyping(){
-
-if(typingUnsub)
-typingUnsub();
-
-if(!selectedUser)return;
-
-typingUnsub=
-onSnapshot(
-doc(db,"chats",privateId()),
-snap=>{
-
-if(!snap.exists())return;
-
-const t=snap.data().typing||{};
-
-document.getElementById("typingText")
-.textContent=
-t[selectedUser.uid]
-?text[lang].typing
-:"";
-
-}
-);
-
-}
-
-
-/* GROUPS */
-
-window.showGroups=function(){
-
-const box=
-document.getElementById("content");
-
-box.innerHTML="Loading...";
-
-onSnapshot(
-collection(db,"groups"),
-snap=>{
-
-box.innerHTML="";
-
-let count=0;
-
-snap.forEach(s=>{
-
-const d=s.data();
-
-const members=d.members||[];
-
-if(!members.includes(currentUser.uid))
-return;
-
-count++;
-
-const div=
-document.createElement("div");
-
-div.className="group";
-
-div.innerHTML=
-`
-<strong>👥 ${safe(d.name)}</strong>
-<div class="small">
-${members.length} Members
-</div>
-`;
-
-div.onclick=()=>openGroup({
-id:s.id,
-name:d.name,
-members:members
-});
-
-box.appendChild(div);
-
-});
-
-if(count===0)
-box.textContent=text[lang].noGroups;
-
-}
-);
-
-};
-
-
-/* GROUP MODAL */
-
-window.openGroupModal=function(){
-
-show("groupModal");
-
-loadMemberList();
-
-};
-
-window.closeGroupModal=function(){
-
-hide("groupModal");
-
-};
-
-
-async function loadMemberList(){
-
-const box=
-document.getElementById("memberList");
-
-box.innerHTML="";
-
-const snap=
-await getDocs(collection(db,"users"));
-
-snap.forEach(s=>{
-
-if(s.id===currentUser.uid)return;
-
-const d=s.data();
-
-const div=
-document.createElement("div");
-
-div.className="member";
-
-div.innerHTML=
-`
-<label>
-<input
- class="check"
- type="checkbox"
- value="${s.id}">
- ${safe(d.name||"User")}
-</label>
-`;
-
-box.appendChild(div);
-
-});
-
-}
-
-
-/* CREATE GROUP */
-
-window.createGroup=async()=>{
-
-const name=
-document.getElementById("groupName")
-.value.trim();
-
-if(!name){
-
-alert("Group name لکھیں۔");
-
-return;
-}
-
-const checked=
-[
-...document.querySelectorAll(
-"#memberList input:checked"
-)
-]
-.map(x=>x.value);
-
-checked.push(currentUser.uid);
-
-try{
-
-const ref=
-await addDoc(
-collection(db,"groups"),
-{
-name:name,
-ownerId:currentUser.uid,
-members:checked,
-createdAt:serverTimestamp()
-}
-);
-
-hide("groupModal");
-
-document.getElementById("groupName")
-.value="";
-
-showGroups();
-
-}catch(e){
-
-console.error(e);
-
-alert(e.message);
-
-}
-
-};
-
-
-/* OPEN GROUP */
-
-function openGroup(group){
-
-selectedGroup=group;
-
-selectedUser=null;
-
-hide("homePage");
-
-show("chatPage");
-
-document.getElementById("chatName")
-.textContent="👥 "+group.name;
-
-document.getElementById("chatStatus")
-.textContent=
-group.members.length+" Members";
-
-listenGroupMessages();
-
-}
-
-
-function listenGroupMessages(){
-
-if(messageUnsub)
-messageUnsub();
-
-const ref=
-collection(
-db,
-"groups",
-selectedGroup.id,
-"messages"
-);
-
-const q=query(
-ref,
-orderBy("createdAt","asc")
-);
-
-messageUnsub=
-onSnapshot(
-q,
-snap=>{
-
-const box=
-document.getElementById("messages");
-
-box.innerHTML="";
-
-snap.forEach(s=>{
-
-const d=s.data();
-
-const div=
-document.createElement("div");
-
-div.className=
-"msg "+
-(
-d.senderId===currentUser.uid
-?"mine"
-:"theirs"
-);
-
-div.textContent=
-(d.senderName||"User")+": "+d.text;
-
-box.appendChild(div);
-
-});
-
-box.scrollTop=
-box.scrollHeight;
-
-}
-);
-
-}
-
-
-/* CLOSE CHAT */
-
-window.closeChat=function(){
-
-if(messageUnsub)
-messageUnsub();
-
-if(typingUnsub)
-typingUnsub();
+if(messagesUnsub)
+messagesUnsub();
 
 hide("chatPage");
+hide("settingsPage");
+hide("settingDetail");
 
 show("homePage");
 
-selectedUser=null;
-selectedGroup=null;
+};
+
+
+/* ================= THREE DOT OPTIONS ================= */
+
+window.newGroup=()=>{
+closeMenu();
+showToast("New Group — اگلے مرحلے میں group creation شامل کریں گے۔");
+};
+
+window.newCommunity=()=>{
+closeMenu();
+showToast("New Community");
+};
+
+window.broadcast=()=>{
+closeMenu();
+showToast("Broadcast Lists");
+};
+
+window.linkDevices=()=>{
+closeMenu();
+showToast("Link Devices");
+};
+
+window.starred=()=>{
+closeMenu();
+showToast("Starred Messages");
+};
+
+window.readAll=()=>{
+closeMenu();
+showToast("All messages marked as read.");
+};
+
+
+/* ================= SETTINGS ================= */
+
+window.openSettings=()=>{
+
+closeMenu();
+
+hide("homePage");
+hide("chatPage");
+hide("settingDetail");
+
+show("settingsPage");
 
 };
 
 
-/* =========================
-   WEBRTC CALL
-========================= */
+window.openSetting=(name)=>{
 
-const rtcConfig={
-iceServers:[
-{
-urls:"stun:stun.l.google.com:19302"
-},
-{
-urls:"stun:stun1.l.google.com:19302"
-}
-]
-};
+hide("settingsPage");
+show("settingDetail");
 
+document.getElementById("settingTitle")
+.textContent=name;
 
-window.startCall=async function(video){
+const box=
+document.getElementById("settingContent");
 
-if(!selectedUser){
+if(name==="Account"){
 
-alert(
-"Private user chat میں call کریں۔"
-);
-
-return;
-}
-
-caller=true;
-
-videoMode=video;
-
-currentCallId=
-currentUser.uid+"_"+Date.now();
-
-try{
-
-localStream=
-await navigator.mediaDevices
-.getUserMedia({
-audio:true,
-video:video
-});
-
-show("callScreen");
-
-document.getElementById("callName")
-.textContent=selectedUser.name;
-
-document.getElementById("callType")
-.textContent=
-video?text[lang].video:text[lang].voice;
-
-document.getElementById("localVideo")
-.srcObject=localStream;
-
-if(video)
-show("localVideo");
-else
-hide("localVideo");
-
-remoteStream=new MediaStream();
-
-document.getElementById("remoteVideo")
-.srcObject=remoteStream;
-
-peer=new RTCPeerConnection(rtcConfig);
-
-localStream.getTracks()
-.forEach(track=>{
-peer.addTrack(track,localStream);
-});
-
-peer.ontrack=e=>{
-
-e.streams[0]
-.getTracks()
-.forEach(track=>{
-remoteStream.addTrack(track);
-});
-
-};
-
-peer.onicecandidate=async e=>{
-
-if(!e.candidate)return;
-
-await addDoc(
-collection(
-db,
-"calls",
-currentCallId,
-"offerCandidates"
-),
-e.candidate.toJSON()
-);
-
-};
-
-const offer=
-await peer.createOffer();
-
-await peer.setLocalDescription(offer);
-
-await setDoc(
-doc(db,"calls",currentCallId),
-{
-callerId:currentUser.uid,
-callerName:
-await getMyName(),
-calleeId:selectedUser.uid,
-type:video?"video":"voice",
-offer:{
-type:offer.type,
-sdp:offer.sdp
-},
-status:"ringing",
-createdAt:serverTimestamp()
-}
-);
-
-watchAnswer();
-
-}catch(e){
-
-console.error(e);
-
-alert(
-"Microphone/Camera permission: "+
-e.message
-);
-
-endCall();
+box.innerHTML=`
+<h3>Account</h3>
+<div class="option">🔐 Security</div>
+<div class="option">📧 Email</div>
+<div class="option">👤 Profile</div>
+<div class="option">🗑️ Delete Account</div>
+`;
 
 }
 
-};
+else if(name==="Privacy"){
 
-
-/* WATCH ANSWER */
-
-function watchAnswer(){
-
-onSnapshot(
-doc(db,"calls",currentCallId),
-async snap=>{
-
-if(!snap.exists())return;
-
-const d=snap.data();
-
-if(
-d.answer &&
-peer &&
-!peer.currentRemoteDescription
-){
-
-await peer.setRemoteDescription(
-new RTCSessionDescription(d.answer)
-);
+box.innerHTML=`
+<h3>Privacy</h3>
+<div class="option">⏱️ Last Seen</div>
+<div class="option">🟢 Online Status</div>
+<div class="option">👤 Profile Photo</div>
+<div class="option">🔒 Blocked Users</div>
+`;
 
 }
 
-}
-);
+else if(name==="Lists"){
 
-onSnapshot(
-collection(
-db,
-"calls",
-currentCallId,
-"answerCandidates"
-),
-snap=>{
-
-snap.docChanges().forEach(async change=>{
-
-if(change.type==="added"&&peer){
-
-try{
-
-await peer.addIceCandidate(
-new RTCIceCandidate(change.doc.data())
-);
-
-}catch(e){
-
-console.error(e);
+box.innerHTML=`
+<h3>Lists</h3>
+<div class="option">⭐ Favorites</div>
+<div class="option">👥 Groups</div>
+<div class="option">📌 Custom Lists</div>
+`;
 
 }
 
-}
+else if(name==="Chats"){
 
-});
-
-}
-);
-
-}
-
-
-/* INCOMING CALLS */
-
-function listenIncomingCalls(){
-
-if(callUnsub)
-callUnsub();
-
-const q=query(
-collection(db,"calls"),
-where("calleeId","==",currentUser.uid),
-where("status","==","ringing")
-);
-
-callUnsub=
-onSnapshot(
-q,
-snap=>{
-
-snap.docChanges().forEach(change=>{
-
-if(change.type!=="added")
-return;
-
-const d=change.doc.data();
-
-currentCallId=change.doc.id;
-
-videoMode=d.type==="video";
-
-document.getElementById("incomingCaller")
-.textContent=d.callerName||"User";
-
-document.getElementById("incomingCallType")
-.textContent=
-videoMode
-?text[lang].video
-:text[lang].voice;
-
-show("incomingCall");
-
-});
-
-}
-);
+box.innerHTML=`
+<h3>Chats</h3>
+<div class="option">💾 Chat Backup</div>
+<div class="option">📥 Export Chats</div>
+<div class="option">🗃️ Archive Chats</div>
+<div class="option">🧹 Clear Chats</div>
+`;
 
 }
 
+else if(name==="Notifications"){
 
-/* ACCEPT */
-
-window.acceptCall=async function(){
-
-hide("incomingCall");
-
-caller=false;
-
-const snap=
-await getDoc(
-doc(db,"calls",currentCallId)
-);
-
-if(!snap.exists())return;
-
-const data=snap.data();
-
-try{
-
-localStream=
-await navigator.mediaDevices
-.getUserMedia({
-audio:true,
-video:videoMode
-});
-
-show("callScreen");
-
-document.getElementById("callName")
-.textContent=data.callerName;
-
-document.getElementById("callType")
-.textContent=
-videoMode
-?text[lang].video
-:text[lang].voice;
-
-document.getElementById("localVideo")
-.srcObject=localStream;
-
-if(videoMode)
-show("localVideo");
-else
-hide("localVideo");
-
-remoteStream=new MediaStream();
-
-document.getElementById("remoteVideo")
-.srcObject=remoteStream;
-
-peer=
-new RTCPeerConnection(rtcConfig);
-
-localStream.getTracks()
-.forEach(track=>{
-peer.addTrack(track,localStream);
-});
-
-peer.ontrack=e=>{
-
-e.streams[0]
-.getTracks()
-.forEach(track=>{
-remoteStream.addTrack(track);
-});
-
-};
-
-peer.onicecandidate=async e=>{
-
-if(!e.candidate)return;
-
-await addDoc(
-collection(
-db,
-"calls",
-currentCallId,
-"answerCandidates"
-),
-e.candidate.toJSON()
-);
-
-};
-
-await peer.setRemoteDescription(
-new RTCSessionDescription(data.offer)
-);
-
-const answer=
-await peer.createAnswer();
-
-await peer.setLocalDescription(answer);
-
-await updateDoc(
-doc(db,"calls",currentCallId),
-{
-answer:{
-type:answer.type,
-sdp:answer.sdp
-},
-status:"answered"
-}
-);
-
-onSnapshot(
-collection(
-db,
-"calls",
-currentCallId,
-"offerCandidates"
-),
-snap=>{
-
-snap.docChanges()
-.forEach(async change=>{
-
-if(change.type==="added"){
-
-try{
-
-await peer.addIceCandidate(
-new RTCIceCandidate(
-change.doc.data()
-)
-);
-
-}catch(e){
-
-console.error(e);
+box.innerHTML=`
+<h3>Notifications</h3>
+<div class="option">🔔 Message Notifications</div>
+<div class="option">📞 Call Notifications</div>
+<div class="option">🔊 Notification Sound</div>
+`;
 
 }
 
+else if(name==="Theme"){
+
+box.innerHTML=`
+<h3>Theme</h3>
+<button class="full" onclick="setTheme('light')">
+☀️ Light
+</button>
+<button class="gray full" onclick="setTheme('dark')">
+🌙 Dark
+</button>
+`;
+
 }
 
-});
+else if(name==="Language"){
+
+box.innerHTML=`
+<h3>Language</h3>
+<button class="full" onclick="setLanguage('ur')">
+🇵🇰 اردو
+</button>
+<button class="blue full" onclick="setLanguage('en')">
+🇬🇧 English
+</button>
+`;
 
 }
-);
 
-}catch(e){
+else if(name==="Help"){
 
-console.error(e);
+box.innerHTML=`
+<h3>Help</h3>
+<div class="option">❓ Frequently Asked Questions</div>
+<div class="option">📩 Contact Support</div>
+<div class="option">🛡️ Safety</div>
+`;
 
-alert(e.message);
+}
 
-endCall();
+else if(name==="About"){
+
+box.innerHTML=`
+<h3>Dost Chat</h3>
+<p>Private messaging and calling application.</p>
+<p>Version 1.0</p>
+`;
 
 }
 
 };
 
 
-/* REJECT */
+/* ================= THEME ================= */
 
-window.rejectCall=async function(){
+window.setTheme=(theme)=>{
 
-hide("incomingCall");
+if(theme==="dark"){
 
-if(currentCallId){
+document.body.style.background="#111";
+document.querySelector(".app")
+.style.background="#222";
 
-await updateDoc(
-doc(db,"calls",currentCallId),
-{
-status:"rejected"
+showToast("Dark mode");
+
+}else{
+
+document.body.style.background="#e9edef";
+document.querySelector(".app")
+.style.background="#fff";
+
+showToast("Light mode");
+
 }
+
+};
+
+
+/* ================= LANGUAGE ================= */
+
+window.setLanguage=(language)=>{
+
+localStorage.setItem("language",language);
+
+showToast(
+language==="ur"
+?"اردو منتخب ہوگئی"
+:"English selected"
 );
 
-}
-
 };
 
 
-/* END CALL */
+/* ================= LOGOUT ================= */
 
-window.endCall=async function(){
+window.logout=async()=>{
 
-if(localStream){
-
-localStream.getTracks()
-.forEach(track=>track.stop());
-
-localStream=null;
-
-}
-
-if(peer){
-
-peer.close();
-
-peer=null;
-
-}
-
-hide("callScreen");
-
-if(currentCallId){
-
-try{
-
-await updateDoc(
-doc(db,"calls",currentCallId),
-{
-status:"ended"
-}
-);
-
-}catch(e){}
-
-}
-
-currentCallId=null;
-
-};
-
-
-/* MIC */
-
-window.toggleMic=function(){
-
-if(!localStream)return;
-
-localStream.getAudioTracks()
-.forEach(track=>{
-track.enabled=!track.enabled;
-});
-
-};
-
-
-/* CAMERA */
-
-window.toggleCamera=function(){
-
-if(!localStream)return;
-
-localStream.getVideoTracks()
-.forEach(track=>{
-track.enabled=!track.enabled;
-});
-
-};
-
-
-/* LOGOUT */
-
-window.logout=async function(){
-
-if(currentUser){
-
-await setDoc(
-doc(db,"users",currentUser.uid),
-{
-online:false,
-lastSeen:serverTimestamp()
-},
-{merge:true}
-);
-
-}
+closeMenu();
 
 await signOut(auth);
 
 };
 
 
-/* ONLINE */
+/* ================= HELPERS ================= */
 
-setInterval(async()=>{
+function show(id){
+document.getElementById(id)
+.classList.remove("hidden");
+}
 
-if(!currentUser)return;
-
-await setDoc(
-doc(db,"users",currentUser.uid),
-{
-online:true,
-lastSeen:serverTimestamp()
-},
-{merge:true}
-);
-
-},20000);
-
-
-/* HELPERS */
-
-async function getMyName(){
-
-const snap=
-await getDoc(
-doc(db,"users",currentUser.uid)
-);
-
-return snap.exists()
-?snap.data().name||"User"
-:"User";
-
+function hide(id){
+document.getElementById(id)
+.classList.add("hidden");
 }
 
 function safe(value){
 
-const div=
-document.createElement("div");
-
-div.textContent=value||"";
-
-return div.innerHTML;
+const d=document.createElement("div");
+d.textContent=value||"";
+return d.innerHTML;
 
 }
 
-function show(id){
+function showToast(message){
 
-document.getElementById(id)
-.classList.remove("hidden");
+const t=document.getElementById("toast");
 
-}
+t.textContent=message;
 
-function hide(id){
+t.classList.remove("hidden");
 
-document.getElementById(id)
-.classList.add("hidden");
-
-}
-
-function showLogin(message){
-
-document.getElementById("loginMessage")
-.textContent=message;
+setTimeout(()=>{
+t.classList.add("hidden");
+},3000);
 
 }
 
 
-/* START */
+/* Placeholder calls */
 
-changeLang(lang);
+window.voiceCall=()=>{
+showToast("Voice Call module ready — WebRTC/TURN next step.");
+};
+
+window.videoCall=()=>{
+showToast("Video Call module ready — WebRTC/TURN next step.");
+};
 
 </script>
 
 </body>
-</html>
+ </html>
