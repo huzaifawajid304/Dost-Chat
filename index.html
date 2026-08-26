@@ -1852,57 +1852,82 @@ change.doc.data()
 
 
 /* END CALL */
+window.endCall = async function () {
 
-window.endCall=async function(){
+    const callId = currentCallId;
 
-if(currentCallId){
+    // پہلے local call ختم کریں
+    if (localStream) {
+        localStream.getTracks().forEach(track => {
+            track.stop();
+        });
+        localStream = null;
+    }
 
-try{
+    // WebRTC connection بند کریں
+    if (pc) {
+        try {
+            pc.ontrack = null;
+            pc.onicecandidate = null;
+            pc.close();
+        } catch (e) {}
 
-await setDoc(
-doc(
-db,
-"calls",
-currentCallId
-),
-{
-status:"ended"
-},
-{merge:true}
-);
+        pc = null;
+    }
 
-}catch(e){}
+    // Firestore listeners بند کریں
+    if (callDocUnsub) {
+        callDocUnsub();
+        callDocUnsub = null;
+    }
 
-}
+    if (candidateUnsub) {
+        candidateUnsub();
+        candidateUnsub = null;
+    }
 
-if(localStream){
+    // Call کو ended کریں
+    if (callId) {
+        try {
+            await setDoc(
+                doc(db, "calls", callId),
+                {
+                    status: "ended",
+                    endedBy: currentUser.uid,
+                    endedAt: serverTimestamp()
+                },
+                { merge: true }
+            );
+        } catch (error) {
+            console.error("End call error:", error);
+        }
+    }
 
-localStream
-.getTracks()
-.forEach(t=>t.stop());
+    currentCallId = null;
+    incomingCallData = null;
 
-}
+    // Videos صاف کریں
+    const localVideo =
+        document.getElementById("localVideo");
 
-if(pc){
+    const remoteVideo =
+        document.getElementById("remoteVideo");
 
-pc.close();
+    if (localVideo) {
+        localVideo.srcObject = null;
+    }
 
-}
+    if (remoteVideo) {
+        remoteVideo.srcObject = null;
+    }
 
-if(callDocUnsub)
-callDocUnsub();
+    // Call screen بند
+    hide("callScreen");
 
-if(candidateUnsub)
-candidateUnsub();
-
-localStream=null;
-pc=null;
-currentCallId=null;
-
-hide("callScreen");
+    // Incoming screen بھی بند
+    hide("incomingCall");
 
 };
-
 
 /* MIC */
 
