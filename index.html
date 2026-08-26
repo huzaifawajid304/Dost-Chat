@@ -2,193 +2,163 @@
 <html lang="ur" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>Dost Chat</title>
 
 <style>
 *{box-sizing:border-box}
-body{
- margin:0;
- font-family:Arial,sans-serif;
- background:#e9edef;
-}
-.app{
- max-width:520px;
- margin:auto;
- min-height:100vh;
- background:#fff;
-}
+body{margin:0;font-family:Arial,sans-serif;background:#e5ddd5}
+.app{max-width:520px;margin:auto;min-height:100vh;background:#fff}
+.hidden{display:none!important}
+
 .header{
- height:60px;
- background:#075e54;
- color:#fff;
- display:flex;
- align-items:center;
- justify-content:space-between;
- padding:0 12px;
+ height:60px;background:#075e54;color:#fff;
+ display:flex;align-items:center;justify-content:space-between;
+ padding:0 12px
 }
-.header-title{
- font-size:21px;
- font-weight:bold;
+.title{font-size:21px;font-weight:bold}
+.header button,.chat-head button,.page-head button{
+ background:transparent;border:0;color:white;font-size:27px
 }
-.header button{
- background:transparent;
- color:white;
- font-size:28px;
- padding:3px 8px;
-}
-.box{padding:18px}
-input{
- width:100%;
- padding:13px;
- margin:6px 0;
- border:1px solid #ccc;
- border-radius:9px;
- font-size:16px;
-}
+
+.lang{display:flex;gap:5px;padding:5px;background:#eee}
 button{
- border:0;
- border-radius:9px;
- padding:12px;
- margin:5px 0;
- background:#075e54;
- color:white;
- font-size:15px;
- cursor:pointer;
+ border:0;border-radius:7px;padding:11px;
+ background:#075e54;color:white;font-size:15px
 }
-.full{width:100%}
-.green{background:#128c7e}
+.lang button{flex:1}
+.full{width:100%;margin:5px 0}
 .blue{background:#1976d2}
 .red{background:#d32f2f}
 .gray{background:#777}
-.hidden{display:none!important}
 
-.remember{
- display:flex;
- align-items:center;
- gap:8px;
- font-size:14px;
- margin:8px 0;
+.box{padding:16px}
+input{
+ width:100%;padding:13px;margin:6px 0;
+ border:1px solid #ccc;border-radius:8px;font-size:16px
 }
-.remember input{width:auto}
 
 .menu{
- position:fixed;
- top:58px;
- right:calc(50% - 250px);
- width:240px;
- max-width:90%;
- background:white;
- box-shadow:0 5px 25px #0004;
- border-radius:8px;
- z-index:100;
- overflow:hidden;
+ position:fixed;z-index:1000;
+ top:58px;right:max(calc(50% - 250px),5px);
+ width:250px;background:white;
+ box-shadow:0 5px 25px #0005;border-radius:8px;
+ overflow:hidden
 }
 .menu button{
- display:block;
- width:100%;
- text-align:right;
- background:white;
- color:#222;
- margin:0;
- border-radius:0;
- padding:14px;
- border-bottom:1px solid #eee;
+ width:100%;display:block;text-align:right;
+ background:white;color:#222;border-radius:0;
+ border-bottom:1px solid #eee
 }
-.menu button:hover{background:#f2f2f2}
-
-.back{
- background:#075e54;
- color:white;
- width:45px;
-}
-
-.page-title{
- display:flex;
- align-items:center;
- gap:10px;
- background:#075e54;
- color:white;
- padding:8px;
-}
-
-.option{
- padding:15px;
- border-bottom:1px solid #eee;
- cursor:pointer;
-}
-.option strong{display:block}
-.option small{color:#777}
 
 .user{
- background:#f3f3f3;
- padding:13px;
- margin:7px 0;
- border-radius:10px;
+ padding:13px;margin:7px 0;background:#f3f3f3;
+ border-radius:9px;cursor:pointer
 }
+.status{font-size:13px;color:#777}
 
-.search{
- display:flex;
- gap:5px;
-}
+.search{display:flex;gap:5px}
 .search input{flex:1}
-.search button{width:80px}
+.search button{width:85px}
 
 .chat-head{
- background:#075e54;
- color:#fff;
- padding:8px;
- display:flex;
- align-items:center;
- gap:8px;
+ height:60px;background:#075e54;color:white;
+ display:flex;align-items:center;gap:8px;padding:5px
 }
-.chat-head-info{flex:1}
+.chat-info{flex:1}
 .chat-actions{display:flex;gap:2px}
-.chat-actions button{padding:8px;margin:0}
+.chat-actions button{background:transparent;font-size:20px;padding:7px}
 
 .messages{
- height:calc(100vh - 200px);
- min-height:400px;
- overflow-y:auto;
- background:#e5ddd5;
- padding:12px;
+ height:calc(100vh - 205px);
+ min-height:400px;overflow-y:auto;
+ padding:12px;background:#e5ddd5
 }
 .msg{
- max-width:78%;
- padding:9px 12px;
- margin:6px 0;
- border-radius:10px;
- clear:both;
+ max-width:78%;padding:9px 12px;
+ margin:6px 0;border-radius:10px;
+ word-break:break-word;clear:both
 }
 .mine{float:right;background:#dcf8c6}
 .theirs{float:left;background:white}
+
 .send{
- display:flex;
- gap:5px;
- padding:7px;
+ display:flex;gap:5px;padding:7px;background:#eee
 }
 .send input{flex:1;margin:0}
 .send button{width:75px;margin:0}
 
-.status{
- color:#777;
- font-size:13px;
+.page-head{
+ height:60px;background:#075e54;color:white;
+ display:flex;align-items:center;gap:10px;padding:5px
 }
-.typing{
- color:#b9ffd0;
- font-size:12px;
+.page-head button{margin:0}
+
+.option{
+ padding:16px;border-bottom:1px solid #eee
 }
 
+.modal{
+ position:fixed;inset:0;background:#0008;
+ display:flex;align-items:center;justify-content:center;
+ z-index:3000
+}
+.modal-box{
+ width:92%;max-width:400px;background:white;
+ border-radius:12px;padding:18px
+}
+
+.call-screen{
+ position:fixed;inset:0;background:#111;
+ z-index:5000;color:white;
+ display:flex;flex-direction:column
+}
+.call-top{text-align:center;padding:15px}
+.videos{position:relative;flex:1;background:#000}
+#remoteVideo{
+ width:100%;height:100%;object-fit:cover
+}
+#localVideo{
+ position:absolute;right:12px;bottom:12px;
+ width:120px;height:170px;
+ object-fit:cover;border:2px solid white;
+ border-radius:10px;background:#222
+}
+.call-buttons{
+ display:flex;justify-content:center;
+ gap:12px;padding:15px
+}
+.call-buttons button{
+ width:55px;height:55px;border-radius:50%;
+ font-size:20px
+}
+
+.incoming{
+ position:fixed;inset:0;
+ background:#075e54;color:white;
+ z-index:6000;
+ display:flex;flex-direction:column;
+ align-items:center;justify-content:center;
+ text-align:center
+}
+.incoming-avatar{
+ width:90px;height:90px;border-radius:50%;
+ background:#fff;color:#075e54;
+ display:flex;align-items:center;justify-content:center;
+ font-size:40px;margin:20px
+}
+.incoming-buttons{display:flex;gap:30px;margin-top:30px}
+.incoming-buttons button{
+ width:65px;height:65px;border-radius:50%;
+ font-size:25px
+}
+
+.typing{font-size:12px;color:#ddd}
 .toast{
- position:fixed;
- bottom:20px;
- left:50%;
+ position:fixed;bottom:20px;left:50%;
  transform:translateX(-50%);
- background:#222;
- color:white;
- padding:12px 18px;
- border-radius:8px;
- z-index:9999;
+ background:#222;color:#fff;padding:12px 18px;
+ border-radius:8px;z-index:9000
 }
 </style>
 </head>
@@ -199,15 +169,18 @@ button{
 
 <!-- HEADER -->
 <div class="header">
- <div class="header-title">Dost Chat</div>
-
- <button id="menuButton" onclick="toggleMenu()">⋮</button>
+<div class="title">Dost Chat</div>
+<button onclick="toggleMenu()">⋮</button>
 </div>
 
+<!-- LANGUAGE -->
+<div class="lang">
+<button onclick="setLanguage('ur')">🇵🇰 اردو</button>
+<button onclick="setLanguage('en')">🇬🇧 English</button>
+</div>
 
-<!-- THREE DOT MENU -->
+<!-- MENU -->
 <div id="menu" class="menu hidden">
-
 <button onclick="newGroup()">👥 New Group</button>
 <button onclick="newCommunity()">👨‍👩‍👧 New Community</button>
 <button onclick="broadcast()">📢 Broadcast Lists</button>
@@ -216,90 +189,61 @@ button{
 <button onclick="readAll()">✓ Read All</button>
 <button onclick="openSettings()">⚙️ Settings</button>
 <button onclick="logout()">🚪 Logout</button>
-
 </div>
-
 
 <!-- LOGIN -->
 <section id="loginPage">
 
 <div class="box">
 
-<h2>خوش آمدید / Welcome</h2>
+<h2 id="welcome">خوش آمدید</h2>
 
-<input id="name"
-placeholder="نام / Name">
+<input id="name" placeholder="نام">
 
-<input id="email"
-type="email"
-placeholder="Gmail / Email">
+<input id="email" type="email" placeholder="Email">
 
-<input id="password"
-type="password"
-placeholder="Password">
+<input id="password" type="password" placeholder="Password">
 
-<label class="remember">
-<input id="remember" type="checkbox">
-<span>Remember me</span>
+<label>
+<input id="remember" type="checkbox" style="width:auto" checked>
+<span id="rememberText">مجھے یاد رکھیں</span>
 </label>
 
-<button class="full" onclick="sendOTP()">
-📧 Email پر OTP بھیجیں
+<button class="full" onclick="register()">
+نیا اکاؤنٹ بنائیں
 </button>
 
-<div id="otpArea" class="hidden">
-
-<input
- id="otp"
- maxlength="4"
- inputmode="numeric"
- placeholder="4 ہندسوں کا OTP">
-
-<button class="green full" onclick="verifyOTP()">
-✓ OTP Verify کریں
+<button class="full blue" onclick="login()">
+لاگ اِن
 </button>
-
-</div>
-
-<hr>
-
-<button class="blue full" onclick="normalLogin()">
-Email + Password Login
-</button>
-
-<div id="loginMessage"></div>
 
 </div>
 
 </section>
-
 
 <!-- HOME -->
 <section id="homePage" class="hidden">
 
 <div class="box">
 
-<h2>Chats</h2>
+<h2 id="chatTitle">چیٹس</h2>
 
 <div id="profile"></div>
 
 <div class="search">
-<input
- id="searchEmail"
- placeholder="Email سے user تلاش کریں">
-<button onclick="searchUser()">Search</button>
+<input id="search" placeholder="Email">
+<button onclick="findUser()">تلاش</button>
 </div>
 
-<div id="searchResult"></div>
+<div id="result"></div>
 
-<h3>Users</h3>
+<h3>صارفین</h3>
 
 <div id="users"></div>
 
 </div>
 
 </section>
-
 
 <!-- CHAT -->
 <section id="chatPage" class="hidden">
@@ -308,7 +252,7 @@ Email + Password Login
 
 <button onclick="backHome()">←</button>
 
-<div class="chat-head-info">
+<div class="chat-info">
 
 <strong id="chatName"></strong>
 
@@ -319,8 +263,8 @@ Email + Password Login
 </div>
 
 <div class="chat-actions">
-<button onclick="voiceCall()">🎤</button>
-<button onclick="videoCall()">📹</button>
+<button onclick="startVoice()">🎤</button>
+<button onclick="startVideo()">📹</button>
 </div>
 
 </div>
@@ -329,91 +273,109 @@ Email + Password Login
 
 <div class="send">
 
-<input
- id="message"
- placeholder="پیغام لکھیں...">
+<input id="message" placeholder="پیغام لکھیں...">
 
-<button onclick="sendMessage()">
-Send
-</button>
+<button onclick="sendMessage()">بھیجیں</button>
 
 </div>
 
 </section>
-
 
 <!-- SETTINGS -->
 <section id="settingsPage" class="hidden">
 
-<div class="page-title">
-<button class="back" onclick="backHome()">←</button>
+<div class="page-head">
+
+<button onclick="backHome()">←</button>
+
 <strong>Settings</strong>
-</div>
-
-<div class="box">
-
-<div class="option" onclick="openSetting('Account')">
-<strong>👤 Account</strong>
-<small>Account information and security</small>
-</div>
-
-<div class="option" onclick="openSetting('Privacy')">
-<strong>🔒 Privacy</strong>
-<small>Last seen, profile and privacy</small>
-</div>
-
-<div class="option" onclick="openSetting('Lists')">
-<strong>📋 Lists</strong>
-<small>Manage chat lists</small>
-</div>
-
-<div class="option" onclick="openSetting('Chats')">
-<strong>💬 Chats</strong>
-<small>Chat settings and backup</small>
-</div>
-
-<div class="option" onclick="openSetting('Notifications')">
-<strong>🔔 Notifications</strong>
-<small>Messages and call notifications</small>
-</div>
-
-<div class="option" onclick="openSetting('Theme')">
-<strong>🎨 Theme</strong>
-<small>Light / Dark appearance</small>
-</div>
-
-<div class="option" onclick="openSetting('Language')">
-<strong>🌐 Language</strong>
-<small>اردو / English</small>
-</div>
-
-<div class="option" onclick="openSetting('Help')">
-<strong>❓ Help</strong>
-<small>Help and support</small>
-</div>
-
-<div class="option" onclick="openSetting('About')">
-<strong>ℹ️ About</strong>
-<small>About Dost Chat</small>
-</div>
 
 </div>
+
+<div class="option">👤 Account</div>
+<div class="option">🔒 Privacy</div>
+<div class="option">📋 Lists</div>
+<div class="option">💬 Chats</div>
+<div class="option">🔔 Notifications</div>
+<div class="option">🎨 Theme</div>
+<div class="option">🌐 Language</div>
+<div class="option">❓ Help</div>
+<div class="option">ℹ️ About</div>
 
 </section>
 
+<!-- GROUP MODAL -->
+<div id="groupModal" class="modal hidden">
 
-<!-- SETTING DETAIL -->
-<section id="settingDetail" class="hidden">
+<div class="modal-box">
 
-<div class="page-title">
-<button class="back" onclick="openSettings()">←</button>
-<strong id="settingTitle"></strong>
+<h2>New Group</h2>
+
+<input id="groupName" placeholder="Group Name">
+
+<div id="groupUsers"></div>
+
+<button class="full" onclick="createGroup()">
+Create Group
+</button>
+
+<button class="full red" onclick="closeGroup()">
+Cancel
+</button>
+
 </div>
 
-<div class="box" id="settingContent"></div>
+</div>
 
-</section>
+<!-- INCOMING CALL -->
+<div id="incomingCall" class="incoming hidden">
 
+<h2 id="incomingType">Incoming Call</h2>
+
+<div class="incoming-avatar">👤</div>
+
+<h2 id="incomingName"></h2>
+
+<div id="incomingButtons" class="incoming-buttons">
+
+<button class="red" onclick="rejectIncoming()">✕</button>
+
+<button onclick="acceptIncoming()">✓</button>
+
+</div>
+
+</div>
+
+<!-- ACTIVE CALL -->
+<div id="callScreen" class="call-screen hidden">
+
+<div class="call-top">
+
+<strong id="callTitle">Call</strong>
+
+<div id="callStatus">Connecting...</div>
+
+</div>
+
+<div class="videos">
+
+<video id="remoteVideo" autoplay playsinline></video>
+
+<video id="localVideo" autoplay muted playsinline></video>
+
+</div>
+
+<div class="call-buttons">
+
+<button onclick="toggleMic()">🎤</button>
+
+<button onclick="toggleCamera()">📹</button>
+
+<button class="red" onclick="endCall()">📞</button>
+
+</div>
+
+</div>
 
 <div id="toast" class="toast hidden"></div>
 
@@ -429,10 +391,10 @@ import {
 getAuth,
 createUserWithEmailAndPassword,
 signInWithEmailAndPassword,
-onAuthStateChanged,
 setPersistence,
 browserLocalPersistence,
 browserSessionPersistence,
+onAuthStateChanged,
 signOut
 }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
@@ -444,163 +406,211 @@ doc,
 setDoc,
 getDoc,
 getDocs,
+addDoc,
 query,
 where,
-addDoc,
-onSnapshot,
 orderBy,
+onSnapshot,
 serverTimestamp
 }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
+import {
+getDatabase,
+ref,
+set,
+onValue,
+onDisconnect,
+remove,
+serverTimestamp as dbTimestamp
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+
+
+/* FIREBASE */
 
 const firebaseConfig={
-apiKey:"AIzaSyBvEGBT5yvkcPoziNc3U9rh87IEkOn_7eM",
-authDomain:"dost-chat-a7eec.firebaseapp.com",
-projectId:"dost-chat-a7eec",
-storageBucket:"dost-chat-a7eec.firebasestorage.app",
-messagingSenderId:"760944205758",
-appId:"1:760944205758:web:41d06ed0c34b3f24f8a3ef"
+
+apiKey:
+"AIzaSyBvEGBT5yvkcPoziNc3U9rh87IEkOn_7eM",
+
+authDomain:
+"dost-chat-a7eec.firebaseapp.com",
+
+projectId:
+"dost-chat-a7eec",
+
+storageBucket:
+"dost-chat-a7eec.firebasestorage.app",
+
+messagingSenderId:
+"760944205758",
+
+appId:
+"1:760944205758:web:41d06ed0c34b3f24f8a3ef",
+
+databaseURL:
+"https://dost-chat-a7eec-default-rtdb.firebaseio.com/"
+
 };
-databaseURL:"https://dost-chat-a7eec-default-rtdb.firebaseio.com/"
+
 const app=initializeApp(firebaseConfig);
+
 const auth=getAuth(app);
+
 const db=getFirestore(app);
+
+const rtdb=getDatabase(app);
+
+
+/* VARIABLES */
 
 let currentUser=null;
 let selectedUser=null;
-let messagesUnsub=null;
+
+let chatUnsub=null;
+let typingTimer=null;
+
+let pc=null;
+let localStream=null;
+
+let currentCallId=null;
+let incomingCallData=null;
+let callDocUnsub=null;
+let candidateUnsub=null;
 
 
-/* ================= MENU ================= */
+/* WEBRTC */
 
-window.toggleMenu=()=>{
-document.getElementById("menu")
-.classList.toggle("hidden");
+const rtcConfig={
+
+iceServers:[
+
+{urls:"stun:stun.l.google.com:19302"},
+
+{urls:"stun:stun1.l.google.com:19302"}
+
+]
+
 };
 
-function closeMenu(){
-document.getElementById("menu")
+
+/* LANGUAGE */
+
+let lang=
+localStorage.getItem("dostLanguage")||"ur";
+
+
+window.setLanguage=function(x){
+
+lang=x;
+
+localStorage.setItem(
+"dostLanguage",x
+);
+
+document.documentElement.dir=
+x==="ur"?"rtl":"ltr";
+
+if(x==="ur"){
+
+welcome.textContent="خوش آمدید";
+
+rememberText.textContent=
+"مجھے یاد رکھیں";
+
+chatTitle.textContent="چیٹس";
+
+document.querySelector(
+"#loginPage button"
+).textContent=
+"نیا اکاؤنٹ بنائیں";
+
+document.querySelector(
+"#loginPage .blue"
+).textContent=
+"لاگ اِن";
+
+}else{
+
+welcome.textContent="Welcome";
+
+rememberText.textContent=
+"Remember Me";
+
+chatTitle.textContent="Chats";
+
+document.querySelector(
+"#loginPage button"
+).textContent=
+"Create Account";
+
+document.querySelector(
+"#loginPage .blue"
+).textContent=
+"Login";
+
+}
+
+};
+
+
+window.setLanguage(lang);
+
+
+/* SHOW / HIDE */
+
+function show(id){
+document.getElementById(id)
+.classList.remove("hidden");
+}
+
+function hide(id){
+document.getElementById(id)
 .classList.add("hidden");
 }
 
 
-/* ================= OTP ================= */
+/* MENU */
 
-/*
- IMPORTANT:
- sendOTP() calls your secure backend.
- The backend must:
- 1. Generate a random 4 digit OTP.
- 2. Store a HASH of OTP temporarily.
- 3. Send OTP to user's email.
- 4. Expire OTP after a few minutes.
+window.toggleMenu=function(){
 
- Put your deployed backend URL below.
-*/
-
-const OTP_API="YOUR_OTP_BACKEND_URL";
-
-
-window.sendOTP=async()=>{
-
-const name=
-document.getElementById("name").value.trim();
-
-const email=
-document.getElementById("email").value.trim();
-
-const password=
-document.getElementById("password").value;
-
-if(!name||!email||!password){
-
-showToast("Name, Email اور Password درج کریں۔");
-return;
-}
-
-try{
-
-const response=await fetch(
-OTP_API+"/send-otp",
-{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-name,
-email
-})
-}
-);
-
-const data=await response.json();
-
-if(!response.ok)
-throw new Error(data.message||"OTP error");
-
-document.getElementById("otpArea")
-.classList.remove("hidden");
-
-showToast("OTP آپ کے Email پر بھیج دیا گیا ہے۔");
-
-}catch(e){
-
-console.error(e);
-
-showToast(
-"OTP service ابھی configure نہیں ہوئی۔"
-);
-
-}
+document.getElementById("menu")
+.classList.toggle("hidden");
 
 };
 
 
-/* ================= VERIFY OTP ================= */
+/* REGISTER */
 
-window.verifyOTP=async()=>{
+window.register=async function(){
 
-const name=
-document.getElementById("name").value.trim();
+const name=document.getElementById("name")
+.value.trim();
 
-const email=
-document.getElementById("email").value.trim();
+const email=document.getElementById("email")
+.value.trim();
 
-const password=
-document.getElementById("password").value;
+const password=document.getElementById("password")
+.value;
 
-const otp=
-document.getElementById("otp").value.trim();
+if(!name||!email||!password){
 
-if(otp.length!==4){
+toast("تمام معلومات درج کریں");
 
-showToast("4 ہندسوں کا OTP درج کریں۔");
 return;
+
+}
+
+if(password.length<6){
+
+toast("Password کم از کم 6 characters کا ہونا چاہیے");
+
+return;
+
 }
 
 try{
-
-const response=await fetch(
-OTP_API+"/verify-otp",
-{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-email,
-otp
-})
-}
-);
-
-const data=await response.json();
-
-if(!response.ok)
-throw new Error(data.message||"Invalid OTP");
-
 
 await setPersistence(
 auth,
@@ -609,37 +619,35 @@ document.getElementById("remember").checked
 :browserSessionPersistence
 );
 
-
 const result=
 await createUserWithEmailAndPassword(
-auth,
-email,
-password
+auth,email,password
 );
 
-await saveProfile(
-result.user,
-name
+await setDoc(
+doc(db,"users",result.user.uid),
+{
+uid:result.user.uid,
+name:name,
+email:email,
+createdAt:serverTimestamp()
+}
 );
 
-showToast("Account بن گیا۔");
+toast("Account بن گیا");
 
-}catch(e){
+}catch(error){
 
-console.error(e);
-
-showToast(
-e.message||"OTP verification failed"
-);
+toast(error.message);
 
 }
 
 };
 
 
-/* ================= NORMAL LOGIN ================= */
+/* LOGIN */
 
-window.normalLogin=async()=>{
+window.login=async function(){
 
 const email=
 document.getElementById("email").value.trim();
@@ -649,8 +657,10 @@ document.getElementById("password").value;
 
 if(!email||!password){
 
-showToast("Email اور Password درج کریں۔");
+toast("Email اور Password درج کریں");
+
 return;
+
 }
 
 try{
@@ -663,43 +673,19 @@ document.getElementById("remember").checked
 );
 
 await signInWithEmailAndPassword(
-auth,
-email,
-password
+auth,email,password
 );
 
-}catch(e){
+}catch(error){
 
-console.error(e);
-
-showToast(e.message);
+toast(error.message);
 
 }
 
 };
 
 
-/* ================= PROFILE ================= */
-
-async function saveProfile(user,name){
-
-await setDoc(
-doc(db,"users",user.uid),
-{
-uid:user.uid,
-name:name||"User",
-email:user.email||"",
-online:true,
-lastSeen:serverTimestamp(),
-createdAt:serverTimestamp()
-},
-{merge:true}
-);
-
-}
-
-
-/* ================= AUTH ================= */
+/* AUTH */
 
 onAuthStateChanged(
 auth,
@@ -709,30 +695,69 @@ if(!user){
 
 currentUser=null;
 
-show("loginPage");
-
 hide("homePage");
 hide("chatPage");
 hide("settingsPage");
-hide("settingDetail");
+
+show("loginPage");
 
 return;
+
 }
 
 currentUser=user;
 
-await saveProfile(user,"");
-
 hide("loginPage");
+
 show("homePage");
 
+await setupPresence();
+
 loadProfile();
+
 loadUsers();
+
+listenIncomingCalls();
+
+}
+);
+
+
+/* PRESENCE */
+
+async function setupPresence(){
+
+const uid=currentUser.uid;
+
+const statusRef=
+ref(rtdb,"status/"+uid);
+
+const connectedRef=
+ref(rtdb,".info/connected");
+
+onValue(
+connectedRef,
+snap=>{
+
+if(snap.val()!==true)return;
+
+onDisconnect(statusRef)
+.set({
+state:"offline",
+lastChanged:dbTimestamp()
+});
+
+set(statusRef,{
+state:"online",
+lastChanged:dbTimestamp()
+});
 
 });
 
+}
 
-/* ================= USERS ================= */
+
+/* PROFILE */
 
 async function loadProfile(){
 
@@ -748,13 +773,15 @@ const d=snap.data();
 document.getElementById("profile")
 .innerHTML=
 `
-<strong>${safe(d.name||"User")}</strong>
+<strong>${safe(d.name)}</strong>
 <br>
-<small>${safe(d.email||"")}</small>
+<small>${safe(d.email)}</small>
 `;
 
 }
 
+
+/* USERS */
 
 function loadUsers(){
 
@@ -781,39 +808,90 @@ div.className="user";
 div.innerHTML=
 `
 <strong>${safe(d.name||"User")}</strong>
-<div class="status">
-${safe(d.email||"")}
+<div>${safe(d.email||"")}</div>
+<div id="status-${s.id}"
+class="status">
+Checking...
 </div>
 `;
 
-div.onclick=()=>{
-openChat({
+div.onclick=()=>openChat({
+
 uid:s.id,
 name:d.name||"User",
 email:d.email||""
+
 });
-};
 
 box.appendChild(div);
 
+listenStatus(s.id);
+
+});
+
 });
 
 }
+
+
+/* STATUS */
+
+function listenStatus(uid){
+
+onValue(
+ref(rtdb,"status/"+uid),
+snap=>{
+
+const el=
+document.getElementById(
+"status-"+uid
 );
+
+if(!el)return;
+
+const d=snap.val();
+
+if(d?.state==="online"){
+
+el.textContent=
+lang==="ur"
+?"🟢 آن لائن"
+:"🟢 Online";
+
+}else if(d?.lastChanged){
+
+el.textContent=
+(lang==="ur"
+?"آخری بار: "
+:"Last seen: ")
++
+new Date(
+d.lastChanged
+).toLocaleString();
+
+}else{
+
+el.textContent=
+lang==="ur"
+?"آف لائن"
+:"Offline";
+
+}
+
+});
 
 }
 
 
-/* ================= SEARCH ================= */
+/* SEARCH */
 
-window.searchUser=async()=>{
+window.findUser=async function(){
 
 const email=
-document.getElementById("searchEmail")
+document.getElementById("search")
 .value.trim();
 
-const box=
-document.getElementById("searchResult");
+if(!email)return;
 
 const q=query(
 collection(db,"users"),
@@ -822,35 +900,48 @@ where("email","==",email)
 
 const snap=await getDocs(q);
 
+const result=
+document.getElementById("result");
+
+result.innerHTML="";
+
 if(snap.empty){
 
-box.textContent="User نہیں ملا۔";
+result.textContent=
+"User نہیں ملا";
+
 return;
+
 }
 
 const s=snap.docs[0];
+
 const d=s.data();
 
-box.innerHTML=
+const div=document.createElement("div");
+
+div.className="user";
+
+div.innerHTML=
 `
-<div class="user">
-<strong>${safe(d.name||"User")}</strong>
+<strong>${safe(d.name)}</strong>
 <div>${safe(d.email)}</div>
-</div>
 `;
 
-box.firstElementChild.onclick=()=>{
-openChat({
+div.onclick=()=>openChat({
+
 uid:s.id,
-name:d.name||"User",
+name:d.name,
 email:d.email
+
 });
-};
+
+result.appendChild(div);
 
 };
 
 
-/* ================= CHAT ================= */
+/* CHAT ID */
 
 function chatId(){
 
@@ -862,49 +953,101 @@ selectedUser.uid
 }
 
 
+/* OPEN CHAT */
+
 function openChat(user){
 
 selectedUser=user;
 
 hide("homePage");
+
 show("chatPage");
 
-document.getElementById("chatName")
-.textContent=user.name;
+document.getElementById(
+"chatName"
+).textContent=user.name;
 
-document.getElementById("chatStatus")
-.textContent=user.email;
+listenChatStatus();
 
 listenMessages();
+
+listenTyping();
 
 }
 
 
+/* CHAT STATUS */
+
+function listenChatStatus(){
+
+onValue(
+ref(
+rtdb,
+"status/"+selectedUser.uid
+),
+snap=>{
+
+const d=snap.val();
+
+const el=
+document.getElementById(
+"chatStatus"
+);
+
+if(d?.state==="online"){
+
+el.textContent=
+lang==="ur"
+?"🟢 آن لائن"
+:"🟢 Online";
+
+}else if(d?.lastChanged){
+
+el.textContent=
+(lang==="ur"
+?"آخری بار: "
+:"Last seen: ")
++
+new Date(
+d.lastChanged
+).toLocaleString();
+
+}
+
+});
+
+}
+
+
+/* MESSAGES */
+
 function listenMessages(){
 
-if(messagesUnsub)
-messagesUnsub();
+if(chatUnsub)
+chatUnsub();
 
-const ref=
+const q=query(
 collection(
 db,
 "chats",
 chatId(),
 "messages"
+),
+orderBy(
+"createdAt",
+"asc"
+)
 );
 
-const q=query(
-ref,
-orderBy("createdAt","asc")
-);
-
-messagesUnsub=
+chatUnsub=
 onSnapshot(
 q,
 snap=>{
 
 const box=
-document.getElementById("messages");
+document.getElementById(
+"messages"
+);
 
 box.innerHTML="";
 
@@ -929,28 +1072,27 @@ box.appendChild(div);
 
 });
 
-box.scrollTop=box.scrollHeight;
+box.scrollTop=
+box.scrollHeight;
 
-},
-error=>{
-console.error(error);
-showToast("Messages error: "+error.message);
-}
-);
+});
 
 }
 
 
-window.sendMessage=async()=>{
+/* SEND */
+
+window.sendMessage=async function(){
 
 const input=
-document.getElementById("message");
+document.getElementById(
+"message"
+);
 
-const value=input.value.trim();
+const text=
+input.value.trim();
 
-if(!value||!selectedUser)return;
-
-try{
+if(!text||!selectedUser)return;
 
 await addDoc(
 collection(
@@ -960,7 +1102,7 @@ chatId(),
 "messages"
 ),
 {
-text:value,
+text:text,
 senderId:currentUser.uid,
 receiverId:selectedUser.uid,
 createdAt:serverTimestamp()
@@ -969,278 +1111,862 @@ createdAt:serverTimestamp()
 
 input.value="";
 
-}catch(e){
-
-console.error(e);
-
-showToast(e.message);
-
-}
-
 };
 
 
-/* ================= BACK ================= */
+/* TYPING */
 
-window.backHome=()=>{
+document.getElementById(
+"message"
+).addEventListener(
+"input",
+()=>{
 
-if(messagesUnsub)
-messagesUnsub();
+if(!selectedUser)return;
+
+const typingRef=
+ref(
+rtdb,
+"typing/"
++
+chatId()
++
+"/"
++
+currentUser.uid
+);
+
+set(typingRef,true);
+
+clearTimeout(typingTimer);
+
+typingTimer=
+setTimeout(
+()=>{
+remove(typingRef);
+},
+1200
+);
+
+});
+
+
+function listenTyping(){
+
+onValue(
+ref(
+rtdb,
+"typing/"
++
+chatId()
++
+"/"
++
+selectedUser.uid
+),
+snap=>{
+
+document.getElementById(
+"typing"
+).textContent=
+snap.val()
+?"typing..."
+:"";
+
+});
+
+}
+
+
+/* BACK */
+
+window.backHome=function(){
+
+if(chatUnsub)
+chatUnsub();
 
 hide("chatPage");
+
 hide("settingsPage");
-hide("settingDetail");
 
 show("homePage");
 
 };
 
 
-/* ================= THREE DOT OPTIONS ================= */
+/* GROUP */
 
-window.newGroup=()=>{
-closeMenu();
-showToast("New Group — اگلے مرحلے میں group creation شامل کریں گے۔");
-};
+window.newGroup=function(){
 
-window.newCommunity=()=>{
-closeMenu();
-showToast("New Community");
-};
+hide("menu");
 
-window.broadcast=()=>{
-closeMenu();
-showToast("Broadcast Lists");
-};
+show("groupModal");
 
-window.linkDevices=()=>{
-closeMenu();
-showToast("Link Devices");
-};
+loadGroupUsers();
 
-window.starred=()=>{
-closeMenu();
-showToast("Starred Messages");
-};
-
-window.readAll=()=>{
-closeMenu();
-showToast("All messages marked as read.");
 };
 
 
-/* ================= SETTINGS ================= */
+async function loadGroupUsers(){
 
-window.openSettings=()=>{
+const box=
+document.getElementById(
+"groupUsers"
+);
 
-closeMenu();
+box.innerHTML="";
+
+const snap=
+await getDocs(
+collection(db,"users")
+);
+
+snap.forEach(s=>{
+
+if(s.id===currentUser.uid)
+return;
+
+const d=s.data();
+
+box.innerHTML+=
+`
+<label style="display:block;padding:8px">
+<input
+type="checkbox"
+class="groupMember"
+value="${s.id}"
+style="width:auto">
+${safe(d.name)}
+</label>
+`;
+
+});
+
+}
+
+
+window.createGroup=async function(){
+
+const name=
+document.getElementById(
+"groupName"
+).value.trim();
+
+const members=[
+currentUser.uid
+];
+
+document.querySelectorAll(
+".groupMember:checked"
+).forEach(x=>{
+members.push(x.value);
+});
+
+if(!name){
+
+toast("Group name لکھیں");
+
+return;
+
+}
+
+if(members.length<2){
+
+toast("کم از کم ایک member منتخب کریں");
+
+return;
+
+}
+
+await addDoc(
+collection(db,"groups"),
+{
+name:name,
+members:members,
+createdBy:currentUser.uid,
+createdAt:serverTimestamp()
+}
+);
+
+closeGroup();
+
+toast("Group created");
+
+};
+
+
+window.closeGroup=function(){
+hide("groupModal");
+};
+
+
+/* OTHER MENU */
+
+window.newCommunity=function(){
+hide("menu");
+toast("Community feature");
+};
+
+window.broadcast=function(){
+hide("menu");
+toast("Broadcast Lists");
+};
+
+window.linkDevices=function(){
+hide("menu");
+toast("Link Devices");
+};
+
+window.starred=function(){
+hide("menu");
+toast("Starred Messages");
+};
+
+window.readAll=function(){
+hide("menu");
+toast("All messages read");
+};
+
+
+/* SETTINGS */
+
+window.openSettings=function(){
+
+hide("menu");
 
 hide("homePage");
+
 hide("chatPage");
-hide("settingDetail");
 
 show("settingsPage");
 
 };
 
 
-window.openSetting=(name)=>{
+/* =========================
+REAL WEBRTC CALLING
+========================= */
 
-hide("settingsPage");
-show("settingDetail");
 
-document.getElementById("settingTitle")
-.textContent=name;
+/* START VOICE */
 
-const box=
-document.getElementById("settingContent");
+window.startVoice=function(){
 
-if(name==="Account"){
-
-box.innerHTML=`
-<h3>Account</h3>
-<div class="option">🔐 Security</div>
-<div class="option">📧 Email</div>
-<div class="option">👤 Profile</div>
-<div class="option">🗑️ Delete Account</div>
-`;
-
-}
-
-else if(name==="Privacy"){
-
-box.innerHTML=`
-<h3>Privacy</h3>
-<div class="option">⏱️ Last Seen</div>
-<div class="option">🟢 Online Status</div>
-<div class="option">👤 Profile Photo</div>
-<div class="option">🔒 Blocked Users</div>
-`;
-
-}
-
-else if(name==="Lists"){
-
-box.innerHTML=`
-<h3>Lists</h3>
-<div class="option">⭐ Favorites</div>
-<div class="option">👥 Groups</div>
-<div class="option">📌 Custom Lists</div>
-`;
-
-}
-
-else if(name==="Chats"){
-
-box.innerHTML=`
-<h3>Chats</h3>
-<div class="option">💾 Chat Backup</div>
-<div class="option">📥 Export Chats</div>
-<div class="option">🗃️ Archive Chats</div>
-<div class="option">🧹 Clear Chats</div>
-`;
-
-}
-
-else if(name==="Notifications"){
-
-box.innerHTML=`
-<h3>Notifications</h3>
-<div class="option">🔔 Message Notifications</div>
-<div class="option">📞 Call Notifications</div>
-<div class="option">🔊 Notification Sound</div>
-`;
-
-}
-
-else if(name==="Theme"){
-
-box.innerHTML=`
-<h3>Theme</h3>
-<button class="full" onclick="setTheme('light')">
-☀️ Light
-</button>
-<button class="gray full" onclick="setTheme('dark')">
-🌙 Dark
-</button>
-`;
-
-}
-
-else if(name==="Language"){
-
-box.innerHTML=`
-<h3>Language</h3>
-<button class="full" onclick="setLanguage('ur')">
-🇵🇰 اردو
-</button>
-<button class="blue full" onclick="setLanguage('en')">
-🇬🇧 English
-</button>
-`;
-
-}
-
-else if(name==="Help"){
-
-box.innerHTML=`
-<h3>Help</h3>
-<div class="option">❓ Frequently Asked Questions</div>
-<div class="option">📩 Contact Support</div>
-<div class="option">🛡️ Safety</div>
-`;
-
-}
-
-else if(name==="About"){
-
-box.innerHTML=`
-<h3>Dost Chat</h3>
-<p>Private messaging and calling application.</p>
-<p>Version 1.0</p>
-`;
-
-}
+startOutgoingCall(false);
 
 };
 
 
-/* ================= THEME ================= */
+/* START VIDEO */
 
-window.setTheme=(theme)=>{
+window.startVideo=function(){
 
-if(theme==="dark"){
-
-document.body.style.background="#111";
-document.querySelector(".app")
-.style.background="#222";
-
-showToast("Dark mode");
-
-}else{
-
-document.body.style.background="#e9edef";
-document.querySelector(".app")
-.style.background="#fff";
-
-showToast("Light mode");
-
-}
+startOutgoingCall(true);
 
 };
 
 
-/* ================= LANGUAGE ================= */
+/* OUTGOING CALL */
 
-window.setLanguage=(language)=>{
+async function startOutgoingCall(video){
 
-localStorage.setItem("language",language);
+if(!selectedUser)return;
 
-showToast(
-language==="ur"
-?"اردو منتخب ہوگئی"
-:"English selected"
+currentCallId=
+crypto.randomUUID();
+
+show("callScreen");
+
+document.getElementById(
+"callTitle"
+).textContent=
+video
+?"📹 Video Call"
+:"🎤 Voice Call";
+
+document.getElementById(
+"callStatus"
+).textContent=
+"Calling "+selectedUser.name;
+
+try{
+
+localStream=
+await navigator.mediaDevices
+.getUserMedia({
+
+audio:true,
+
+video:video
+
+});
+
+}catch(error){
+
+toast(
+"Microphone/Camera permission required"
+);
+
+hide("callScreen");
+
+return;
+
+}
+
+document.getElementById(
+"localVideo"
+).srcObject=
+localStream;
+
+pc=
+new RTCPeerConnection(
+rtcConfig
+);
+
+localStream
+.getTracks()
+.forEach(track=>{
+pc.addTrack(
+track,
+localStream
+);
+});
+
+pc.ontrack=event=>{
+
+document.getElementById(
+"remoteVideo"
+).srcObject=
+event.streams[0];
+
+};
+
+const callRef=
+doc(
+db,
+"calls",
+currentCallId
+);
+
+await setDoc(
+callRef,
+{
+
+callerId:
+currentUser.uid,
+
+callerName:
+await getUserName(
+currentUser.uid
+),
+
+receiverId:
+selectedUser.uid,
+
+receiverName:
+selectedUser.name,
+
+video:video,
+
+status:"ringing",
+
+createdAt:
+serverTimestamp()
+
+}
+);
+
+pc.onicecandidate=async event=>{
+
+if(!event.candidate)return;
+
+await addDoc(
+collection(
+db,
+"calls",
+currentCallId,
+"callerCandidates"
+),
+event.candidate.toJSON()
+);
+
+};
+
+const offer=
+await pc.createOffer();
+
+await pc.setLocalDescription(
+offer
+);
+
+await setDoc(
+callRef,
+{
+
+offer:{
+type:offer.type,
+sdp:offer.sdp
+}
+
+},
+{merge:true}
+);
+
+listenCallDocument();
+
+listenRemoteCandidates(
+"calleeCandidates"
+);
+
+}
+
+
+/* INCOMING CALL LISTENER */
+
+function listenIncomingCalls(){
+
+const q=query(
+collection(db,"calls"),
+where(
+"receiverId",
+"==",
+currentUser.uid
+),
+where(
+"status",
+"==",
+"ringing"
+)
+);
+
+onSnapshot(
+q,
+snap=>{
+
+snap.docChanges()
+.forEach(change=>{
+
+if(change.type!=="added")
+return;
+
+const d=change.doc.data();
+
+incomingCallData={
+id:change.doc.id,
+...d
+};
+
+show("incomingCall");
+
+document.getElementById(
+"incomingName"
+).textContent=
+d.callerName||"Unknown";
+
+document.getElementById(
+"incomingType"
+).textContent=
+d.video
+?"📹 Incoming Video Call"
+:"🎤 Incoming Voice Call";
+
+});
+
+});
+
+}
+
+
+/* ACCEPT */
+
+window.acceptIncoming=async function(){
+
+if(!incomingCallData)return;
+
+const call=incomingCallData;
+
+hide("incomingCall");
+
+selectedUser={
+uid:call.callerId,
+name:call.callerName
+};
+
+currentCallId=call.id;
+
+show("callScreen");
+
+document.getElementById(
+"callTitle"
+).textContent=
+call.video
+?"📹 Video Call"
+:"🎤 Voice Call";
+
+document.getElementById(
+"callStatus"
+).textContent=
+"Connecting...";
+
+try{
+
+localStream=
+await navigator.mediaDevices
+.getUserMedia({
+
+audio:true,
+
+video:call.video
+
+});
+
+}catch(error){
+
+toast(
+"Microphone/Camera permission required"
+);
+
+return;
+
+}
+
+document.getElementById(
+"localVideo"
+).srcObject=
+localStream;
+
+pc=
+new RTCPeerConnection(
+rtcConfig
+);
+
+localStream
+.getTracks()
+.forEach(track=>{
+pc.addTrack(
+track,
+localStream
+);
+});
+
+pc.ontrack=event=>{
+
+document.getElementById(
+"remoteVideo"
+).srcObject=
+event.streams[0];
+
+document.getElementById(
+"callStatus"
+).textContent=
+"Connected";
+
+};
+
+pc.onicecandidate=async event=>{
+
+if(!event.candidate)return;
+
+await addDoc(
+collection(
+db,
+"calls",
+currentCallId,
+"calleeCandidates"
+),
+event.candidate.toJSON()
+);
+
+};
+
+const callRef=
+doc(
+db,
+"calls",
+currentCallId
+);
+
+const snap=
+await getDoc(callRef);
+
+const data=snap.data();
+
+await pc.setRemoteDescription(
+new RTCSessionDescription(
+data.offer
+)
+);
+
+const answer=
+await pc.createAnswer();
+
+await pc.setLocalDescription(
+answer
+);
+
+await setDoc(
+callRef,
+{
+
+answer:{
+type:answer.type,
+sdp:answer.sdp
+},
+
+status:"connected"
+
+},
+{merge:true}
+);
+
+listenRemoteCandidates(
+"callerCandidates"
 );
 
 };
 
 
-/* ================= LOGOUT ================= */
+/* REJECT */
 
-window.logout=async()=>{
+window.rejectIncoming=async function(){
 
-closeMenu();
+if(!incomingCallData)return;
+
+await setDoc(
+doc(
+db,
+"calls",
+incomingCallData.id
+),
+{
+status:"rejected"
+},
+{merge:true}
+);
+
+hide("incomingCall");
+
+incomingCallData=null;
+
+};
+
+
+/* CALL DOCUMENT */
+
+function listenCallDocument(){
+
+if(callDocUnsub)
+callDocUnsub();
+
+callDocUnsub=
+onSnapshot(
+doc(
+db,
+"calls",
+currentCallId
+),
+async snap=>{
+
+const d=snap.data();
+
+if(!d)return;
+
+if(d.answer && pc){
+
+try{
+
+await pc.setRemoteDescription(
+new RTCSessionDescription(
+d.answer
+)
+);
+
+document.getElementById(
+"callStatus"
+).textContent=
+"Connected";
+
+}catch(e){}
+
+}
+
+if(d.status==="rejected"){
+
+toast("Call rejected");
+
+endCall();
+
+}
+
+if(d.status==="ended"){
+
+endCall();
+
+}
+
+});
+
+}
+
+
+/* REMOTE ICE */
+
+function listenRemoteCandidates(path){
+
+if(candidateUnsub)
+candidateUnsub();
+
+candidateUnsub=
+onSnapshot(
+collection(
+db,
+"calls",
+currentCallId,
+path
+),
+snap=>{
+
+snap.docChanges()
+.forEach(async change=>{
+
+if(change.type!=="added")
+return;
+
+if(!pc)return;
+
+try{
+
+await pc.addIceCandidate(
+new RTCIceCandidate(
+change.doc.data()
+)
+);
+
+}catch(e){}
+
+});
+
+});
+
+}
+
+
+/* END CALL */
+
+window.endCall=async function(){
+
+if(currentCallId){
+
+try{
+
+await setDoc(
+doc(
+db,
+"calls",
+currentCallId
+),
+{
+status:"ended"
+},
+{merge:true}
+);
+
+}catch(e){}
+
+}
+
+if(localStream){
+
+localStream
+.getTracks()
+.forEach(t=>t.stop());
+
+}
+
+if(pc){
+
+pc.close();
+
+}
+
+if(callDocUnsub)
+callDocUnsub();
+
+if(candidateUnsub)
+candidateUnsub();
+
+localStream=null;
+pc=null;
+currentCallId=null;
+
+hide("callScreen");
+
+};
+
+
+/* MIC */
+
+window.toggleMic=function(){
+
+if(!localStream)return;
+
+localStream
+.getAudioTracks()
+.forEach(track=>{
+track.enabled=!track.enabled;
+});
+
+};
+
+
+/* CAMERA */
+
+window.toggleCamera=function(){
+
+if(!localStream)return;
+
+localStream
+.getVideoTracks()
+.forEach(track=>{
+track.enabled=!track.enabled;
+});
+
+};
+
+
+/* USER NAME */
+
+async function getUserName(uid){
+
+const snap=
+await getDoc(
+doc(db,"users",uid)
+);
+
+return snap.exists()
+?snap.data().name
+:"User";
+
+}
+
+
+/* LOGOUT */
+
+window.logout=async function(){
 
 await signOut(auth);
 
 };
 
 
-/* ================= HELPERS ================= */
+/* TOAST */
 
-function show(id){
-document.getElementById(id)
-.classList.remove("hidden");
-}
+function toast(msg){
 
-function hide(id){
-document.getElementById(id)
-.classList.add("hidden");
-}
+const t=
+document.getElementById("toast");
 
-function safe(value){
-
-const d=document.createElement("div");
-d.textContent=value||"";
-return d.innerHTML;
-
-}
-
-function showToast(message){
-
-const t=document.getElementById("toast");
-
-t.textContent=message;
+t.textContent=msg;
 
 t.classList.remove("hidden");
 
@@ -1251,17 +1977,20 @@ t.classList.add("hidden");
 }
 
 
-/* Placeholder calls */
+/* HTML SAFE */
 
-window.voiceCall=()=>{
-showToast("Voice Call module ready — WebRTC/TURN next step.");
-};
+function safe(value){
 
-window.videoCall=()=>{
-showToast("Video Call module ready — WebRTC/TURN next step.");
-};
+const div=
+document.createElement("div");
+
+div.textContent=value||"";
+
+return div.innerHTML;
+
+}
 
 </script>
 
 </body>
- </html>
+</html>
