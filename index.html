@@ -1454,6 +1454,7 @@ d.video
 :"🎤 Incoming Voice Call";
 
 show("incomingCall");
+    startRingtone();
 
 playRing();
 
@@ -1474,6 +1475,7 @@ if(!incomingCallData)return;
 const call=incomingCallData;
 
 hide("incomingCall");
+    stopRingtone();
 
 selectedUser={
 uid:call.callerId,
@@ -1651,6 +1653,7 @@ console.error(e);
 }
 
 hide("incomingCall");
+    stopRingtone();
 incomingCallData=null;
 
 };
@@ -1881,7 +1884,7 @@ const enabled=tracks[0].enabled;
 document.getElementById(
 "cameraBtn"
 ).textContent=enabled
-?"📹":"🚫";
+?"📹":"on";
 
 };
 
