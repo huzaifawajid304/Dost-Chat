@@ -10,227 +10,131 @@
 body{margin:0;font-family:Arial,sans-serif;background:#e5ddd5}
 .app{max-width:520px;margin:auto;min-height:100vh;background:#fff}
 .hidden{display:none!important}
-
-.header{
+.header,.chat-head,.page-head{
 height:60px;background:#075e54;color:#fff;
-display:flex;align-items:center;justify-content:space-between;
-padding:0 12px
+display:flex;align-items:center;padding:5px 10px
 }
+.header{justify-content:space-between}
 .title{font-size:21px;font-weight:bold}
 .header button,.chat-head button,.page-head button{
 background:transparent;border:0;color:#fff;font-size:27px
 }
-
 .lang{display:flex;gap:5px;padding:5px;background:#eee}
 button{
 border:0;border-radius:7px;padding:11px;
 background:#075e54;color:#fff;font-size:15px
 }
 .lang button{flex:1}
-
 .full{width:100%;margin:5px 0}
-.blue{background:#1976d2}
-.red{background:#d32f2f}
-.gray{background:#777}
-
+.blue{background:#1976d2}.red{background:#d32f2f}.gray{background:#777}
 .box{padding:16px}
-
 input{
 width:100%;padding:13px;margin:6px 0;
-border:1px solid #ccc;border-radius:8px;
-font-size:16px
+border:1px solid #ccc;border-radius:8px;font-size:16px
 }
-
 .menu{
-position:fixed;z-index:1000;
-top:58px;right:max(calc(50% - 250px),5px);
+position:fixed;z-index:1000;top:58px;
+right:max(calc(50% - 250px),5px);
 width:250px;background:#fff;
-box-shadow:0 5px 25px #0005;
-border-radius:8px;overflow:hidden
+box-shadow:0 5px 25px #0005;border-radius:8px;overflow:hidden
 }
-
 .menu button{
 width:100%;display:block;text-align:right;
-background:#fff;color:#222;
-border-radius:0;border-bottom:1px solid #eee
+background:#fff;color:#222;border-radius:0;
+border-bottom:1px solid #eee
 }
-
-.profile{
-display:flex;align-items:center;
-gap:12px;padding:10px 0
-}
-
-.avatar{
+.profile{display:flex;align-items:center;gap:12px;padding:10px 0}
+.avatar,.chat-avatar{
 width:55px;height:55px;border-radius:50%;
 object-fit:cover;background:#ddd
 }
-
 .user{
-padding:13px;margin:7px 0;
-background:#f3f3f3;border-radius:9px;
-cursor:pointer;display:flex;
-align-items:center;gap:10px
+padding:10px;margin:7px 0;background:#f3f3f3;
+border-radius:9px;cursor:pointer;
+display:flex;align-items:center;gap:10px
 }
-
 .user img{
-width:45px;height:45px;
-border-radius:50%;object-fit:cover
+width:45px;height:45px;border-radius:50%;
+object-fit:cover;background:#ddd
 }
-
 .status{font-size:13px;color:#777}
-
 .search{display:flex;gap:5px}
-.search input{flex:1}
-.search button{width:85px}
-
-.chat-head{
-height:60px;background:#075e54;color:#fff;
-display:flex;align-items:center;gap:8px;padding:5px
-}
-
+.search input{flex:1}.search button{width:85px}
 .chat-info{flex:1}
 .chat-actions{display:flex;gap:2px}
-
-.chat-actions button{
-background:transparent;
-font-size:20px;padding:7px
-}
-
-.chat-avatar{
-width:43px;height:43px;
-border-radius:50%;object-fit:cover
-}
-
+.chat-actions button{background:transparent;font-size:20px;padding:7px}
 .messages{
-height:calc(100vh - 205px);
-min-height:400px;overflow-y:auto;
-padding:12px;background:#e5ddd5
+height:calc(100vh - 205px);min-height:400px;
+overflow-y:auto;padding:12px;background:#e5ddd5
 }
-
 .msg{
-max-width:78%;padding:9px 12px;
-margin:6px 0;border-radius:10px;
-word-break:break-word;clear:both
+max-width:78%;padding:9px 12px;margin:6px 0;
+border-radius:10px;word-break:break-word;clear:both
 }
-
 .mine{float:right;background:#dcf8c6}
 .theirs{float:left;background:#fff}
-
-.send{
-display:flex;gap:5px;
-padding:7px;background:#eee
-}
-
-.send input{flex:1;margin:0}
-.send button{width:75px;margin:0}
-
-.page-head{
-height:60px;background:#075e54;
-color:#fff;display:flex;
-align-items:center;gap:10px;padding:5px
-}
-
-.option{
-padding:16px;border-bottom:1px solid #eee
-}
-
+.send{display:flex;gap:5px;padding:7px;background:#eee}
+.send input{flex:1;margin:0}.send button{width:75px;margin:0}
+.option{padding:16px;border-bottom:1px solid #eee}
 .modal{
-position:fixed;inset:0;background:#0008;
-display:flex;align-items:center;
-justify-content:center;z-index:3000
+position:fixed;inset:0;background:#0008;display:flex;
+align-items:center;justify-content:center;z-index:3000
 }
-
 .modal-box{
-width:92%;max-width:400px;
-background:#fff;border-radius:12px;
-padding:18px
+width:92%;max-width:400px;background:#fff;
+border-radius:12px;padding:18px
 }
-
 .profile-large{
-width:100px;height:100px;
-border-radius:50%;object-fit:cover;
-display:block;margin:10px auto;
-background:#ddd
+width:110px;height:110px;border-radius:50%;
+object-fit:cover;display:block;margin:10px auto;background:#ddd
 }
-
 .call-screen{
-position:fixed;inset:0;
-background:#111;z-index:5000;
-color:#fff;display:flex;
-flex-direction:column
+position:fixed;inset:0;background:#111;z-index:5000;
+color:#fff;display:flex;flex-direction:column
 }
-
 .call-top{text-align:center;padding:15px}
-
-.videos{
-position:relative;flex:1;background:#000
-}
-
-#remoteVideo{
-width:100%;height:100%;
-object-fit:cover
-}
-
+.videos{position:relative;flex:1;background:#000}
+#remoteVideo{width:100%;height:100%;object-fit:cover}
 #localVideo{
-position:absolute;right:12px;bottom:12px;
-width:120px;height:170px;
-object-fit:cover;border:2px solid #fff;
+position:absolute;right:12px;bottom:12px;width:120px;
+height:170px;object-fit:cover;border:2px solid #fff;
 border-radius:10px;background:#222
 }
-
+.voice-avatar{
+width:130px;height:130px;border-radius:50%;
+object-fit:cover;margin:50px auto 20px;display:block
+}
 .call-buttons{
-display:flex;justify-content:center;
-align-items:center;gap:8px;
-padding:12px;flex-wrap:wrap
+display:flex;justify-content:center;align-items:center;
+gap:8px;padding:12px;flex-wrap:wrap
 }
-
 .call-buttons button{
-width:52px;height:52px;
-border-radius:50%;font-size:19px
+width:52px;height:52px;border-radius:50%;font-size:19px
 }
-
 .incoming{
-position:fixed;inset:0;
-background:#075e54;color:#fff;
-z-index:6000;display:flex;
-flex-direction:column;align-items:center;
-justify-content:center;text-align:center
+position:fixed;inset:0;background:#075e54;color:#fff;
+z-index:6000;display:flex;flex-direction:column;
+align-items:center;justify-content:center;text-align:center
 }
-
 .incoming-avatar{
-width:100px;height:100px;
-border-radius:50%;object-fit:cover;
-background:#fff;margin:20px
+width:110px;height:110px;border-radius:50%;
+object-fit:cover;background:#fff;margin:20px
 }
-
-.incoming-buttons{
-display:flex;gap:30px;margin-top:30px
-}
-
+.incoming-buttons{display:flex;gap:30px;margin-top:30px}
 .incoming-buttons button{
-width:65px;height:65px;
-border-radius:50%;font-size:25px
+width:65px;height:65px;border-radius:50%;font-size:25px
 }
-
 .typing{font-size:12px;color:#ddd}
-
 .toast{
 position:fixed;bottom:20px;left:50%;
-transform:translateX(-50%);
-background:#222;color:#fff;
-padding:12px 18px;border-radius:8px;
-z-index:9000
+transform:translateX(-50%);background:#222;color:#fff;
+padding:12px 18px;border-radius:8px;z-index:9000
 }
-
-.range{
-width:180px!important;
-padding:0!important
-}
+.range{width:180px!important;padding:0!important}
 </style>
 </head>
 
 <body>
-
 <div class="app">
 
 <div class="header">
@@ -255,48 +159,26 @@ padding:0!important
 <button onclick="logout()">🚪 Logout</button>
 </div>
 
-
-<!-- LOGIN -->
-
 <section id="loginPage">
-
 <div class="box">
-
 <h2 id="welcome">خوش آمدید</h2>
 
 <input id="name" placeholder="نام">
-
 <input id="email" type="email" placeholder="Email">
-
 <input id="password" type="password" placeholder="Password">
 
 <label>
-<input id="remember" type="checkbox"
-style="width:auto" checked>
-<span id="rememberText">
-مجھے یاد رکھیں
-</span>
+<input id="remember" type="checkbox" style="width:auto" checked>
+<span id="rememberText">مجھے یاد رکھیں</span>
 </label>
 
-<button class="full" onclick="register()">
-نیا اکاؤنٹ بنائیں
-</button>
-
-<button class="full blue" onclick="login()">
-لاگ اِن
-</button>
-
+<button class="full" onclick="register()">نیا اکاؤنٹ بنائیں</button>
+<button class="full blue" onclick="login()">لاگ اِن</button>
 </div>
-
 </section>
 
-
-<!-- HOME -->
-
 <section id="homePage" class="hidden">
-
 <div class="box">
-
 <div id="profile"></div>
 
 <div class="search">
@@ -305,66 +187,39 @@ style="width:auto" checked>
 </div>
 
 <div id="result"></div>
-
 <h3 id="usersTitle">صارفین</h3>
-
 <div id="users"></div>
-
 </div>
-
 </section>
 
-
-<!-- CHAT -->
-
 <section id="chatPage" class="hidden">
-
 <div class="chat-head">
-
 <button onclick="backHome()">←</button>
-
-<img id="chatAvatar"
-class="chat-avatar">
-
+<img id="chatAvatar" class="chat-avatar">
 <div class="chat-info">
-
 <strong id="chatName"></strong>
-
-<div id="chatStatus"
-class="status"></div>
-
-<div id="typing"
-class="typing"></div>
-
+<div id="chatStatus" class="status"></div>
+<div id="typing" class="typing"></div>
 </div>
-
 <div class="chat-actions">
 <button onclick="startVoice()">🎤</button>
 <button onclick="startVideo()">📹</button>
 </div>
-
 </div>
 
 <div id="messages" class="messages"></div>
 
 <div class="send">
-<input id="message"
-placeholder="پیغام لکھیں...">
+<input id="message" placeholder="پیغام لکھیں...">
 <button onclick="sendMessage()">بھیجیں</button>
 </div>
-
 </section>
 
-
-<!-- SETTINGS -->
-
 <section id="settingsPage" class="hidden">
-
 <div class="page-head">
 <button onclick="backHome()">←</button>
 <strong>Settings</strong>
 </div>
-
 <div class="option">👤 Account</div>
 <div class="option">🔒 Privacy</div>
 <div class="option">📋 Lists</div>
@@ -374,171 +229,76 @@ placeholder="پیغام لکھیں...">
 <div class="option">🌐 Language</div>
 <div class="option">❓ Help</div>
 <div class="option">ℹ️ About</div>
-
 </section>
 
-
-<!-- PROFILE -->
-
 <section id="profilePage" class="hidden">
-
 <div class="page-head">
 <button onclick="backHome()">←</button>
 <strong>Profile</strong>
 </div>
 
 <div class="box">
-
-<img id="profileLarge"
-class="profile-large">
-
-<input id="profileName"
-placeholder="Name">
-
-<input id="profileFile"
-type="file"
-accept="image/*">
-
-<button class="full"
-onclick="saveProfile()">
-Save Profile
-</button>
-
+<img id="profileLarge" class="profile-large">
+<input id="profileName" placeholder="Name">
+<input id="profileFile" type="file" accept="image/*">
+<button class="full" onclick="saveProfile()">Save Profile</button>
 </div>
-
 </section>
 
-
-<!-- GROUP -->
-
 <div id="groupModal" class="modal hidden">
-
 <div class="modal-box">
-
 <h2>New Group</h2>
-
-<input id="groupName"
-placeholder="Group Name">
-
+<input id="groupName" placeholder="Group Name">
 <div id="groupUsers"></div>
-
-<button class="full"
-onclick="createGroup()">
-Create Group
-</button>
-
-<button class="full red"
-onclick="closeGroup()">
-Cancel
-</button>
-
+<button class="full" onclick="createGroup()">Create Group</button>
+<button class="full red" onclick="closeGroup()">Cancel</button>
 </div>
-
 </div>
-
-
-<!-- INCOMING CALL -->
 
 <div id="incomingCall" class="incoming hidden">
-
-<img id="incomingAvatar"
-class="incoming-avatar">
-
-<h2 id="incomingType">
-Incoming Call
-</h2>
-
+<img id="incomingAvatar" class="incoming-avatar">
+<h2 id="incomingType">Incoming Call</h2>
 <h2 id="incomingName"></h2>
-
 <div class="incoming-buttons">
-
-<button class="red"
-onclick="rejectIncoming()">✕</button>
-
-<button
-onclick="acceptIncoming()">✓</button>
-
+<button class="red" onclick="rejectIncoming()">✕</button>
+<button onclick="acceptIncoming()">✓</button>
+</div>
 </div>
 
-</div>
-
-
-<!-- ACTIVE CALL -->
-
-<div id="callScreen"
-class="call-screen hidden">
-
+<div id="callScreen" class="call-screen hidden">
 <div class="call-top">
-
-<strong id="callTitle">
-Call
-</strong>
-
-<div id="callStatus">
-Connecting...
+<strong id="callTitle">Call</strong>
+<div id="callStatus">Connecting...</div>
 </div>
 
-</div>
-
-<div class="videos">
-
-<video id="remoteVideo"
-autoplay playsinline></video>
-
-<video id="localVideo"
-autoplay muted playsinline></video>
-
+<div id="videos" class="videos">
+<img id="voiceAvatar" class="voice-avatar hidden">
+<video id="remoteVideo" autoplay playsinline></video>
+<video id="localVideo" autoplay muted playsinline></video>
 </div>
 
 <div class="call-buttons">
-
-<button id="micBtn"
-onclick="toggleMic()">🎤</button>
-
-<button onclick="changeVolume(-0.1)">
-🔉
-</button>
-
-<button onclick="changeVolume(0.1)">
-🔊
-</button>
-
-<button onclick="toggleCamera()">
-📹
-</button>
-
-<button onclick="switchCamera()">
-🔄
-</button>
-
-<button class="red"
-onclick="endCall()">
-📞
-</button>
-
+<button id="micBtn" onclick="toggleMic()">🎤</button>
+<button onclick="changeVolume(-0.1)">🔉</button>
+<button onclick="changeVolume(0.1)">🔊</button>
+<button id="cameraBtn" onclick="toggleCamera()">📹</button>
+<button onclick="switchCamera()">🔄</button>
+<button class="red" onclick="endCall()">📞</button>
 </div>
 
 <div style="text-align:center;padding-bottom:10px">
-
 🔊
-
-<input id="volumeControl"
-class="range"
-type="range"
-min="0"
-max="1"
-step="0.05"
-value="1"
+<input id="volumeControl" class="range" type="range"
+min="0" max="1" step="0.05" value="1"
 oninput="setVolume(this.value)">
-
+</div>
 </div>
 
-</div>
+<div id="toast" class="toast hidden"></div>
 
-
-<div id="toast"
-class="toast hidden"></div>
-
+<audio id="ringtone" loop preload="auto">
+<source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YQAAAAA=" type="audio/wav">
+</audio>
 
 <script type="module">
 
@@ -574,14 +334,6 @@ serverTimestamp
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 import {
-getStorage,
-ref as storageRef,
-uploadBytes,
-getDownloadURL
-}
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
-
-import {
 getDatabase,
 ref,
 set,
@@ -596,35 +348,18 @@ from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
 /* FIREBASE */
 
 const firebaseConfig={
-
-apiKey:
-"AIzaSyBvEGBT5yvkcPoziNc3U9rh87IEkOn_7eM",
-
-authDomain:
-"dost-chat-a7eec.firebaseapp.com",
-
-projectId:
-"dost-chat-a7eec",
-
-storageBucket:
-"dost-chat-a7eec.firebasestorage.app",
-
-messagingSenderId:
-"760944205758",
-
-appId:
-"1:760944205758:web:41d06ed0c34b3f24f8a3ef",
-
-databaseURL:
-"https://dost-chat-a7eec-default-rtdb.firebaseio.com/"
-
+apiKey:"AIzaSyBvEGBT5yvkcPoziNc3U9rh87IEkOn_7eM",
+authDomain:"dost-chat-a7eec.firebaseapp.com",
+projectId:"dost-chat-a7eec",
+storageBucket:"dost-chat-a7eec.firebasestorage.app",
+messagingSenderId:"760944205758",
+appId:"1:760944205758:web:41d06ed0c34b3f24f8a3ef",
+databaseURL:"https://dost-chat-a7eec-default-rtdb.firebaseio.com/"
 };
 
 const app=initializeApp(firebaseConfig);
-
 const auth=getAuth(app);
 const db=getFirestore(app);
-const storage=getStorage(app);
 const rtdb=getDatabase(app);
 
 
@@ -632,41 +367,27 @@ const rtdb=getDatabase(app);
 
 let currentUser=null;
 let selectedUser=null;
-
 let chatUnsub=null;
 let typingTimer=null;
 
 let pc=null;
 let localStream=null;
-
 let currentCallId=null;
 let incomingCallData=null;
 
 let callDocUnsub=null;
 let candidateUnsub=null;
 
-let currentCameraTrack=null;
-
-let lang=
-localStorage.getItem("dostLanguage")||"ur";
+let lang=localStorage.getItem("dostLanguage")||"ur";
 
 
 /* WEBRTC */
 
 const rtcConfig={
-
 iceServers:[
-
-{
-urls:"stun:stun.l.google.com:19302"
-},
-
-{
-urls:"stun:stun1.l.google.com:19302"
-}
-
+{urls:"stun:stun.l.google.com:19302"},
+{urls:"stun:stun1.l.google.com:19302"}
 ]
-
 };
 
 
@@ -675,59 +396,52 @@ urls:"stun:stun1.l.google.com:19302"
 window.setLanguage=function(x){
 
 lang=x;
+localStorage.setItem("dostLanguage",x);
 
-localStorage.setItem(
-"dostLanguage",x
-);
-
-document.documentElement.dir=
-x==="ur"?"rtl":"ltr";
+document.documentElement.dir=x==="ur"?"rtl":"ltr";
 
 if(x==="ur"){
-
 welcome.textContent="خوش آمدید";
-
-rememberText.textContent=
-"مجھے یاد رکھیں";
-
+rememberText.textContent="مجھے یاد رکھیں";
 usersTitle.textContent="صارفین";
-
 }else{
-
 welcome.textContent="Welcome";
-
-rememberText.textContent=
-"Remember Me";
-
+rememberText.textContent="Remember Me";
 usersTitle.textContent="Users";
-
 }
-
 };
 
 window.setLanguage(lang);
 
 
-/* SHOW */
+/* HELPERS */
 
 function show(id){
-document.getElementById(id)
-.classList.remove("hidden");
+document.getElementById(id).classList.remove("hidden");
 }
 
 function hide(id){
-document.getElementById(id)
-.classList.add("hidden");
+document.getElementById(id).classList.add("hidden");
+}
+
+function toast(msg){
+const t=document.getElementById("toast");
+t.textContent=msg;
+t.classList.remove("hidden");
+setTimeout(()=>t.classList.add("hidden"),3000);
+}
+
+function safe(value){
+const div=document.createElement("div");
+div.textContent=value||"";
+return div.innerHTML;
 }
 
 
 /* MENU */
 
 window.toggleMenu=function(){
-
-document.getElementById("menu")
-.classList.toggle("hidden");
-
+document.getElementById("menu").classList.toggle("hidden");
 };
 
 
@@ -735,32 +449,18 @@ document.getElementById("menu")
 
 window.register=async function(){
 
-const name=
-document.getElementById("name")
-.value.trim();
-
-const email=
-document.getElementById("email")
-.value.trim();
-
-const password=
-document.getElementById("password")
-.value;
+const name=document.getElementById("name").value.trim();
+const email=document.getElementById("email").value.trim();
+const password=document.getElementById("password").value;
 
 if(!name||!email||!password){
-
 toast("تمام معلومات درج کریں");
-
 return;
-
 }
 
 if(password.length<6){
-
 toast("Password کم از کم 6 characters");
-
 return;
-
 }
 
 try{
@@ -772,8 +472,7 @@ document.getElementById("remember").checked
 :browserSessionPersistence
 );
 
-const result=
-await createUserWithEmailAndPassword(
+const result=await createUserWithEmailAndPassword(
 auth,email,password
 );
 
@@ -781,8 +480,8 @@ await setDoc(
 doc(db,"users",result.user.uid),
 {
 uid:result.user.uid,
-name:name,
-email:email,
+name,
+email,
 photoURL:"",
 createdAt:serverTimestamp()
 }
@@ -791,11 +490,8 @@ createdAt:serverTimestamp()
 toast("Account بن گیا");
 
 }catch(e){
-
 toast(e.message);
-
 }
-
 };
 
 
@@ -803,20 +499,12 @@ toast(e.message);
 
 window.login=async function(){
 
-const email=
-document.getElementById("email")
-.value.trim();
-
-const password=
-document.getElementById("password")
-.value;
+const email=document.getElementById("email").value.trim();
+const password=document.getElementById("password").value;
 
 if(!email||!password){
-
 toast("Email اور Password درج کریں");
-
 return;
-
 }
 
 try{
@@ -833,19 +521,14 @@ auth,email,password
 );
 
 }catch(e){
-
 toast(e.message);
-
 }
-
 };
 
 
 /* AUTH */
 
-onAuthStateChanged(
-auth,
-async user=>{
+onAuthStateChanged(auth,async user=>{
 
 if(!user){
 
@@ -859,48 +542,37 @@ hide("profilePage");
 show("loginPage");
 
 return;
-
 }
 
 currentUser=user;
 
 hide("loginPage");
-
 show("homePage");
 
 await setupPresence();
-
 loadProfile();
-
 loadUsers();
-
 listenIncomingCalls();
 
-}
-);
+});
 
 
 /* PRESENCE */
 
 async function setupPresence(){
 
-const statusRef=
-ref(
+const statusRef=ref(
 rtdb,
 "status/"+currentUser.uid
 );
 
-const connectedRef=
-ref(rtdb,".info/connected");
+const connectedRef=ref(rtdb,".info/connected");
 
-onValue(
-connectedRef,
-snap=>{
+onValue(connectedRef,snap=>{
 
 if(snap.val()!==true)return;
 
-onDisconnect(statusRef)
-.set({
+onDisconnect(statusRef).set({
 state:"offline",
 lastChanged:dbTimestamp()
 });
@@ -911,7 +583,6 @@ lastChanged:dbTimestamp()
 });
 
 });
-
 }
 
 
@@ -919,8 +590,7 @@ lastChanged:dbTimestamp()
 
 async function loadProfile(){
 
-const snap=
-await getDoc(
+const snap=await getDoc(
 doc(db,"users",currentUser.uid)
 );
 
@@ -928,24 +598,27 @@ if(!snap.exists())return;
 
 const d=snap.data();
 
-document.getElementById("profile")
-.innerHTML=
-`
+document.getElementById("profile").innerHTML=`
 <div class="profile">
-
-<img class="avatar"
-src="${d.photoURL||''}"
-onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2255%22 height=%2255%22><circle cx=%2227%22 cy=%2227%22 r=%2227%22 fill=%22%23ddd%22/></svg>'">
-
+<img class="avatar" src="${d.photoURL||defaultAvatar()}">
 <div>
-<strong>${safe(d.name)}</strong>
-<br>
+<strong>${safe(d.name)}</strong><br>
 <small>${safe(d.email)}</small>
 </div>
+</div>`;
+}
 
-</div>
-`;
 
+function defaultAvatar(){
+
+return "data:image/svg+xml,"+
+encodeURIComponent(
+`<svg xmlns="http://www.w3.org/2000/svg"
+width="100" height="100">
+<circle cx="50" cy="50" r="50" fill="#ddd"/>
+<text x="50" y="58" text-anchor="middle"
+font-size="40">👤</text></svg>`
+);
 }
 
 
@@ -957,11 +630,9 @@ hide("menu");
 hide("homePage");
 hide("chatPage");
 hide("settingsPage");
-
 show("profilePage");
 
-const snap=
-await getDoc(
+const snap=await getDoc(
 doc(db,"users",currentUser.uid)
 );
 
@@ -969,90 +640,141 @@ if(!snap.exists())return;
 
 const d=snap.data();
 
-document.getElementById(
-"profileLarge"
-).src=d.photoURL||"";
+document.getElementById("profileLarge").src=
+d.photoURL||defaultAvatar();
 
-document.getElementById(
-"profileName"
-).value=d.name||"";
+document.getElementById("profileName").value=
+d.name||"";
+};
+
+
+/* IMAGE COMPRESS */
+
+function compressImage(file){
+
+return new Promise((resolve,reject)=>{
+
+const reader=new FileReader();
+
+reader.onload=e=>{
+
+const img=new Image();
+
+img.onload=()=>{
+
+const canvas=document.createElement("canvas");
+
+const max=500;
+
+let w=img.width;
+let h=img.height;
+
+if(w>h){
+if(w>max){
+h=h*max/w;
+w=max;
+}
+}else{
+if(h>max){
+w=w*max/h;
+h=max;
+}
+}
+
+canvas.width=w;
+canvas.height=h;
+
+const ctx=canvas.getContext("2d");
+
+ctx.drawImage(img,0,0,w,h);
+
+resolve(
+canvas.toDataURL("image/jpeg",0.55)
+);
 
 };
+
+img.onerror=reject;
+img.src=e.target.result;
+};
+
+reader.onerror=reject;
+reader.readAsDataURL(file);
+
+});
+}
 
 
 /* SAVE PROFILE */
 
-function compressImage(file) {
+window.saveProfile=async function(){
 
-    return new Promise((resolve, reject) => {
+const name=document.getElementById(
+"profileName"
+).value.trim();
 
-        const reader = new FileReader();
+const file=document.getElementById(
+"profileFile"
+).files[0];
 
-        reader.onload = function (event) {
-
-            const img = new Image();
-
-            img.onload = function () {
-
-                const canvas =
-                    document.createElement("canvas");
-
-                const maxSize = 600;
-
-                let width = img.width;
-                let height = img.height;
-
-                if (width > height) {
-
-                    if (width > maxSize) {
-                        height =
-                            height * maxSize / width;
-                        width = maxSize;
-                    }
-
-                } else {
-
-                    if (height > maxSize) {
-                        width =
-                            width * maxSize / height;
-                        height = maxSize;
-                    }
-                }
-
-                canvas.width = width;
-                canvas.height = height;
-
-                const ctx =
-                    canvas.getContext("2d");
-
-                ctx.drawImage(
-                    img,
-                    0,
-                    0,
-                    width,
-                    height
-                );
-
-                const base64 =
-                    canvas.toDataURL(
-                        "image/jpeg",
-                        0.65
-                    );
-
-                resolve(base64);
-
-            };
-
-            img.onerror = reject;
-
-            img.src = event.target.result;
-        };
-
-        reader.onerror = reject;
-
-        reader.readAsDataURL(file);
-    });
+if(!name){
+toast("نام درج کریں");
+return;
 }
+
+try{
+
+let photoURL="";
+
+const old=await getDoc(
+doc(db,"users",currentUser.uid)
+);
+
+if(old.exists()){
+photoURL=old.data().photoURL||"";
+}
+
+if(file){
+
+if(!file.type.startsWith("image/")){
+toast("صرف تصویر منتخب کریں");
+return;
+}
+
+photoURL=await compressImage(file);
+
+if(photoURL.length>900000){
+toast("تصویر بہت بڑی ہے، دوسری تصویر منتخب کریں");
+return;
+}
+
+document.getElementById(
+"profileLarge"
+).src=photoURL;
+}
+
+await setDoc(
+doc(db,"users",currentUser.uid),
+{
+name,
+photoURL,
+updatedAt:serverTimestamp()
+},
+{merge:true}
+);
+
+await loadProfile();
+
+toast("Profile محفوظ ہوگئی");
+
+}catch(e){
+
+console.error(e);
+toast("Profile محفوظ نہیں ہوئی: "+e.message);
+
+}
+};
+
 
 /* USERS */
 
@@ -1062,9 +784,7 @@ onSnapshot(
 collection(db,"users"),
 snap=>{
 
-const box=
-document.getElementById("users");
-
+const box=document.getElementById("users");
 box.innerHTML="";
 
 snap.forEach(s=>{
@@ -1073,41 +793,30 @@ if(s.id===currentUser.uid)return;
 
 const d=s.data();
 
-const div=
-document.createElement("div");
-
+const div=document.createElement("div");
 div.className="user";
 
-div.innerHTML=
-`
-<img src="${d.photoURL||''}"
-onerror="this.style.display='none'">
-
+div.innerHTML=`
+<img src="${d.photoURL||defaultAvatar()}">
 <div>
 <strong>${safe(d.name||"User")}</strong>
 <div>${safe(d.email||"")}</div>
-<div id="status-${s.id}"
-class="status">...</div>
-</div>
-`;
+<div id="status-${s.id}" class="status">...</div>
+</div>`;
 
 div.onclick=()=>openChat({
-
 uid:s.id,
 name:d.name||"User",
 email:d.email||"",
 photoURL:d.photoURL||""
-
 });
 
 box.appendChild(div);
-
 listenStatus(s.id);
 
 });
 
 });
-
 }
 
 
@@ -1119,44 +828,31 @@ onValue(
 ref(rtdb,"status/"+uid),
 snap=>{
 
-const el=
-document.getElementById(
-"status-"+uid
-);
-
+const el=document.getElementById("status-"+uid);
 if(!el)return;
 
 const d=snap.val();
 
 if(d?.state==="online"){
 
-el.textContent=
-lang==="ur"
+el.textContent=lang==="ur"
 ?"🟢 آن لائن"
 :"🟢 Online";
 
 }else if(d?.lastChanged){
 
 el.textContent=
-(lang==="ur"
-?"آخری بار: "
-:"Last seen: ")
-+
-new Date(
-d.lastChanged
-).toLocaleString();
+(lang==="ur"?"آخری بار: ":"Last seen: ")+
+new Date(d.lastChanged).toLocaleString();
 
 }else{
 
-el.textContent=
-lang==="ur"
+el.textContent=lang==="ur"
 ?"آف لائن"
 :"Offline";
 
 }
-
 });
-
 }
 
 
@@ -1164,8 +860,7 @@ lang==="ur"
 
 window.findUser=async function(){
 
-const email=
-document.getElementById("search")
+const email=document.getElementById("search")
 .value.trim();
 
 if(!email)return;
@@ -1177,131 +872,88 @@ where("email","==",email)
 
 const snap=await getDocs(q);
 
-const result=
-document.getElementById("result");
-
+const result=document.getElementById("result");
 result.innerHTML="";
 
 if(snap.empty){
-
 result.textContent="User نہیں ملا";
-
 return;
-
 }
 
 const s=snap.docs[0];
 const d=s.data();
 
-const div=
-document.createElement("div");
-
+const div=document.createElement("div");
 div.className="user";
 
-div.innerHTML=
-`
-<img src="${d.photoURL||''}"
-onerror="this.style.display='none'">
-
+div.innerHTML=`
+<img src="${d.photoURL||defaultAvatar()}">
 <div>
 <strong>${safe(d.name)}</strong>
 <div>${safe(d.email)}</div>
-</div>
-`;
+</div>`;
 
 div.onclick=()=>openChat({
-
 uid:s.id,
 name:d.name,
 email:d.email,
 photoURL:d.photoURL||""
-
 });
 
 result.appendChild(div);
-
 };
 
 
-/* CHAT ID */
+/* CHAT */
 
 function chatId(){
-
-return [
+return[
 currentUser.uid,
 selectedUser.uid
 ].sort().join("_");
-
 }
-
-
-/* OPEN CHAT */
 
 function openChat(user){
 
 selectedUser=user;
 
 hide("homePage");
-
 show("chatPage");
 
-document.getElementById(
-"chatName"
-).textContent=user.name;
-
-document.getElementById(
-"chatAvatar"
-).src=user.photoURL||"";
+document.getElementById("chatName").textContent=user.name;
+document.getElementById("chatAvatar").src=
+user.photoURL||defaultAvatar();
 
 listenChatStatus();
-
 listenMessages();
-
 listenTyping();
 
 }
 
-
-/* CHAT STATUS */
-
 function listenChatStatus(){
 
 onValue(
-ref(
-rtdb,
-"status/"+selectedUser.uid
-),
+ref(rtdb,"status/"+selectedUser.uid),
 snap=>{
 
 const d=snap.val();
-
-const el=
-document.getElementById(
-"chatStatus"
-);
+const el=document.getElementById("chatStatus");
 
 if(d?.state==="online"){
 
-el.textContent=
-lang==="ur"
+el.textContent=lang==="ur"
 ?"🟢 آن لائن"
 :"🟢 Online";
 
 }else if(d?.lastChanged){
 
 el.textContent=
-(lang==="ur"
-?"آخری بار: "
-:"Last seen: ")
-+
-new Date(
-d.lastChanged
-).toLocaleString();
+(lang==="ur"?"آخری بار: ":"Last seen: ")+
+new Date(d.lastChanged).toLocaleString();
 
 }
 
 });
-
 }
 
 
@@ -1312,39 +964,25 @@ function listenMessages(){
 if(chatUnsub)chatUnsub();
 
 const q=query(
-collection(
-db,
-"chats",
-chatId(),
-"messages"
-),
+collection(db,"chats",chatId(),"messages"),
 orderBy("createdAt","asc")
 );
 
-chatUnsub=
-onSnapshot(
-q,
-snap=>{
+chatUnsub=onSnapshot(q,snap=>{
 
-const box=
-document.getElementById("messages");
-
+const box=document.getElementById("messages");
 box.innerHTML="";
 
 snap.forEach(s=>{
 
 const d=s.data();
 
-const div=
-document.createElement("div");
+const div=document.createElement("div");
 
 div.className=
 "msg "+
-(
-d.senderId===currentUser.uid
-?"mine"
-:"theirs"
-);
+(d.senderId===currentUser.uid
+?"mine":"theirs");
 
 div.textContent=d.text;
 
@@ -1352,11 +990,9 @@ box.appendChild(div);
 
 });
 
-box.scrollTop=
-box.scrollHeight;
+box.scrollTop=box.scrollHeight;
 
 });
-
 }
 
 
@@ -1364,23 +1000,17 @@ box.scrollHeight;
 
 window.sendMessage=async function(){
 
-const input=
-document.getElementById("message");
-
-const text=
-input.value.trim();
+const input=document.getElementById("message");
+const text=input.value.trim();
 
 if(!text||!selectedUser)return;
 
+try{
+
 await addDoc(
-collection(
-db,
-"chats",
-chatId(),
-"messages"
-),
+collection(db,"chats",chatId(),"messages"),
 {
-text:text,
+text,
 senderId:currentUser.uid,
 receiverId:selectedUser.uid,
 createdAt:serverTimestamp()
@@ -1389,29 +1019,23 @@ createdAt:serverTimestamp()
 
 input.value="";
 
+}catch(e){
+toast(e.message);
+}
+
 };
 
 
 /* TYPING */
 
-document.getElementById(
-"message"
-).addEventListener(
-"input",
-()=>{
+document.getElementById("message")
+.addEventListener("input",()=>{
 
 if(!selectedUser)return;
 
-const typingRef=
-ref(
+const typingRef=ref(
 rtdb,
-"typing/"
-+
-chatId()
-+
-"/"
-+
-currentUser.uid
+"typing/"+chatId()+"/"+currentUser.uid
 );
 
 set(typingRef,true);
@@ -1419,9 +1043,7 @@ set(typingRef,true);
 clearTimeout(typingTimer);
 
 typingTimer=setTimeout(
-()=>{
-remove(typingRef);
-},
+()=>remove(typingRef),
 1200
 );
 
@@ -1433,25 +1055,16 @@ function listenTyping(){
 onValue(
 ref(
 rtdb,
-"typing/"
-+
-chatId()
-+
-"/"
-+
-selectedUser.uid
+"typing/"+chatId()+"/"+selectedUser.uid
 ),
 snap=>{
 
-document.getElementById(
-"typing"
-).textContent=
-snap.val()
-?"typing..."
+document.getElementById("typing")
+.textContent=snap.val()
+?(lang==="ur"?"typing...":"typing...")
 :"";
 
 });
-
 }
 
 
@@ -1459,8 +1072,7 @@ snap.val()
 
 window.backHome=function(){
 
-if(chatUnsub)
-chatUnsub();
+if(chatUnsub)chatUnsub();
 
 hide("chatPage");
 hide("settingsPage");
@@ -1476,24 +1088,17 @@ show("homePage");
 window.newGroup=function(){
 
 hide("menu");
-
 show("groupModal");
-
 loadGroupUsers();
 
 };
 
 async function loadGroupUsers(){
 
-const box=
-document.getElementById(
-"groupUsers"
-);
-
+const box=document.getElementById("groupUsers");
 box.innerHTML="";
 
-const snap=
-await getDocs(
+const snap=await getDocs(
 collection(db,"users")
 );
 
@@ -1503,61 +1108,54 @@ if(s.id===currentUser.uid)return;
 
 const d=s.data();
 
-box.innerHTML+=
-`
+box.innerHTML+=`
 <label style="display:block;padding:8px">
-<input
-type="checkbox"
+<input type="checkbox"
 class="groupMember"
 value="${s.id}"
 style="width:auto">
 ${safe(d.name)}
-</label>
-`;
+</label>`;
 
 });
-
 }
 
 
 window.createGroup=async function(){
 
-const name=
-document.getElementById(
+const name=document.getElementById(
 "groupName"
 ).value.trim();
 
-const members=[
-currentUser.uid
-];
+const members=[currentUser.uid];
 
 document.querySelectorAll(
 ".groupMember:checked"
-).forEach(x=>{
-members.push(x.value);
-});
+).forEach(x=>members.push(x.value));
 
 if(!name){
-
 toast("Group name لکھیں");
-
 return;
-
 }
+
+try{
 
 await addDoc(
 collection(db,"groups"),
 {
-name:name,
-members:members,
+name,
+members,
 createdBy:currentUser.uid,
 createdAt:serverTimestamp()
 }
 );
 
 closeGroup();
-
 toast("Group created");
+
+}catch(e){
+toast(e.message);
+}
 
 };
 
@@ -1580,7 +1178,7 @@ show("settingsPage");
 };
 
 
-/* MENU OPTIONS */
+/* MENU */
 
 window.newCommunity=function(){
 hide("menu");
@@ -1609,20 +1207,40 @@ toast("All messages read");
 
 
 /* =========================
-VOICE / VIDEO
+CALLS
 ========================= */
 
 window.startVoice=function(){
-
 startOutgoingCall(false);
-
 };
 
 window.startVideo=function(){
-
 startOutgoingCall(true);
-
 };
+
+
+/* RING SOUND */
+
+function playRing(){
+
+const audio=document.getElementById("ringtone");
+
+audio.currentTime=0;
+
+audio.play().catch(()=>{
+console.log("Browser نے autoplay روک دیا");
+});
+
+}
+
+function stopRing(){
+
+const audio=document.getElementById("ringtone");
+
+audio.pause();
+audio.currentTime=0;
+
+}
 
 
 /* OUTGOING CALL */
@@ -1635,63 +1253,59 @@ currentCallId=crypto.randomUUID();
 
 show("callScreen");
 
-document.getElementById(
-"callTitle"
-).textContent=
-video
-?"📹 Video Call"
-:"🎤 Voice Call";
+document.getElementById("callTitle").textContent=
+video?"📹 Video Call":"🎤 Voice Call";
 
-document.getElementById(
-"callStatus"
-).textContent=
+document.getElementById("callStatus").textContent=
 "Calling "+selectedUser.name;
+
+document.getElementById("voiceAvatar").src=
+selectedUser.photoURL||defaultAvatar();
+
+if(video){
+
+hide("voiceAvatar");
+show("remoteVideo");
+show("localVideo");
+
+}else{
+
+show("voiceAvatar");
+hide("localVideo");
+hide("remoteVideo");
+
+}
 
 try{
 
 localStream=
-await navigator.mediaDevices
-.getUserMedia({
-
+await navigator.mediaDevices.getUserMedia({
 audio:true,
 video:video
-
 });
 
 }catch(e){
 
 toast("Microphone/Camera اجازت دیں");
-
-hide("callScreen");
-
+endCall(false);
 return;
 
 }
 
-document.getElementById(
-"localVideo"
-).srcObject=localStream;
-
-if(!video){
-
-document.getElementById(
-"localVideo"
-).style.display="none";
-
+if(video){
+document.getElementById("localVideo")
+.srcObject=localStream;
 }
 
-pc=
-new RTCPeerConnection(rtcConfig);
+pc=new RTCPeerConnection(rtcConfig);
 
-localStream.getTracks()
-.forEach(track=>{
+localStream.getTracks().forEach(track=>{
 pc.addTrack(track,localStream);
 });
 
 pc.ontrack=e=>{
 
-const remote=
-document.getElementById(
+const remote=document.getElementById(
 "remoteVideo"
 );
 
@@ -1699,48 +1313,82 @@ remote.srcObject=e.streams[0];
 
 remote.play().catch(()=>{});
 
+document.getElementById(
+"callStatus"
+).textContent="Connected";
+
 };
+
+pc.onconnectionstatechange=()=>{
+
+if(!pc)return;
+
+const state=pc.connectionState;
+
+if(state==="connected"){
+
+document.getElementById(
+"callStatus"
+).textContent="Connected";
+
+}
+
+if(
+state==="failed"||
+state==="disconnected"||
+state==="closed"
+){
+
+document.getElementById(
+"callStatus"
+).textContent="Disconnected";
+
+}
+};
+
 
 pc.onicecandidate=async e=>{
 
 if(!e.candidate)return;
 
+try{
+
 await addDoc(
 collection(
-db,
-"calls",
+db,"calls",
 currentCallId,
 "callerCandidates"
 ),
 e.candidate.toJSON()
 );
 
+}catch(err){
+console.error(err);
+}
+
 };
 
-const callRef=
-doc(db,"calls",currentCallId);
+
+const callRef=doc(
+db,"calls",currentCallId
+);
 
 await setDoc(
 callRef,
 {
 callerId:currentUser.uid,
-callerName:await getUserName(
-currentUser.uid
-),
-callerPhoto:await getUserPhoto(
-currentUser.uid
-),
+callerName:await getUserName(currentUser.uid),
+callerPhoto:await getUserPhoto(currentUser.uid),
 receiverId:selectedUser.uid,
 receiverName:selectedUser.name,
 receiverPhoto:selectedUser.photoURL||"",
-video:video,
+video,
 status:"ringing",
 createdAt:serverTimestamp()
 }
 );
 
-const offer=
-await pc.createOffer();
+const offer=await pc.createOffer();
 
 await pc.setLocalDescription(offer);
 
@@ -1756,41 +1404,32 @@ sdp:offer.sdp
 );
 
 listenCallDocument();
-
-listenRemoteCandidates(
-"calleeCandidates"
-);
+listenRemoteCandidates("calleeCandidates");
 
 }
 
 
 /* INCOMING */
 
+let incomingListenerStarted=false;
+
 function listenIncomingCalls(){
+
+if(incomingListenerStarted)return;
+
+incomingListenerStarted=true;
 
 const q=query(
 collection(db,"calls"),
-where(
-"receiverId",
-"==",
-currentUser.uid
-),
-where(
-"status",
-"==",
-"ringing"
-)
+where("receiverId","==",currentUser.uid),
+where("status","==","ringing")
 );
 
-onSnapshot(
-q,
-snap=>{
+onSnapshot(q,snap=>{
 
-snap.docChanges()
-.forEach(change=>{
+snap.docChanges().forEach(change=>{
 
-if(change.type!=="added")
-return;
+if(change.type!=="added")return;
 
 const d=change.doc.data();
 
@@ -1801,12 +1440,11 @@ id:change.doc.id,
 
 document.getElementById(
 "incomingAvatar"
-).src=d.callerPhoto||"";
+).src=d.callerPhoto||defaultAvatar();
 
 document.getElementById(
 "incomingName"
-).textContent=
-d.callerName||"Unknown";
+).textContent=d.callerName||"Unknown";
 
 document.getElementById(
 "incomingType"
@@ -1817,16 +1455,19 @@ d.video
 
 show("incomingCall");
 
-});
+playRing();
 
 });
 
+});
 }
 
 
 /* ACCEPT */
 
 window.acceptIncoming=async function(){
+
+stopRing();
 
 if(!incomingCallData)return;
 
@@ -1844,56 +1485,58 @@ currentCallId=call.id;
 
 show("callScreen");
 
-document.getElementById(
-"callTitle"
-).textContent=
-call.video
+document.getElementById("callTitle")
+.textContent=call.video
 ?"📹 Video Call"
 :"🎤 Voice Call";
+
+if(call.video){
+
+hide("voiceAvatar");
+show("remoteVideo");
+show("localVideo");
+
+}else{
+
+show("voiceAvatar");
+hide("localVideo");
+hide("remoteVideo");
+
+}
 
 try{
 
 localStream=
-await navigator.mediaDevices
-.getUserMedia({
-
+await navigator.mediaDevices.getUserMedia({
 audio:true,
 video:call.video
-
 });
 
 }catch(e){
 
 toast("Microphone/Camera اجازت دیں");
-
+endCall(false);
 return;
 
 }
+
+if(call.video){
 
 document.getElementById(
 "localVideo"
 ).srcObject=localStream;
 
-if(!call.video){
-
-document.getElementById(
-"localVideo"
-).style.display="none";
-
 }
 
-pc=
-new RTCPeerConnection(rtcConfig);
+pc=new RTCPeerConnection(rtcConfig);
 
-localStream.getTracks()
-.forEach(track=>{
+localStream.getTracks().forEach(track=>{
 pc.addTrack(track,localStream);
 });
 
 pc.ontrack=e=>{
 
-const remote=
-document.getElementById(
+const remote=document.getElementById(
 "remoteVideo"
 );
 
@@ -1907,38 +1550,60 @@ document.getElementById(
 
 };
 
+pc.onconnectionstatechange=()=>{
+
+if(!pc)return;
+
+if(pc.connectionState==="connected"){
+
+document.getElementById(
+"callStatus"
+).textContent="Connected";
+
+}
+
+};
+
 pc.onicecandidate=async e=>{
 
 if(!e.candidate)return;
 
+try{
+
 await addDoc(
 collection(
-db,
-"calls",
+db,"calls",
 currentCallId,
 "calleeCandidates"
 ),
 e.candidate.toJSON()
 );
 
+}catch(err){
+console.error(err);
+}
+
 };
 
-const callRef=
-doc(db,"calls",currentCallId);
+const callRef=doc(
+db,"calls",currentCallId
+);
 
-const snap=
-await getDoc(callRef);
+const snap=await getDoc(callRef);
+
+if(!snap.exists()){
+toast("Call نہیں ملی");
+endCall(false);
+return;
+}
 
 const data=snap.data();
 
 await pc.setRemoteDescription(
-new RTCSessionDescription(
-data.offer
-)
+new RTCSessionDescription(data.offer)
 );
 
-const answer=
-await pc.createAnswer();
+const answer=await pc.createAnswer();
 
 await pc.setLocalDescription(answer);
 
@@ -1954,9 +1619,8 @@ status:"connected"
 {merge:true}
 );
 
-listenRemoteCandidates(
-"callerCandidates"
-);
+listenCallDocument();
+listenRemoteCandidates("callerCandidates");
 
 };
 
@@ -1965,36 +1629,40 @@ listenRemoteCandidates(
 
 window.rejectIncoming=async function(){
 
+stopRing();
+
 if(!incomingCallData)return;
 
+try{
+
 await setDoc(
-doc(
-db,
-"calls",
-incomingCallData.id
-),
+doc(db,"calls",incomingCallData.id),
 {
-status:"rejected"
+status:"rejected",
+rejectedBy:currentUser.uid
 },
 {merge:true}
 );
 
-hide("incomingCall");
+}catch(e){
 
+console.error(e);
+
+}
+
+hide("incomingCall");
 incomingCallData=null;
 
 };
 
 
-/* CALL DOCUMENT */
+/* CALL DOC */
 
 function listenCallDocument(){
 
-if(callDocUnsub)
-callDocUnsub();
+if(callDocUnsub)callDocUnsub();
 
-callDocUnsub=
-onSnapshot(
+callDocUnsub=onSnapshot(
 doc(db,"calls",currentCallId),
 async snap=>{
 
@@ -2006,36 +1674,45 @@ if(d.answer&&pc){
 
 try{
 
+if(pc.signalingState!=="stable"){
+
 await pc.setRemoteDescription(
-new RTCSessionDescription(
-d.answer
-)
+new RTCSessionDescription(d.answer)
 );
+
+}
+
+}catch(e){
+
+console.log(e);
+
+}
+
+}
+
+if(d.status==="connected"){
 
 document.getElementById(
 "callStatus"
 ).textContent="Connected";
-
-}catch(e){}
 
 }
 
 if(d.status==="rejected"){
 
 toast("Call rejected");
-
 endCall(false);
 
 }
 
 if(d.status==="ended"){
 
+toast("Call ended");
 endCall(false);
 
 }
 
 });
-
 }
 
 
@@ -2043,24 +1720,18 @@ endCall(false);
 
 function listenRemoteCandidates(path){
 
-if(candidateUnsub)
-candidateUnsub();
+if(candidateUnsub)candidateUnsub();
 
-candidateUnsub=
-onSnapshot(
+candidateUnsub=onSnapshot(
 collection(
-db,
-"calls",
-currentCallId,
-path
+db,"calls",
+currentCallId,path
 ),
 snap=>{
 
-snap.docChanges()
-.forEach(async change=>{
+snap.docChanges().forEach(async change=>{
 
-if(change.type!=="added"||!pc)
-return;
+if(change.type!=="added"||!pc)return;
 
 try{
 
@@ -2079,20 +1750,22 @@ console.log(e);
 });
 
 });
-
 }
 
 
-/* END CALL */
+/* END */
 
 window.endCall=async function(writeEnd=true){
+
+stopRing();
 
 const callId=currentCallId;
 
 if(localStream){
 
-localStream.getTracks()
-.forEach(track=>track.stop());
+localStream.getTracks().forEach(
+track=>track.stop()
+);
 
 localStream=null;
 
@@ -2100,11 +1773,12 @@ localStream=null;
 
 if(pc){
 
+try{
+
 pc.ontrack=null;
 pc.onicecandidate=null;
-
-try{
 pc.close();
+
 }catch(e){}
 
 pc=null;
@@ -2125,7 +1799,7 @@ candidateUnsub=null;
 
 }
 
-if(writeEnd&&callId){
+if(writeEnd&&callId&&currentUser){
 
 try{
 
@@ -2139,7 +1813,11 @@ endedAt:serverTimestamp()
 {merge:true}
 );
 
-}catch(e){}
+}catch(e){
+
+console.log(e);
+
+}
 
 }
 
@@ -2170,25 +1848,16 @@ window.toggleMic=function(){
 
 if(!localStream)return;
 
-const tracks=
-localStream.getAudioTracks();
+const tracks=localStream.getAudioTracks();
 
 tracks.forEach(track=>{
 track.enabled=!track.enabled;
 });
 
-const btn=
-document.getElementById("micBtn");
+const btn=document.getElementById("micBtn");
 
-if(tracks[0]?.enabled){
-
-btn.textContent="🎤";
-
-}else{
-
-btn.textContent="🔇";
-
-}
+btn.textContent=tracks[0]?.enabled
+?"🎤":"🔇";
 
 };
 
@@ -2199,12 +1868,20 @@ window.toggleCamera=function(){
 
 if(!localStream)return;
 
-const tracks=
-localStream.getVideoTracks();
+const tracks=localStream.getVideoTracks();
+
+if(!tracks.length)return;
 
 tracks.forEach(track=>{
 track.enabled=!track.enabled;
 });
+
+const enabled=tracks[0].enabled;
+
+document.getElementById(
+"cameraBtn"
+).textContent=enabled
+?"📹":"🚫";
 
 };
 
@@ -2213,15 +1890,15 @@ track.enabled=!track.enabled;
 
 window.switchCamera=async function(){
 
-if(!localStream)return;
+if(!localStream||!pc)return;
 
-const videoTrack=
+const oldTrack=
 localStream.getVideoTracks()[0];
 
-if(!videoTrack)return;
+if(!oldTrack)return;
 
 const facing=
-videoTrack.getSettings().facingMode;
+oldTrack.getSettings().facingMode;
 
 const newFacing=
 facing==="user"
@@ -2231,36 +1908,28 @@ facing==="user"
 try{
 
 const newStream=
-await navigator.mediaDevices
-.getUserMedia({
-video:{
-facingMode:newFacing
-},
+await navigator.mediaDevices.getUserMedia({
+video:{facingMode:newFacing},
 audio:false
 });
 
 const newTrack=
 newStream.getVideoTracks()[0];
 
-const sender=
-pc?.getSenders()
-.find(s=>
-s.track?.kind==="video"
+const sender=pc.getSenders().find(
+s=>s.track?.kind==="video"
 );
 
 if(sender){
-
 await sender.replaceTrack(newTrack);
-
 }
 
-videoTrack.stop();
+oldTrack.stop();
 
 const audioTracks=
 localStream.getAudioTracks();
 
-localStream=
-new MediaStream([
+localStream=new MediaStream([
 ...audioTracks,
 newTrack
 ]);
@@ -2282,38 +1951,29 @@ toast("Camera switch نہیں ہو سکا");
 
 window.setVolume=function(value){
 
-const remote=
-document.getElementById(
+const remote=document.getElementById(
 "remoteVideo"
 );
 
-remote.volume=
-Number(value);
+remote.volume=Number(value);
 
 };
 
 window.changeVolume=function(amount){
 
-const remote=
-document.getElementById(
+const remote=document.getElementById(
 "remoteVideo"
 );
 
-const slider=
-document.getElementById(
+const slider=document.getElementById(
 "volumeControl"
 );
 
-let value=
-Number(remote.volume)+amount;
+let value=Number(remote.volume)+amount;
 
-value=Math.max(
-0,
-Math.min(1,value)
-);
+value=Math.max(0,Math.min(1,value));
 
 remote.volume=value;
-
 slider.value=value;
 
 };
@@ -2323,8 +1983,7 @@ slider.value=value;
 
 async function getUserName(uid){
 
-const snap=
-await getDoc(
+const snap=await getDoc(
 doc(db,"users",uid)
 );
 
@@ -2336,8 +1995,7 @@ return snap.exists()
 
 async function getUserPhoto(uid){
 
-const snap=
-await getDoc(
+const snap=await getDoc(
 doc(db,"users",uid)
 );
 
@@ -2352,43 +2010,13 @@ return snap.exists()
 
 window.logout=async function(){
 
+stopRing();
+
 await signOut(auth);
 
 };
 
-
-/* TOAST */
-
-function toast(msg){
-
-const t=
-document.getElementById("toast");
-
-t.textContent=msg;
-
-t.classList.remove("hidden");
-
-setTimeout(()=>{
-t.classList.add("hidden");
-},3000);
-
-}
-
-
-/* SAFE */
-
-function safe(value){
-
-const div=
-document.createElement("div");
-
-div.textContent=value||"";
-
-return div.innerHTML;
-
-}
-
 </script>
-
+</div>
 </body>
-</html>
+    </html>
